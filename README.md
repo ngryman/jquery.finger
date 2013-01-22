@@ -14,8 +14,15 @@ In your web page:
 <script src="jquery.js"></script>
 <script src="dist/jquery.finger.min.js"></script>
 <script>
-jQuery(function($) {
-  $.awesome(); // "awesome"
+  // direct event
+  $('.touchme').on('tap', function() {
+    console.log('direct');
+  });
+
+  // delegated event
+  $('body').on('tap', '.touchme', function() {
+    console.log('direct');
+  });
 });
 </script>
 ```
