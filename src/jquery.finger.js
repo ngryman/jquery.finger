@@ -14,15 +14,6 @@
         moveEvent = hasTouch ? 'touchmove' : 'touchmove';
 
     $.event.special.tap = (function() {
-        return {
-            add: function(handleObj) {
-                var events = $._data(this, 'events');
-                events.tap.push(handleObj.handler);
-
-                $.event.add(this, startEvent, startHandler, null, handleObj.selector);
-            }
-        }
-
         function startHandler() {
             $.event.add(this, moveEvent, moveHandler);
             $.event.add(this, stopEvent, stopHandler);
@@ -44,6 +35,15 @@
                 }
             }
         }
+
+        return {
+            add: function(handleObj) {
+                var events = $._data(this, 'events');
+                events.tap.push(handleObj.handler);
+
+                $.event.add(this, startEvent, startHandler, null, handleObj.selector);
+            }
+        };
     })();
 
 })(jQuery);
