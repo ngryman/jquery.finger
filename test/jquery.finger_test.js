@@ -3,55 +3,74 @@
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 (function($) {
 
-  /*
-    ======== A Handy Little QUnit Reference ========
-    http://docs.jquery.com/QUnit
+    /*
+     ======== A Handy Little QUnit Reference ========
+     http://docs.jquery.com/QUnit
 
-    Test methods:
-      expect(numAssertions)
-      stop(increment)
-      start(decrement)
-    Test assertions:
-      ok(value, [message])
-      equal(actual, expected, [message])
-      notEqual(actual, expected, [message])
-      deepEqual(actual, expected, [message])
-      notDeepEqual(actual, expected, [message])
-      strictEqual(actual, expected, [message])
-      notStrictEqual(actual, expected, [message])
-      raises(block, [expected], [message])
-  */
+     Test methods:
+     expect(numAssertions)
+     stop(increment)
+     start(decrement)
+     Test assertions:
+     ok(value, [message])
+     equal(actual, expected, [message])
+     notEqual(actual, expected, [message])
+     deepEqual(actual, expected, [message])
+     notDeepEqual(actual, expected, [message])
+     strictEqual(actual, expected, [message])
+     notStrictEqual(actual, expected, [message])
+     raises(block, [expected], [message])
+     */
 
-  module('jQuery#awesome', {
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
-    }
-  });
+    module('tap event', {
+        setup: function() {
+            this.$elems = $('#qunit-fixture .touchme');
+        },
+        teardown: function() {
+            $('body').off();
+            this.$elems.text('').off();
+            this.$elems = null;
+        }
+    });
 
-  test('is chainable', 1, function() {
-    // Not a bad test to run on collection methods.
-    strictEqual(this.elems.awesome(), this.elems, 'should be chaninable');
-  });
+    test('works with direct events', 3, function() {
+        this.$elems.on('tap', function() {
+            $(this).text('tap');
+        });
 
-  test('is awesome', 1, function() {
-    strictEqual(this.elems.awesome().text(), 'awesomeawesomeawesome', 'should be thoroughly awesome');
-  });
+        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
 
-  module('jQuery.awesome');
+        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
+        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
+        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
+    });
 
-  test('is awesome', 1, function() {
-    strictEqual($.awesome(), 'awesome', 'should be thoroughly awesome');
-  });
+    test('works with delegated events', 3, function() {
+        $('body').on('tap', '.touchme', function() {
+            $(this).text('tap');
+        });
 
-  module(':awesome selector', {
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
-    }
-  });
+        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
 
-  test('is awesome', 1, function() {
-    // Use deepEqual & .get() when comparing jQuery objects.
-    deepEqual(this.elems.filter(':awesome').get(), this.elems.last().get(), 'knows awesome when it sees it');
-  });
+        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
+        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
+        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
+    });
+
+    test('fires handlers in order', 3, function() {
+//        $('body').on('tap', '.touchme', function() {
+//            $(this).text($(this).text() + 'tip');
+//        });
+
+        $('body').on('tap', '.touchme', function() {
+            $(this).text($(this).text() + 'tap');
+        });
+
+        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+
+        strictEqual(this.$elems.filter(':first').text(), 'tiptap', 'should work with direct events');
+        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
+        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
+    });
 
 }(jQuery));

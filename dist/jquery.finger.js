@@ -1,4 +1,4 @@
-/*! jQuery Finger - v0.1.0 - 2013-01-21
+/*! jQuery Finger - v0.1.0 - 2013-01-22
 * https://github.com/ngryman/jquery.finger
 * Copyright (c) 2013 ngryman; Licensed MIT */
 
@@ -7,39 +7,37 @@
     var hasTouch = 'ontouchstart' in window,
         startEvent = hasTouch ? 'touchstart' : 'mousedown',
         stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup',
-        moveEvent = hasTouch ? 'touchmove' : 'touchmove';
+        moveEvent = hasTouch ? 'touchmove' : 'mousemove';
 
     $.event.special.tap = (function() {
-        return {
-            add: function(handleObj) {
-                var events = $._data(this, 'events');
-                events.tap.push(handleObj.handler);
-
-                $.event.add(this, startEvent, startHandler, null, handleObj.selector);
-            }
-        }
-
-        function startHandler() {
-            $.event.add(this, moveEvent, moveHandler);
-            $.event.add(this, stopEvent, stopHandler);
+        function startHandler(event) {
+            $.event.add(this, moveEvent, moveHandler, event);
+            $.event.add(this, stopEvent, stopHandler, event);
         }
 
         function moveHandler() {
-            var events = $._data(this, 'events');
             $.event.remove(this, stopEvent, stopHandler);
         }
 
-        function stopHandler() {
-            var tapEvts = $._data(this, 'events').tap,
-                handler;
+        function stopHandler(event) {
+            var handler = $._data(
+                event.data.delegateTarget, 'events'
+            ).finger.tap[event.data.data.guid].handler;
 
-            for (var i = 0, len = tapEvts.length; i < len; i++) {
-                handler = tapEvts[i];
-                if ($.isFunction(handler)) {
-                    handler.apply(this, arguments);
-                }
-            }
+            handler.apply(this, arguments);
         }
+
+        return {
+            add: function(handleObj) {
+                var events = $._data(this, 'events');
+                events.finger = events.finger || { tap: [] };
+                events.finger.tap.push({
+                    handler: handleObj.handler
+                });
+
+                $.event.add(this, startEvent, startHandler, { guid: events.finger.tap.length - 1 }, handleObj.selector);
+            }
+        };
     })();
 
 })(jQuery);

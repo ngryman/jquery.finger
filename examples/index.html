@@ -49,20 +49,24 @@
 
 <!-- jQuery, from a global cdn -->
 <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
-<script src="/src/jquery.finger.js"></script>
+<script src="../src/jquery.finger.js"></script>
 
 <script>
 //    $('body').on('tap', '.touchme', function() {
 //        $(this).find('p').text('tap');
+//    });
+//
+//    $('body').on('tap', '.touchme', function() {
+//        $(this).find('p').css('background', 'green');
 //    });
 
     $('.touchme').on('tap', function() {
         $(this).find('p').css('background', 'red');
     });
 
-//    $('.touchme').on('tap', function() {
-//        $(this).find('p').text('tap');
-//    });
+    $('.touchme').on('tap', function() {
+        $(this).find('p').text('tap');
+    });
 </script>
 
 </body>
