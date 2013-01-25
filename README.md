@@ -21,7 +21,7 @@ In your web page:
 
   // delegated event
   $('body').on('tap', '.touchme', function() {
-    console.log('direct');
+    console.log('delegated');
   });
 });
 </script>
