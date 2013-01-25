@@ -22,6 +22,11 @@
      raises(block, [expected], [message])
      */
 
+    var hasTouch = 'ontouchstart' in window,
+        startEvent = hasTouch ? 'touchstart' : 'mousedown',
+        stopEvent = hasTouch ? 'touchend' : 'mouseup',
+        moveEvent = hasTouch ? 'touchmove' : 'mousemove';
+
     module('tap event', {
         setup: function() {
             this.$elems = $('#qunit-fixture .touchme');
@@ -38,7 +43,7 @@
             $(this).text('tap');
         });
 
-        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+        this.$elems.filter(':first').trigger(startEvent).trigger(stopEvent);
 
         strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
         notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
@@ -50,7 +55,7 @@
             $(this).text('tap');
         });
 
-        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+        this.$elems.filter(':first').trigger(startEvent).trigger(stopEvent);
 
         strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
         notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
@@ -66,7 +71,7 @@
             $(this).text($(this).text() + 'tap');
         });
 
-        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+        this.$elems.filter(':first').trigger(startEvent).trigger(stopEvent);
 
         strictEqual(this.$elems.filter(':first').text(), 'tiptap', 'should work with direct events');
         notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
@@ -82,7 +87,7 @@
             $(this).text($(this).text() + 'tap');
         });
 
-        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+        this.$elems.filter(':first').trigger(startEvent).trigger(stopEvent);
 
         strictEqual(this.$elems.filter(':first').text(), 'tiptap', 'should work with direct events');
         notEqual(this.$elems.filter(':eq(1)').text(), 'tiptap', 'should not fire to second element');
@@ -96,7 +101,7 @@
 
         $('.touchme').on('tap', handler);
 
-        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+        this.$elems.filter(':first').trigger(startEvent).trigger(stopEvent);
 
         $('.touchme').off('tap', handler);
 
@@ -112,7 +117,7 @@
 
         $('body').on('tap', '.touchme', handler);
 
-        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+        this.$elems.filter(':first').trigger(startEvent).trigger(stopEvent);
 
         $('body').off('tap', '.touchme', handler);
 
