@@ -58,9 +58,9 @@
     });
 
     test('fires handlers in order', 3, function() {
-//        $('body').on('tap', '.touchme', function() {
-//            $(this).text($(this).text() + 'tip');
-//        });
+        $('body').on('tap', '.touchme', function() {
+            $(this).text($(this).text() + 'tip');
+        });
 
         $('body').on('tap', '.touchme', function() {
             $(this).text($(this).text() + 'tap');
@@ -69,6 +69,54 @@
         this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
 
         strictEqual(this.$elems.filter(':first').text(), 'tiptap', 'should work with direct events');
+        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
+        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
+    });
+
+    test('fires direct/delegated handlers', 3, function() {
+        $('.touchme').on('tap', function() {
+            $(this).text($(this).text() + 'tip');
+        });
+
+        $('body').on('tap', '.touchme', function() {
+            $(this).text($(this).text() + 'tap');
+        });
+
+        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+
+        strictEqual(this.$elems.filter(':first').text(), 'tiptap', 'should work with direct events');
+        notEqual(this.$elems.filter(':eq(1)').text(), 'tiptap', 'should not fire to second element');
+        notEqual(this.$elems.filter(':last').text(), 'tiptap', 'should not fire to last element');
+    });
+
+    test('does not fire removed direct events', 3, function() {
+        function handler() {
+            $(this).text($(this).text() + 'tap');
+        }
+
+        $('.touchme').on('tap', handler);
+
+        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+
+        $('.touchme').off('tap', handler);
+
+        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
+        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
+        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
+    });
+
+    test('does not fire removed delegated events', 3, function() {
+        function handler() {
+            $(this).text($(this).text() + 'tap');
+        }
+
+        $('body').on('tap', '.touchme', handler);
+
+        this.$elems.filter(':first').trigger('touchstart').trigger('touchend');
+
+        $('body').off('tap', '.touchme', handler);
+
+        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
         notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
         notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
     });
