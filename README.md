@@ -2,6 +2,8 @@
 
 jQuery touch gestures, fingers in the nose.
 
+[![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger])
+
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
