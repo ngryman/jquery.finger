@@ -57,7 +57,7 @@
 
         this.$elems.filter(':first').trigger(startEvent).trigger(stopEvent);
 
-        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
+        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with delegated events');
         notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
         notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
     });
@@ -124,6 +124,89 @@
         strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
         notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
         notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
+    });
+
+    module('tap hold event', {
+        setup: function() {
+            this.$elems = $('#qunit-fixture .touchme');
+        },
+        teardown: function() {
+            $('body').off();
+            this.$elems.text('').off();
+            this.$elems = null;
+        }
+    });
+
+    asyncTest('works with direct events', 3, function() {
+        this.$elems.on('taphold', function() {
+            $(this).text('taphold');
+        });
+
+        this.$elems.filter(':first').trigger(startEvent);
+        setTimeout($.proxy(function() {
+            this.$elems.filter(':first').trigger(stopEvent);
+
+            strictEqual(this.$elems.filter(':first').text(), 'taphold', 'should work with direct events');
+            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
+            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
+
+            start();
+        }, this), $.Finger.tapHoldDuration);
+    });
+
+    asyncTest('works with delegated events', 3, function() {
+        $('body').on('taphold', '.touchme', function() {
+            $(this).text('taphold');
+        });
+
+        this.$elems.filter(':first').trigger(startEvent);
+        setTimeout($.proxy(function() {
+            this.$elems.filter(':first').trigger(stopEvent);
+
+            strictEqual(this.$elems.filter(':first').text(), 'taphold', 'should work with delegated events');
+            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
+            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
+
+            start();
+        }, this), $.Finger.tapHoldDuration);
+    });
+
+    asyncTest('does not fire tap event', 3, function() {
+        this.$elems.on('tap', function() {
+            $(this).text('tap');
+        });
+
+        this.$elems.on('taphold', function() {
+            $(this).text('taphold');
+        });
+
+        this.$elems.filter(':first').trigger(startEvent);
+        setTimeout($.proxy(function() {
+            this.$elems.filter(':first').trigger(stopEvent);
+
+            strictEqual(this.$elems.filter(':first').text(), 'taphold', 'should fire tap event');
+            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
+            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
+
+            start();
+        }, this), $.Finger.tapHoldDuration);
+    });
+
+    asyncTest('does not trigger taphold when tapping twice', 3, function() {
+        this.$elems.on('taphold', function() {
+            $(this).text('taphold');
+        });
+
+        this.$elems.filter(':first').trigger(startEvent).trigger(stopEvent);
+        setTimeout($.proxy(function() {
+            this.$elems.filter(':first').trigger(startEvent).trigger(stopEvent);
+
+            notEqual(this.$elems.filter(':first').text(), 'taphold', 'should not fire taphold event');
+            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
+            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
+
+            start();
+        }, this), $.Finger.tapHoldDuration);
     });
 
 }(jQuery));
