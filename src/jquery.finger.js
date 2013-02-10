@@ -83,7 +83,8 @@
         },
 
         remove: function(handleObj) {
-            var f = finger(this);
+            var events = $._data(this, 'events');
+            var f = events.finger;
 
             // decrements ref count
             f.refCount--;
@@ -93,6 +94,9 @@
                 $.event.remove(this, startEvent, startHandler, null, handleObj.selector);
                 $.event.remove(this, moveEvent, moveHandler, null, handleObj.selector);
                 $.event.remove(this, stopEvent, stopHandler, null, handleObj.selector);
+
+                events.finger = null;
+                return;
             }
 
             // handler
