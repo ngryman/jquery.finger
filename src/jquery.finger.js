@@ -14,7 +14,8 @@
         moveEvent = hasTouch ? 'touchmove' : 'mousemove';
 
     $.Finger = {
-        tapHoldDuration: 300
+        tapHoldDuration: 300,
+        doubleTapInterval: 300
     };
 
     function finger(el) {
@@ -41,6 +42,17 @@
             delta = +new Date() - start.time,
             evtName = delta < $.Finger.tapHoldDuration ? 'tap' : 'taphold',
             evt = f[evtName];
+
+        // is it a double tap ?
+        if ('tap' == evtName && f.doubletap) {
+            if (+new Date() - f.doubletap.prev < $.Finger.doubleTapInterval) {
+                evtName = 'doubletap';
+                evt = f.doubletap;
+            }
+            else {
+                f.doubletap.prev = +new Date();
+            }
+        }
 
         // event exists and is not canceled
         if (evt && !evt.canceled) {
@@ -107,5 +119,6 @@
     // register custom events
     $.event.special.tap = fingerCustom;
     $.event.special.taphold = fingerCustom;
+    $.event.special.doubletap = fingerCustom;
 
 })(jQuery);
