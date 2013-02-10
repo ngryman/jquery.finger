@@ -22,6 +22,18 @@
         return $._data(el, 'events').finger;
     }
 
+    function prop(evt, prop, value) {
+        if (evt) {
+            evt[prop] = value;
+        }
+    }
+
+    function $event(action, el, handleObj) {
+        $.event[action](el, startEvent, startHandler, null, handleObj.selector);
+        $.event[action](el, moveEvent, moveHandler, null, handleObj.selector);
+        $.event[action](el, stopEvent, stopHandler, null, handleObj.selector);
+    }
+
     function startHandler(event) {
         finger(event.delegateTarget).start = {
             time: +new Date()
@@ -30,33 +42,32 @@
 
     function moveHandler(event) {
         var f = finger(event.delegateTarget);
-        if (!f.start) { return; }
+        if (!f.start) {
+            return;
+        }
 
-        if (f.tap) { f.tap.canceled = true; }
-        if (f.taphold) { f.taphold.canceled = true; }
+        prop(f.tap, 'canceled', true);
+        prop(f.taphold, 'canceled', true);
     }
 
     function stopHandler(event) {
         var f = finger(event.delegateTarget),
-            start = f.start,
-            delta = +new Date() - start.time,
-            evtName = delta < $.Finger.tapHoldDuration ? 'tap' : 'taphold',
-            evt = f[evtName];
+            now = Date.now(),
+            evtName = now - f.start.time < $.Finger.tapHoldDuration ? 'tap' : 'taphold';
 
         // is it a double tap ?
         if ('tap' === evtName && f.doubletap) {
-            if (+new Date() - f.doubletap.prev < $.Finger.doubleTapInterval) {
+            if (now - f.doubletap.prev < $.Finger.doubleTapInterval) {
                 evtName = 'doubletap';
-                evt = f.doubletap;
             }
             else {
-                f.doubletap.prev = +new Date();
+                f.doubletap.prev = now;
             }
         }
 
         // event exists and is not canceled
-        if (evt && !evt.canceled) {
-            var handlers = evt.handlers;
+        if (f[evtName] && !f[evtName].canceled) {
+            var handlers = f[evtName].handlers;
             for (var handler in handlers) {
                 if ($.isFunction(handlers[handler])) {
                     handlers[handler].apply(this, arguments);
@@ -66,8 +77,8 @@
 
         // start over
         f.start = null;
-        if (f.tap) { f.tap.canceled = false; }
-        if (f.taphold) { f.taphold.canceled = false; }
+        prop(f.tap, 'canceled', false);
+        prop(f.taphold, 'canceled', false);
     }
 
     var fingerCustom = {
@@ -78,12 +89,8 @@
 
             // creates under the hood events?
             if (!f.refCount) {
-                $.event.add(this, startEvent, startHandler, null, handleObj.selector);
-                $.event.add(this, moveEvent, moveHandler, null, handleObj.selector);
-                $.event.add(this, stopEvent, stopHandler, null, handleObj.selector);
-
-                // ensures this is an number
-                f.refCount = 0;
+                $event('add', this, handleObj);
+                f.refCount = 0; // ensures this is an number
             }
 
             // increments ref count
@@ -103,10 +110,7 @@
 
             // cleanup?
             if (0 === f.refCount) {
-                $.event.remove(this, startEvent, startHandler, null, handleObj.selector);
-                $.event.remove(this, moveEvent, moveHandler, null, handleObj.selector);
-                $.event.remove(this, stopEvent, stopHandler, null, handleObj.selector);
-
+                $event('remove', this, handleObj);
                 events.finger = null;
                 return;
             }
@@ -116,7 +120,7 @@
         }
     };
 
-    // register custom events
+    // registers custom events
     $.event.special.tap = fingerCustom;
     $.event.special.taphold = fingerCustom;
     $.event.special.doubletap = fingerCustom;
