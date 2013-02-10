@@ -44,7 +44,7 @@
             evt = f[evtName];
 
         // is it a double tap ?
-        if ('tap' == evtName && f.doubletap) {
+        if ('tap' === evtName && f.doubletap) {
             if (+new Date() - f.doubletap.prev < $.Finger.doubleTapInterval) {
                 evtName = 'doubletap';
                 evt = f.doubletap;
