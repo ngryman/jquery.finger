@@ -14,7 +14,7 @@
         moveEvent = hasTouch ? 'touchmove' : 'mousemove';
 
     $.Finger = {
-        tapHoldDuration: 300,
+        pressDuration: 300,
         doubleTapInterval: 300
     };
 
@@ -22,9 +22,9 @@
         return $._data(el, 'events').finger;
     }
 
-    function prop(evt, prop, value) {
+    function prop(evt, p, value) {
         if (evt) {
-            evt[prop] = value;
+            evt[p] = value;
         }
     }
 
@@ -47,13 +47,13 @@
         }
 
         prop(f.tap, 'canceled', true);
-        prop(f.taphold, 'canceled', true);
+        prop(f.press, 'canceled', true);
     }
 
     function stopHandler(event) {
         var f = finger(event.delegateTarget),
             now = Date.now(),
-            evtName = now - f.start.time < $.Finger.tapHoldDuration ? 'tap' : 'taphold';
+            evtName = now - f.start.time < $.Finger.pressDuration ? 'tap' : 'press';
 
         // is it a double tap ?
         if ('tap' === evtName && f.doubletap) {
@@ -78,7 +78,7 @@
         // start over
         f.start = null;
         prop(f.tap, 'canceled', false);
-        prop(f.taphold, 'canceled', false);
+        prop(f.press, 'canceled', false);
     }
 
     var fingerCustom = {
@@ -122,7 +122,7 @@
 
     // registers custom events
     $.event.special.tap = fingerCustom;
-    $.event.special.taphold = fingerCustom;
+    $.event.special.press = fingerCustom;
     $.event.special.doubletap = fingerCustom;
 
 })(jQuery);

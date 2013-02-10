@@ -38,7 +38,7 @@
             trigger.tapStart(m);
             trigger.tapEnd(m);
         },
-        tapHold: function(m, duration, callback) {
+        press: function(m, duration, callback) {
             trigger.tapStart(m);
             setTimeout(function() {
                 trigger.tapEnd(m);
@@ -165,12 +165,12 @@
     });
 
     asyncTest('works with direct events', 3, function() {
-        this.$elems.on('taphold', function() {
-            $(this).text('taphold');
+        this.$elems.on('press', function() {
+            $(this).text('press');
         });
 
-        trigger.tapHold(this, $.Finger.tapHoldDuration, function() {
-            strictEqual(this.$elems.filter(':first').text(), 'taphold', 'should work with direct events');
+        trigger.press(this, $.Finger.pressDuration, function() {
+            strictEqual(this.$elems.filter(':first').text(), 'press', 'should work with direct events');
             strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
             strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
 
@@ -179,12 +179,12 @@
     });
 
     asyncTest('works with delegated events', 3, function() {
-        $('body').on('taphold', '.touchme', function() {
-            $(this).text('taphold');
+        $('body').on('press', '.touchme', function() {
+            $(this).text('press');
         });
 
-        trigger.tapHold(this, $.Finger.tapHoldDuration, function() {
-            strictEqual(this.$elems.filter(':first').text(), 'taphold', 'should work with delegated events');
+        trigger.press(this, $.Finger.pressDuration, function() {
+            strictEqual(this.$elems.filter(':first').text(), 'press', 'should work with delegated events');
             strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
             strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
 
@@ -197,12 +197,12 @@
             $(this).text('tap');
         });
 
-        this.$elems.on('taphold', function() {
-            $(this).text('taphold');
+        this.$elems.on('press', function() {
+            $(this).text('press');
         });
 
-        trigger.tapHold(this, $.Finger.tapHoldDuration, function() {
-            strictEqual(this.$elems.filter(':first').text(), 'taphold', 'should fire tap event');
+        trigger.press(this, $.Finger.pressDuration, function() {
+            strictEqual(this.$elems.filter(':first').text(), 'press', 'should fire tap event');
             strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
             strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
 
@@ -210,13 +210,13 @@
         });
     });
 
-    asyncTest('does not trigger taphold when tapping twice', 3, function() {
-        this.$elems.on('taphold', function() {
-            $(this).text('taphold');
+    asyncTest('does not trigger press when tapping twice', 3, function() {
+        this.$elems.on('press', function() {
+            $(this).text('press');
         });
 
-        trigger.doubleTap(this, $.Finger.tapHoldDuration, function() {
-            notEqual(this.$elems.filter(':first').text(), 'taphold', 'should not fire taphold event');
+        trigger.doubleTap(this, $.Finger.pressDuration, function() {
+            notEqual(this.$elems.filter(':first').text(), 'press', 'should not fire press event');
             strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
             strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
 
