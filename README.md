@@ -30,7 +30,14 @@ In your web page:
 ```
 
 ## Documentation
-_(Coming soon)_
+
+### Gestures
+
+          | tap | doubletap | press | drag | flick | pinch | spread | rotate
+----------|-----|-----------|-------|------|-------|-------|--------|-------
+Available |  ✔ |     ✔     |   ✔  |      |       |       |        |
+
+Here is a complete list of gestures that will *probably* be supported: http://smustalks.appspot.com/io-12/#44
 
 ## Examples
 _(Coming soon)_
