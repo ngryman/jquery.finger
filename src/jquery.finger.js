@@ -36,7 +36,7 @@
 
     function startHandler(event) {
         finger(event.delegateTarget).start = {
-            time: +new Date()
+            time: event.timeStamp
         };
     }
 
@@ -52,7 +52,7 @@
 
     function stopHandler(event) {
         var f = finger(event.delegateTarget),
-            now = Date.now(),
+            now = event.timeStamp,
             evtName = now - f.start.time < $.Finger.pressDuration ? 'tap' : 'press';
 
         // is it a double tap ?
