@@ -54,8 +54,10 @@ module.exports = function(grunt) {
         uglify: {}
     });
 
-    // Default task.
+    grunt.loadNpmTasks('grunt-bump');
+
     grunt.registerTask('default', 'lint qunit concat min');
     grunt.registerTask('test', 'lint qunit');
-    grunt.registerTask("run", "server watch");
+    grunt.registerTask('run', 'server watch');
+    grunt.registerTask('release', 'default bump');
 };
