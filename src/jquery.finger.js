@@ -22,9 +22,12 @@
         return $._data(el, 'events').finger;
     }
 
-    function prop(evt, p, value) {
-        if (evt) {
-            evt[p] = value;
+    function flag(evt, p, value) {
+        if (3 == arguments.length) {
+            evt && (evt[p] = value);
+        }
+        else {
+            return evt ? evt[p] : undefined;
         }
     }
 
@@ -46,8 +49,8 @@
             return;
         }
 
-        prop(f.tap, 'canceled', true);
-        prop(f.press, 'canceled', true);
+        flag(f.tap, 'canceled', true);
+        flag(f.press, 'canceled', true);
     }
 
     function stopHandler(event) {
@@ -56,7 +59,7 @@
             evtName = now - f.start.time < $.Finger.pressDuration ? 'tap' : 'press';
 
         // is it a double tap ?
-        if ('tap' === evtName && f.doubletap) {
+        if ('tap' == evtName && f.doubletap) {
             if (now - f.doubletap.prev < $.Finger.doubleTapInterval) {
                 evtName = 'doubletap';
             }
@@ -77,8 +80,8 @@
 
         // start over
         f.start = null;
-        prop(f.tap, 'canceled', false);
-        prop(f.press, 'canceled', false);
+        flag(f.tap, 'canceled', false);
+        flag(f.press, 'canceled', false);
     }
 
     var fingerCustom = {

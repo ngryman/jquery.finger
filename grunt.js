@@ -23,20 +23,24 @@ module.exports = function(grunt) {
                 dest: 'dist/<%= pkg.name %>.min.js'
             }
         },
-        qunit: {
-            files: ['test/**/*.html']
+        mocha: {
+            all: {
+                src: ['test/**/*.html'],
+                options: {
+                    mocha: {
+                        ignoreLeaks: false
+                    },
+                    run: true
+                }
+            }
         },
         lint: {
             files: ['grunt.js', 'src/**/*.js', 'test/**/*.js']
         },
-        watch: {
-            files: '<config:lint.files>',
-            tasks: 'lint qunit'
-        },
         jshint: {
             options: {
                 curly: true,
-                eqeqeq: true,
+                eqeqeq: false,
                 immed: true,
                 latedef: true,
                 newcap: true,
@@ -45,17 +49,24 @@ module.exports = function(grunt) {
                 undef: true,
                 boss: true,
                 eqnull: true,
-                browser: true
+                browser: true,
+                expr: true
             },
             globals: {
                 jQuery: true
+
             }
+        },
+        watch: {
+            files: '<config:lint.files>',
+            tasks: 'lint qunit'
         },
         uglify: {}
     });
 
-    // Default task.
-    grunt.registerTask('default', 'lint qunit concat min');
-    grunt.registerTask('test', 'lint qunit');
+    grunt.loadNpmTasks('grunt-mocha');
+
+    grunt.registerTask('default', 'lint mocha concat min');
+    grunt.registerTask('test', 'lint mocha');
     grunt.registerTask("run", "server watch");
 };

@@ -1,265 +1,188 @@
-/*global QUnit:false, module:false, test:false, asyncTest:false, expect:false*/
-/*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
-/*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
+/*global Mocha:false, describe: true, xdescribe: true, before: true, after: true, it: true, xit: true, sinon:false*/
+
 (function($) {
-
-    /*
-     ======== A Handy Little QUnit Reference ========
-     http://docs.jquery.com/QUnit
-
-     Test methods:
-     expect(numAssertions)
-     stop(increment)
-     start(decrement)
-     Test assertions:
-     ok(value, [message])
-     equal(actual, expected, [message])
-     notEqual(actual, expected, [message])
-     deepEqual(actual, expected, [message])
-     notDeepEqual(actual, expected, [message])
-     strictEqual(actual, expected, [message])
-     notStrictEqual(actual, expected, [message])
-     raises(block, [expected], [message])
-     */
 
     var hasTouch = 'ontouchstart' in window,
         startEvent = hasTouch ? 'touchstart' : 'mousedown',
         stopEvent = hasTouch ? 'touchend' : 'mouseup',
         moveEvent = hasTouch ? 'touchmove' : 'mousemove';
 
-    var trigger = {
-        tapStart: function(m) {
-            m.$elems.filter(':first').trigger(startEvent);
-        },
-        tapEnd: function(m) {
-            m.$elems.filter(':first').trigger(stopEvent);
-        },
-        tap: function(m) {
-            trigger.tapStart(m);
-            trigger.tapEnd(m);
-        },
-        press: function(m, duration, callback) {
-            trigger.tapStart(m);
-            setTimeout(function() {
-                trigger.tapEnd(m);
-                callback.call(m);
-            }, duration);
-        },
-        doubleTap: function(m, duration, callback) {
-            trigger.tap(m);
-            setTimeout(function() {
-                trigger.tap(m);
-                callback.call(m);
-            }, duration);
-        }
+    /** extend Mocha.Context to hence event trigger */
+
+    Mocha.Context.prototype.tapStart = function() {
+        this.$elems.filter(':first').trigger(startEvent);
     };
 
-    module('tap event', {
-        setup: function() {
+    Mocha.Context.prototype.tapEnd = function() {
+        this.$elems.filter(':first').trigger(stopEvent);
+    };
+
+    Mocha.Context.prototype.tap = function() {
+        this.tapStart();
+        this.tapEnd();
+    };
+
+    Mocha.Context.prototype.press = function(callback, duration) {
+        var self = this;
+        duration = duration || $.Finger.pressDuration;
+
+        this.tapStart();
+        setTimeout(function() {
+            self.tapEnd();
+            callback.call(self);
+        }, duration);
+    };
+
+    Mocha.Context.prototype.doubleTap = function(callback, duration) {
+        var self = this;
+        duration = duration || $.Finger.doubleTapInterval * 0.5;
+
+        this.tap();
+        setTimeout(function() {
+            self.tap();
+            callback.call(self);
+        }, duration);
+    };
+
+    /** Adjusting time values for testing purposes */
+
+    $.Finger.doubleTapInterval = 50;
+    $.Finger.pressDuration = 25;
+
+    /** test suite */
+
+    describe('tap event', function() {
+        before(function() {
             this.$elems = $('#qunit-fixture .touchme');
-        },
-        teardown: function() {
+        });
+
+        after(function() {
             $('body').off();
             this.$elems.text('').off();
             this.$elems = null;
-        }
-    });
-
-    test('works with direct events', 3, function() {
-        this.$elems.on('tap', function() {
-            $(this).text('tap');
         });
 
-        trigger.tap(this);
+        describe('tap event', function() {
+            it('should work with direct events', function() {
+                var handler = sinon.spy();
+                this.$elems.on('tap', handler);
+                this.tap();
+                handler.should.have.been.calledOnce;
+                handler.should.have.been.calledOn(this.$elems[0]);
+            });
 
-        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
-        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
-        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
-    });
+            it('should work with delegated events', function() {
+                var handler = sinon.spy();
+                $('body').on('tap', '.touchme', handler);
+                this.tap();
+                handler.should.have.been.calledOnce;
+                handler.should.have.been.calledOn(this.$elems[0]);
+            });
 
-    test('works with delegated events', 3, function() {
-        $('body').on('tap', '.touchme', function() {
-            $(this).text('tap');
+            it('should fire handlers in order', function() {
+                var handler1 = sinon.spy();
+                var handler2 = sinon.spy();
+                $('body').on('tap', '.touchme', handler1);
+                $('body').on('tap', '.touchme', handler2);
+                this.tap();
+                handler1.should.have.been.calledOnce;
+                handler2.should.have.been.calledOnce;
+                handler1.should.have.been.calledBefore(handler2);
+            });
+
+            it('should fire direct/delegated handlers', function() {
+                var handler1 = sinon.spy();
+                var handler2 = sinon.spy();
+                $('body').on('tap', handler1);
+                $('body').on('tap', '.touchme', handler2);
+                this.tap();
+                handler1.should.have.been.calledOnce;
+                handler2.should.have.been.calledOnce;
+                handler1.should.have.been.calledBefore(handler2);
+            });
+
+            it('should not fire removed direct events', function() {
+                var handler = sinon.spy();
+                $('body').on('tap', handler);
+                this.tap();
+                $('body').off('tap', handler);
+                this.tap();
+                handler.should.have.been.calledOnce;
+            });
+
+            it('should not fire removed delegated events', function() {
+                var handler = sinon.spy();
+                $('body').on('tap', '.touchme', handler);
+                this.tap();
+                $('body').off('tap', '.touchme', handler);
+                this.tap();
+                handler.should.have.been.calledOnce;
+            });
         });
 
-        trigger.tap(this);
+        describe('press event', function() {
+            it('should work with direct events', function(done) {
+                var handler = sinon.spy();
+                this.$elems.on('press', handler);
+                this.press(function() {
+                    handler.should.have.been.calledOnce;
+                    handler.should.have.been.calledOn(this.$elems[0]);
+                    done();
+                });
+            });
 
-        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with delegated events');
-        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
-        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
-    });
+            it('should work with delegated events', function(done) {
+                var handler = sinon.spy();
+                $('body').on('press', '.touchme', handler);
+                this.press(function() {
+                    handler.should.have.been.calledOnce;
+                    handler.should.have.been.calledOn(this.$elems[0]);
+                    done();
+                });
+            });
 
-    test('fires handlers in order', 3, function() {
-        $('body').on('tap', '.touchme', function() {
-            $(this).text($(this).text() + 'tip');
+            it('should not fire tap event', function(done) {
+                var handler1 = sinon.spy();
+                var handler2 = sinon.spy();
+                $('body').on('tap', '.touchme', handler1);
+                $('body').on('press', '.touchme', handler2);
+                this.press(function() {
+                    handler1.should.not.have.been.called;
+                    handler2.should.have.been.calledOnce;
+                    done();
+                });
+            });
+
+            it('should not trigger press when tapping twice', function(done) {
+                var handler = sinon.spy();
+                $('body').on('press', '.touchme', handler);
+                this.doubleTap(function() {
+                    handler.should.not.have.been.calledOnce;
+                    done();
+                }, $.Finger.pressDuration);
+            });
         });
 
-        $('body').on('tap', '.touchme', function() {
-            $(this).text($(this).text() + 'tap');
-        });
+        describe('double tap event', function() {
+            it('should work with direct events', function(done) {
+                var handler = sinon.spy();
+                this.$elems.on('doubletap', handler);
+                this.doubleTap(function() {
+                    handler.should.have.been.calledOnce;
+                    handler.should.have.been.calledOn(this.$elems[0]);
+                    done();
+                });
+            });
 
-        trigger.tap(this);
-
-        strictEqual(this.$elems.filter(':first').text(), 'tiptap', 'should work with direct events');
-        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
-        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
-    });
-
-    test('fires direct/delegated handlers', 3, function() {
-        $('.touchme').on('tap', function() {
-            $(this).text($(this).text() + 'tip');
-        });
-
-        $('body').on('tap', '.touchme', function() {
-            $(this).text($(this).text() + 'tap');
-        });
-
-        trigger.tap(this);
-
-        strictEqual(this.$elems.filter(':first').text(), 'tiptap', 'should work with direct events');
-        notEqual(this.$elems.filter(':eq(1)').text(), 'tiptap', 'should not fire to second element');
-        notEqual(this.$elems.filter(':last').text(), 'tiptap', 'should not fire to last element');
-    });
-
-    test('does not fire removed direct events', 3, function() {
-        function handler() {
-            $(this).text($(this).text() + 'tap');
-        }
-
-        $('.touchme').on('tap', handler);
-
-        trigger.tap(this);
-
-        $('.touchme').off('tap', handler);
-
-        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
-        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
-        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
-    });
-
-    test('does not fire removed delegated events', 3, function() {
-        function handler() {
-            $(this).text($(this).text() + 'tap');
-        }
-
-        $('body').on('tap', '.touchme', handler);
-
-        trigger.tap(this);
-
-        $('body').off('tap', '.touchme', handler);
-
-        strictEqual(this.$elems.filter(':first').text(), 'tap', 'should work with direct events');
-        notEqual(this.$elems.filter(':eq(1)').text(), 'tap', 'should not fire to second element');
-        notEqual(this.$elems.filter(':last').text(), 'tap', 'should not fire to last element');
-    });
-
-    module('tap hold event', {
-        setup: function() {
-            this.$elems = $('#qunit-fixture .touchme');
-        },
-        teardown: function() {
-            $('body').off();
-            this.$elems.text('').off();
-            this.$elems = null;
-        }
-    });
-
-    asyncTest('works with direct events', 3, function() {
-        this.$elems.on('press', function() {
-            $(this).text('press');
-        });
-
-        trigger.press(this, $.Finger.pressDuration, function() {
-            strictEqual(this.$elems.filter(':first').text(), 'press', 'should work with direct events');
-            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
-            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
-
-            start();
-        });
-    });
-
-    asyncTest('works with delegated events', 3, function() {
-        $('body').on('press', '.touchme', function() {
-            $(this).text('press');
-        });
-
-        trigger.press(this, $.Finger.pressDuration, function() {
-            strictEqual(this.$elems.filter(':first').text(), 'press', 'should work with delegated events');
-            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
-            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
-
-            start();
-        });
-    });
-
-    asyncTest('does not fire tap event', 3, function() {
-        this.$elems.on('tap', function() {
-            $(this).text('tap');
-        });
-
-        this.$elems.on('press', function() {
-            $(this).text('press');
-        });
-
-        trigger.press(this, $.Finger.pressDuration, function() {
-            strictEqual(this.$elems.filter(':first').text(), 'press', 'should fire tap event');
-            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
-            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
-
-            start();
-        });
-    });
-
-    asyncTest('does not trigger press when tapping twice', 3, function() {
-        this.$elems.on('press', function() {
-            $(this).text('press');
-        });
-
-        trigger.doubleTap(this, $.Finger.pressDuration, function() {
-            notEqual(this.$elems.filter(':first').text(), 'press', 'should not fire press event');
-            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
-            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
-
-            start();
-        });
-    });
-
-    module('double tap event', {
-        setup: function() {
-            this.$elems = $('#qunit-fixture .touchme');
-        },
-        teardown: function() {
-            $('body').off();
-            this.$elems.text('').off();
-            this.$elems = null;
-        }
-    });
-
-    asyncTest('works with direct events', 3, function() {
-        this.$elems.on('doubletap', function() {
-            $(this).text('doubletap');
-        });
-
-        trigger.doubleTap(this, $.Finger.doubleTapInterval * 0.5, function() {
-            strictEqual(this.$elems.filter(':first').text(), 'doubletap', 'should work with direct events');
-            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
-            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
-
-            start();
-        });
-    });
-
-    asyncTest('works with delegated events', 3, function() {
-        $('body').on('doubletap', '.touchme', function() {
-            $(this).text('doubletap');
-        });
-
-        trigger.doubleTap(this, $.Finger.doubleTapInterval * 0.5, function() {
-            strictEqual(this.$elems.filter(':first').text(), 'doubletap', 'should work with delegated events');
-            strictEqual(this.$elems.filter(':eq(1)').text(), '', 'should not fire to second element');
-            strictEqual(this.$elems.filter(':last').text(), '', 'should not fire to last element');
-
-            start();
+            it('should work with delegated events', function(done) {
+                var handler = sinon.spy();
+                $('body').on('doubletap', '.touchme', handler);
+                this.doubleTap(function() {
+                    handler.should.have.been.calledOnce;
+                    handler.should.have.been.calledOn(this.$elems[0]);
+                    done();
+                });
+            });
         });
     });
 
