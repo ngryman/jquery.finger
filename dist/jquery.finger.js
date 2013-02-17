@@ -1,6 +1,6 @@
-/*! jQuery Finger - v0.1.0 - 2013-01-22
+/*! jquery.finger - v0.0.3 - 2013-02-17
 * https://github.com/ngryman/jquery.finger
-* Copyright (c) 2013 ngryman; Licensed MIT */
+* Copyright (c) 2013 Nicolas Gryman; Licensed MIT */
 
 (function($) {
 
@@ -9,35 +9,119 @@
         stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup',
         moveEvent = hasTouch ? 'touchmove' : 'mousemove';
 
-    $.event.special.tap = (function() {
-        function startHandler(event) {
-            $.event.add(this, moveEvent, moveHandler, event);
-            $.event.add(this, stopEvent, stopHandler, event);
+    $.Finger = {
+        pressDuration: 300,
+        doubleTapInterval: 300
+    };
+
+    function finger(el) {
+        return $._data(el, 'events').finger;
+    }
+
+    function flag(evt, p, value) {
+        if (3 == arguments.length) {
+            evt && (evt[p] = value);
         }
-
-        function moveHandler() {
-            $.event.remove(this, stopEvent, stopHandler);
+        else {
+            return evt ? evt[p] : undefined;
         }
+    }
 
-        function stopHandler(event) {
-            var handler = $._data(
-                event.data.delegateTarget, 'events'
-            ).finger.tap[event.data.data.guid].handler;
+    function $event(action, el, handleObj) {
+        $.event[action](el, startEvent, startHandler, null, handleObj.selector);
+        $.event[action](el, moveEvent, moveHandler, null, handleObj.selector);
+        $.event[action](el, stopEvent, stopHandler, null, handleObj.selector);
+    }
 
-            handler.apply(this, arguments);
-        }
-
-        return {
-            add: function(handleObj) {
-                var events = $._data(this, 'events');
-                events.finger = events.finger || { tap: [] };
-                events.finger.tap.push({
-                    handler: handleObj.handler
-                });
-
-                $.event.add(this, startEvent, startHandler, { guid: events.finger.tap.length - 1 }, handleObj.selector);
-            }
+    function startHandler(event) {
+        finger(event.delegateTarget).start = {
+            time: +new Date()
         };
-    })();
+    }
+
+    function moveHandler(event) {
+        var f = finger(event.delegateTarget);
+        if (!f.start) {
+            return;
+        }
+
+        flag(f.tap, 'canceled', true);
+        flag(f.press, 'canceled', true);
+    }
+
+    function stopHandler(event) {
+        var f = finger(event.delegateTarget),
+            now = Date.now(),
+            evtName = now - f.start.time < $.Finger.pressDuration ? 'tap' : 'press';
+
+        // is it a double tap ?
+        if ('tap' == evtName && f.doubletap) {
+            if (now - f.doubletap.prev < $.Finger.doubleTapInterval) {
+                evtName = 'doubletap';
+            }
+            else {
+                f.doubletap.prev = now;
+            }
+        }
+
+        // event exists and is not canceled
+        if (f[evtName] && !f[evtName].canceled) {
+            var handlers = f[evtName].handlers;
+            for (var handler in handlers) {
+                if ($.isFunction(handlers[handler])) {
+                    handlers[handler].apply(this, arguments);
+                }
+            }
+        }
+
+        // start over
+        f.start = null;
+        flag(f.tap, 'canceled', false);
+        flag(f.press, 'canceled', false);
+    }
+
+    var fingerCustom = {
+        add: function(handleObj) {
+            var events = $._data(this, 'events');
+            events.finger = events.finger || {};
+            var f = events.finger;
+
+            // creates under the hood events?
+            if (!f.refCount) {
+                $event('add', this, handleObj);
+                f.refCount = 0; // ensures this is an number
+            }
+
+            // increments ref count
+            f.refCount++;
+
+            // handler
+            f[handleObj.type] = f[handleObj.type] || { handlers: [] };
+            f[handleObj.type].handlers[handleObj.handler.guid] = handleObj.handler;
+        },
+
+        remove: function(handleObj) {
+            var events = $._data(this, 'events');
+            var f = events.finger;
+
+            // decrements ref count
+            f.refCount--;
+
+            // cleanup?
+            if (0 === f.refCount) {
+                $event('remove', this, handleObj);
+                events.finger = null;
+                return;
+            }
+
+            // handler
+            f[handleObj.type].handlers[handleObj.handler.guid] = null;
+        }
+    };
+
+    // registers custom events
+    $.event.special.tap = fingerCustom;
+    $.event.special.press = fingerCustom;
+    $.event.special.doubletap = fingerCustom;
 
 })(jQuery);

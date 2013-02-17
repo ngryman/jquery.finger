@@ -1,14 +1,33 @@
 {
-	"name": "jquery-plugin",
-	"version": "0.0.0-ignored",
+	"name": "jquery.finger",
+	"version": "0.0.3",
+	"author": {
+		"name": "Nicolas Gryman",
+		"email": "ngryman@gmail.com"
+	},
+	"license": "MIT",
+	"homepage": "https://github.com/ngryman/jquery.finger",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ngryman/jquery.finger.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ngryman/jquery.finger/issues",
+		"email": "ngryman@gmail.com"
+	},
 	"engines": {
-		"node": ">= 0.8.0"
+		"node": ">= 0.8.14"
 	},
 	"scripts": {
+		"preinstall": "npm i -g grunt-cli",
 		"test": "grunt mocha"
 	},
 	"devDependencies": {
-		"grunt": "~0.3.17",
-		"grunt-mocha": "0.1.x"
+		"grunt": "~0.4.0rc8",
+		"grunt-contrib-jshint": "~0.1.1",
+		"grunt-contrib-concat": "~0.1.2",
+		"grunt-contrib-uglify": "~0.1.1rc6",
+		"grunt-contrib-watch": "~0.1.4",
+		"grunt-mocha": "~0.2.2"
 	}
 }
