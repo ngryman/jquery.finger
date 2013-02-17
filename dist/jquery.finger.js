@@ -1,6 +1,9 @@
 /*! jquery.finger - v0.0.3 - 2013-02-17
  * https://github.com/ngryman/jquery.finger
  * Copyright (c) 2013 Nicolas Gryman; Licensed MIT */
+query.finger - v0.0.3 - 2013-02-17
+ * https://github.com/ngryman/jquery.finger
+ * Copyright (c) 2013 Nicolas Gryman; Licensed MIT */
 
 (function($) {
 
