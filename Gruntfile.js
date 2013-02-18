@@ -52,28 +52,28 @@ module.exports = function(grunt) {
 				dest: 'dist/<%= pkg.name %>.min.js'
 			}
 		},
-        mocha: {
-            all: {
-                src: ['test/**/*.html'],
-                options: {
-                    mocha: {
-                        ignoreLeaks: false
-                    },
-                    run: true
-                }
-            }
-        },
-        watch: {
-            files: '<%= jshint.files %>',
-            tasks: ['jshint', 'mocha']
-        }
+		mocha: {
+			all: {
+				src: ['test/**/*.html'],
+				options: {
+					mocha: {
+						ignoreLeaks: false
+					},
+					run: true
+				}
+			}
+		},
+		watch: {
+			files: '<%= jshint.files %>',
+			tasks: ['test']
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-mocha');
+	grunt.loadNpmTasks('grunt-mocha');
 
 	grunt.registerTask('default', ['jshint', 'mocha', 'concat', 'uglify']);
 	grunt.registerTask('test', ['jshint', 'mocha']);
