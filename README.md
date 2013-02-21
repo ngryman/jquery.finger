@@ -43,4 +43,14 @@ Here is a complete list of gestures that will *probably* be supported: http://sm
 _(Coming soon)_
 
 ## Release History
-_(Nothing yet)_
+
+### v0.0.3
+  - migration to **grunt** 0.4.
+  - migration to **mocha** / **chaijs** for tests.
+
+### v0.0.2
+  - added `doubletap` and `press` gestures.
+  - internal refactoring for consistency and performance.
+
+### v0.0.1
+  - `tap` gesture first implementation.
