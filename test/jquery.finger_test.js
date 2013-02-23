@@ -48,7 +48,7 @@
 
 	Mocha.Context.prototype.press = function(callback, duration) {
 		var self = this;
-		duration = duration || $.Finger.pressDuration;
+		duration = duration || $.Finger.pressDuration * 1.5 /* security */;
 
 		this.tapStart();
 		setTimeout(function() {
@@ -59,7 +59,7 @@
 
 	Mocha.Context.prototype.doubleTap = function(callback, duration) {
 		var self = this;
-		duration = duration || $.Finger.doubleTapInterval * 0.5;
+		duration = duration || $.Finger.doubleTapInterval * 0.5 /* security */;
 
 		this.tap();
 		setTimeout(function() {
@@ -69,12 +69,12 @@
 	};
 
 	Mocha.Context.prototype.drag = function(callback, x, y, duration) {
-		duration = duration || $.Finger.flickDuration * 2;
+		duration = duration || $.Finger.flickDuration * 1.5 /* security */;
 
 		this.move(callback, x, y, duration);
 	};
 
-	/** Adjusting time values for testing purposes */
+	/** adjusting time values for testing purposes */
 
 	$.Finger.doubleTapInterval = 25;
 	$.Finger.pressDuration = 25;
@@ -249,10 +249,10 @@
 				var lastY = -1;
 				this.$elems.on('drag', function(e) {
 					e.pageX.should.exist;
-					e.pageX.should.be.above(lastX);
+					e.pageX.should.be.at.least(lastX);
 					lastX = e.pageX;
 					e.pageY.should.exist;
-					e.pageY.should.be.above(lastY);
+					e.pageY.should.be.at.least(lastY);
 					lastY = e.pageY;
 					e.pageX.should.equal(e.pageY);
 				});
