@@ -17,6 +17,30 @@
 		this.$elems.filter(':first').trigger(stopEvent);
 	};
 
+	Mocha.Context.prototype.move = function(callback, x, y, duration) {
+		var self = this, last = Date.now(), t = 0;
+
+		this.tapStart();
+		(function mv() {
+			var now = Date.now(),
+				dt = now - last;
+
+			t += dt;
+			if (t >= duration) {
+				self.tapEnd();
+				callback.call(self);
+				return;
+			}
+			last = now;
+
+			self.$elems.filter(':first').trigger($.Event(moveEvent, {
+				pageX: Math.ceil(t / duration * x),
+				pageY: Math.ceil(t / duration * y)
+			}));
+			setTimeout(mv, 0);
+		})();
+	};
+
 	Mocha.Context.prototype.tap = function() {
 		this.tapStart();
 		this.tapEnd();
@@ -44,14 +68,21 @@
 		}, duration);
 	};
 
+	Mocha.Context.prototype.drag = function(callback, x, y, duration) {
+		duration = duration || $.Finger.flickDuration * 2;
+
+		this.move(callback, x, y, duration);
+	};
+
 	/** Adjusting time values for testing purposes */
 
-	$.Finger.doubleTapInterval = 50;
+	$.Finger.doubleTapInterval = 25;
 	$.Finger.pressDuration = 25;
+	$.Finger.flickDuration = 25;
 
 	/** test suite */
 
-	describe('tap event', function() {
+	describe('jquery.finger', function() {
 		before(function() {
 			this.$elems = $('#qunit-fixture .touchme');
 		});
@@ -118,6 +149,15 @@
 				this.tap();
 				handler.should.have.been.calledOnce;
 			});
+
+			it('should not fire when moving', function(done) {
+				var handler = sinon.spy();
+				$('body').on('tap', '.touchme', handler);
+				this.drag(function() {
+					handler.should.not.have.been.called;
+					done();
+				}, 50, 0);
+			});
 		});
 
 		describe('press event', function() {
@@ -182,6 +222,41 @@
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
 				});
+			});
+		});
+
+		describe('drag event', function() {
+			it('should work with direct events', function(done) {
+				var handler = sinon.spy();
+				this.$elems.on('drag', handler);
+				this.drag(function() {
+					handler.should.have.been.calledOn(this.$elems[0]);
+					done();
+				}, 100, 0);
+			});
+
+			it('should work with delegated events', function(done) {
+				var handler = sinon.spy();
+				$('body').on('drag', '.touchme', handler);
+				this.drag(function() {
+					handler.should.have.been.calledOn(this.$elems[0]);
+					done();
+				}, 100, 0);
+			});
+
+			it('should pass valid coordinates', function(done) {
+				var lastX = -1;
+				var lastY = -1;
+				this.$elems.on('drag', function(e) {
+					e.pageX.should.exist;
+					e.pageX.should.be.above(lastX);
+					lastX = e.pageX;
+					e.pageY.should.exist;
+					e.pageY.should.be.above(lastY);
+					lastY = e.pageY;
+					e.pageX.should.equal(e.pageY);
+				});
+				this.drag(done, 100, 100);
 			});
 		});
 	});

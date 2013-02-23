@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 		},
 		jshint: {
 			options: {
-				curly: true,
+				curly: false,
 				eqeqeq: false,
 				immed: true,
 				latedef: true,
