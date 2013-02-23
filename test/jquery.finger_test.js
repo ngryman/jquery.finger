@@ -1,4 +1,4 @@
-/*global Mocha:false, describe: true, xdescribe: true, before: true, after: true, it: true, xit: true, sinon:false*/
+/*global Mocha, describe, xdescribe, beforeEach, afterEach, it, xit, sinon*/
 
 (function($) {
 
@@ -10,7 +10,7 @@
 	/** extend Mocha.Context to hence event trigger */
 
 	Mocha.Context.prototype.tapStart = function() {
-		this.$elems.filter(':first').trigger(startEvent);
+		this.$elems.filter(':first').trigger(new $.Event(startEvent, { pageX: 0, pageY: 0 }));
 	};
 
 	Mocha.Context.prototype.tapEnd = function() {
@@ -18,7 +18,7 @@
 	};
 
 	Mocha.Context.prototype.move = function(callback, x, y, duration) {
-		var self = this, last = Date.now(), t = 0;
+		var self = this, last = Date.now(), t = 0, timer;
 
 		this.tapStart();
 		(function mv() {
@@ -37,7 +37,7 @@
 				pageX: Math.ceil(t / duration * x),
 				pageY: Math.ceil(t / duration * y)
 			}));
-			setTimeout(mv, 0);
+			timer = setTimeout(mv, 0);
 		})();
 	};
 
@@ -49,7 +49,6 @@
 	Mocha.Context.prototype.press = function(callback, duration) {
 		var self = this;
 		duration = duration || $.Finger.pressDuration * 1.5 /* security */;
-
 		this.tapStart();
 		setTimeout(function() {
 			self.tapEnd();
@@ -60,7 +59,6 @@
 	Mocha.Context.prototype.doubleTap = function(callback, duration) {
 		var self = this;
 		duration = duration || $.Finger.doubleTapInterval * 0.5 /* security */;
-
 		this.tap();
 		setTimeout(function() {
 			self.tap();
@@ -70,7 +68,11 @@
 
 	Mocha.Context.prototype.drag = function(callback, x, y, duration) {
 		duration = duration || $.Finger.flickDuration * 1.5 /* security */;
+		this.move(callback, x, y, duration);
+	};
 
+	Mocha.Context.prototype.flick = function(callback, x, y, duration) {
+		duration = duration || $.Finger.flickDuration * 0.5 /* security */;
 		this.move(callback, x, y, duration);
 	};
 
@@ -83,13 +85,13 @@
 	/** test suite */
 
 	describe('jquery.finger', function() {
-		before(function() {
+		beforeEach(function() {
 			this.$elems = $('#qunit-fixture .touchme');
 		});
 
-		after(function() {
+		afterEach(function() {
 			$('body').off();
-			this.$elems.text('').off();
+			this.$elems.off().text('');
 			this.$elems = null;
 		});
 
@@ -134,9 +136,9 @@
 
 			it('should not fire removed direct events', function() {
 				var handler = sinon.spy();
-				$('body').on('tap', handler);
+				this.$elems.on('tap', handler);
 				this.tap();
-				$('body').off('tap', handler);
+				this.$elems.off('tap', handler);
 				this.tap();
 				handler.should.have.been.calledOnce;
 			});
@@ -230,6 +232,7 @@
 				var handler = sinon.spy();
 				this.$elems.on('drag', handler);
 				this.drag(function() {
+					handler.callCount.should.be.above(1);
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
 				}, 100, 0);
@@ -239,6 +242,7 @@
 				var handler = sinon.spy();
 				$('body').on('drag', '.touchme', handler);
 				this.drag(function() {
+					handler.callCount.should.be.above(1);
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
 				}, 100, 0);
@@ -248,15 +252,77 @@
 				var lastX = -1;
 				var lastY = -1;
 				this.$elems.on('drag', function(e) {
-					e.pageX.should.exist;
-					e.pageX.should.be.at.least(lastX);
-					lastX = e.pageX;
-					e.pageY.should.exist;
-					e.pageY.should.be.at.least(lastY);
-					lastY = e.pageY;
-					e.pageX.should.equal(e.pageY);
+					e.x.should.exist;
+					e.x.should.be.at.least(lastX);
+					lastX = e.x;
+					e.y.should.exist;
+					e.y.should.be.at.least(lastY);
+					lastY = e.y;
+					e.x.should.equal(e.y);
 				});
 				this.drag(done, 100, 100);
+			});
+
+			it('should pass valid delta', function(done) {
+				var lastDy = -1;
+				this.$elems.on('drag', function(e) {
+					e.dx.should.exist;
+					e.dx.should.be.equal(0);
+					e.dy.should.exist;
+					e.dy.should.be.at.least(lastDy);
+					lastDy = e.dy;
+				});
+				this.drag(done, 0, 100);
+			});
+
+			it('should detect horizontal orientation', function(done) {
+				this.$elems.on('drag', function(e) {
+					e.orientation.should.be.equal('horizontal');
+				});
+				this.drag(done, 100, 50);
+			});
+
+			it('should detect vertical orientation', function(done) {
+				this.$elems.on('drag', function(e) {
+					e.orientation.should.be.equal('vertical');
+				});
+				this.drag(done, 50, 100);
+			});
+
+			it('should not fire removed events', function(done) {
+				var self = this;
+				var handler = sinon.spy();
+				this.$elems.on('drag', handler);
+				this.drag(function() {
+					var callCount = handler.callCount;
+					self.$elems.off('drag', handler);
+					self.drag(function() {
+						handler.callCount.should.equal(callCount);
+						done();
+					}, 100, 100);
+				}, 100, 100);
+			});
+		});
+
+		describe('flick event', function() {
+			it('should work with direct events', function(done) {
+				var handler = sinon.spy();
+				this.$elems.on('flick', handler);
+				this.flick(function() {
+					handler.should.have.been.calledOnce;
+					handler.should.have.been.calledOn(this.$elems[0]);
+					done();
+				}, 100, 0);
+			});
+
+			it('should work with delegated events', function(done) {
+				var handler = sinon.spy();
+				$('body').on('flick', '.touchme', handler);
+				this.flick(function() {
+					handler.should.have.been.calledOnce;
+					handler.should.have.been.calledOn(this.$elems[0]);
+					done();
+				}, 100, 0);
 			});
 		});
 	});

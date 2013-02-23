@@ -16,7 +16,8 @@
 	$.Finger = {
 		pressDuration: 300,
 		doubleTapInterval: 300,
-		flickDuration: 150
+		flickDuration: 150,
+		motionThreshold: 5
 	};
 
 	function finger(el) {
@@ -40,7 +41,6 @@
 
 	function startHandler(event) {
 		var f = finger(event.delegateTarget);
-
 		f.start = {
 			time: event.timeStamp,
 			x: event.pageX,
@@ -58,10 +58,32 @@
 		// no start event fired, do nothing
 		if (!f.start) return;
 
+		// motion data
 		f.move.x = event.pageX;
 		f.move.y = event.pageY;
+		f.move.dx = event.pageX - f.start.x;
+		f.move.dy = event.pageY - f.start.y;
+		f.move.adx = Math.abs(f.move.dx);
+		f.move.ady = Math.abs(f.move.dy);
 
+		// security
+		if (f.move.adx < $.Finger.motionThreshold && f.move.ady < $.Finger.motionThreshold) return;
+
+		// orientation
+		if (!f.move.orientation) {
+			if (f.move.adx > f.move.ady) {
+				f.move.orientation = 'horizontal';
+				f.move.direction = f.move.dx > 0 ? +1 : -1;
+			}
+			else {
+				f.move.orientation = 'vertical';
+				f.move.direction = f.move.dy > 0 ? +1 : -1;
+			}
+		}
+
+		// todo: factorize
 		if (f.drag && !f.drag.canceled) {
+			$.extend(event, f.move);
 			var handlers = f.drag.handlers;
 			for (var handler in handlers) {
 				if ($.isFunction(handlers[handler])) {
@@ -77,8 +99,10 @@
 	function stopHandler(event) {
 		var f = finger(event.delegateTarget),
 			now = event.timeStamp,
-			evtName = now - f.start.time < $.Finger.pressDuration ? 'tap' : 'press';
+			evtName, evtNames = [];
 
+		// tap-like events
+		evtName = now - f.start.time < $.Finger.pressDuration ? 'tap' : 'press';
 		// is it a double tap ?
 		if ('tap' == evtName && f.doubletap) {
 			if (now - f.doubletap.prev < $.Finger.doubleTapInterval) {
@@ -88,13 +112,22 @@
 				f.doubletap.prev = now;
 			}
 		}
+		evtNames.push(evtName);
+
+		// motion events
+		evtNames.push(now - f.start.time < $.Finger.flickDuration ? 'flick' : 'drag');
 
 		// event exists and is not canceled
-		if (f[evtName] && !f[evtName].canceled) {
-			var handlers = f[evtName].handlers;
-			for (var handler in handlers) {
-				if ($.isFunction(handlers[handler])) {
-					handlers[handler].apply(this, arguments);
+		for (var i = 0, len = evtNames.length; i < len; i++) {
+			evtName = evtNames[i];
+			// todo: factorize
+			if (f[evtName] && !f[evtName].canceled) {
+				$.extend(event, f.move);
+				var handlers = f[evtName].handlers;
+				for (var handler in handlers) {
+					if ($.isFunction(handlers[handler])) {
+						handlers[handler].apply(this, arguments);
+					}
 				}
 			}
 		}
@@ -149,5 +182,6 @@
 	$.event.special.press = fingerCustom;
 	$.event.special.doubletap = fingerCustom;
 	$.event.special.drag = fingerCustom;
+	$.event.special.flick = fingerCustom;
 
 })(jQuery);
