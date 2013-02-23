@@ -39,17 +39,22 @@
 		$.event[action](el, stopEvent, stopHandler, null, handleObj.selector);
 	}
 
+	function fire(evtName, event, f) {
+		if (f[evtName] && !f[evtName].canceled) {
+			$.extend(event, f.move);
+			var handlers = f[evtName].handlers;
+			for (var handler in handlers) {
+				if ($.isFunction(handlers[handler])) {
+					handlers[handler].call(event.currentTarget, event);
+				}
+			}
+		}
+	}
+
 	function startHandler(event) {
 		var f = finger(event.delegateTarget);
-		f.start = {
-			time: event.timeStamp,
-			x: event.pageX,
-			y: event.pageY
-		};
-		f.move = {
-			x: event.pageX,
-			y: event.pageY
-		};
+		f.move = { x: event.pageX, y: event.pageY };
+		f.start = $.extend({ time: event.timeStamp }, f.move);
 	}
 
 	function moveHandler(event) {
@@ -81,16 +86,8 @@
 			}
 		}
 
-		// todo: factorize
-		if (f.drag && !f.drag.canceled) {
-			$.extend(event, f.move);
-			var handlers = f.drag.handlers;
-			for (var handler in handlers) {
-				if ($.isFunction(handlers[handler])) {
-					handlers[handler].apply(this, arguments);
-				}
-			}
-		}
+		// fire drag event
+		fire('drag', event, f);
 
 		flag(f.tap, 'canceled', true);
 		flag(f.press, 'canceled', true);
@@ -99,7 +96,7 @@
 	function stopHandler(event) {
 		var f = finger(event.delegateTarget),
 			now = event.timeStamp,
-			evtName, evtNames = [];
+			evtName;
 
 		// tap-like events
 		evtName = now - f.start.time < $.Finger.pressDuration ? 'tap' : 'press';
@@ -112,25 +109,11 @@
 				f.doubletap.prev = now;
 			}
 		}
-		evtNames.push(evtName);
+		fire(evtName, event, f);
 
 		// motion events
-		evtNames.push(now - f.start.time < $.Finger.flickDuration ? 'flick' : 'drag');
-
-		// event exists and is not canceled
-		for (var i = 0, len = evtNames.length; i < len; i++) {
-			evtName = evtNames[i];
-			// todo: factorize
-			if (f[evtName] && !f[evtName].canceled) {
-				$.extend(event, f.move);
-				var handlers = f[evtName].handlers;
-				for (var handler in handlers) {
-					if ($.isFunction(handlers[handler])) {
-						handlers[handler].apply(this, arguments);
-					}
-				}
-			}
-		}
+		evtName = now - f.start.time < $.Finger.flickDuration ? 'flick' : 'drag';
+		fire(evtName, event, f);
 
 		// start over
 		f.start = null;
