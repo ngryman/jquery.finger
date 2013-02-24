@@ -13,22 +13,7 @@ module.exports = function(grunt) {
 		},
 		jshint: {
 			options: {
-				curly: false,
-				eqeqeq: false,
-				immed: true,
-				latedef: true,
-				newcap: true,
-				noarg: true,
-				sub: true,
-				undef: true,
-				boss: true,
-				eqnull: true,
-				browser: true,
-				expr: true,
-				globals: {
-					jQuery: true
-
-				}
+				jshintrc: '.jshintrc'
 			},
 			files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
 		},
@@ -66,6 +51,16 @@ module.exports = function(grunt) {
 		watch: {
 			files: '<%= jshint.files %>',
 			tasks: ['test']
+		},
+		connect: {
+			server: {
+				options: {
+					hostname: null, // waiting PR to be merged: https://github.com/gruntjs/grunt-contrib-connect/pull/19
+					port: 3000,
+					base: '.',
+					keepalive: true
+				}
+			}
 		}
 	});
 
@@ -73,6 +68,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-mocha');
 
 	grunt.registerTask('default', ['jshint', 'mocha', 'concat', 'uglify']);
