@@ -35,7 +35,7 @@ In your web page:
 
           | tap | doubletap | press | drag | flick | pinch | spread | rotate
 ----------|-----|-----------|-------|------|-------|-------|--------|-------
-Available |  ✔ |     ✔     |   ✔  |      |       |       |        |
+Available |  ✔ |     ✔     |   ✔  |  ✔  |   ✔  |       |        |
 
 Here is a complete list of gestures that will *probably* be supported: http://smustalks.appspot.com/io-12/#44
 
@@ -43,6 +43,11 @@ Here is a complete list of gestures that will *probably* be supported: http://sm
 _(Coming soon)_
 
 ## Release History
+
+### v0.0.4
+  - added `drag` and `flick` gestures.
+  - enhanced `event` object.
+  - internal refactoring for consistency.
 
 ### v0.0.3
   - migration to **grunt** 0.4.
