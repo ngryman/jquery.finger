@@ -3,6 +3,9 @@
 jQuery touch gestures, fingers in the nose.
 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
+<a href="https://gemnasium.com/ngryman/jquery.finger">
+  <img src="https://gemnasium.com/ngryman/jquery.finger.png" width="110" height="13" alt="Dependency Status">
+</a>
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
