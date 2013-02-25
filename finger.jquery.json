@@ -1,8 +1,8 @@
 {
 	"name": "finger",
 	"title": "jQuery Finger",
-	"description": "jQuery touch gestures, fingers in the nose.",
-	"version": "0.1.0",
+	"description": "jQuery touch & gestures, fingers in the nose.",
+	"version": "0.0.5",
 	"homepage": "https://github.com/ngryman/jquery.finger",
 	"bugs": "https://github.com/ngryman/jquery.finger/issues",
 	"author": {

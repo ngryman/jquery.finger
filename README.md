@@ -47,6 +47,9 @@ _(Coming soon)_
 
 ## Release History
 
+### v0.0.5
+  - updated jquery manifest and published on http://plugins.jquery.com.
+
 ### v0.0.4
   - added `drag` and `flick` gestures.
   - enhanced `event` object.
