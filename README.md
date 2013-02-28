@@ -51,6 +51,9 @@ _(Coming soon)_
 
 ## Release History
 
+### v0.0.6
+  - updated description.
+
 ### v0.0.5
   - updated jquery manifest and published on http://plugins.jquery.com.
 
