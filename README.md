@@ -1,6 +1,10 @@
 # jQuery Finger
 
-jQuery touch gestures, fingers in the nose.
+jQuery tap & gestures, fingers in the nose.
+
+**jQuery Finger** unifies click and touch events by removing the 300ms delay on touch devices. It also provide a common
+set of events to handle basic gestures such as drag and pinch.
+Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery delegated events.
 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
 <a href="https://gemnasium.com/ngryman/jquery.finger">
