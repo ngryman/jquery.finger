@@ -7,9 +7,7 @@ set of events to handle basic gestures such as drag and pinch.
 Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery delegated events.
 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
-<a href="https://gemnasium.com/ngryman/jquery.finger">
-  <img src="https://gemnasium.com/ngryman/jquery.finger.png" width="110" height="13" alt="Dependency Status">
-</a>
+[![Build Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
