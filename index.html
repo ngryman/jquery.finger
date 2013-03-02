@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <title>jQuery Finger</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <section>
+            <h2>Try it</h2>
+
+            <div class="touchzone-wrapper">
+                <div class="touchzone"></div>
+            </div>
+            <p>
+                jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices. It also provide a common set of events to handle basic gestures such as drag and pinch. Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery delegated events.
+            </p>
+        </section>
+        <section>
+            <h2>Try it</h2>
+
+            <p>
+                jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices. It also provide a common set of events to handle basic gestures such as drag and pinch. Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery delegated events.
+            </p>
+        </section>
+    </main>
+    <footer></footer>
+    <div class="warp"></div>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="jquery.finger.min.js"></script>
+    <script>
+        var $touch = $('.touchzone');
+        var $warp = $('.warp');
+
+        $touch.on('tap', function(e) {
+            var w = $touch.outerWidth(),
+                h = $touch.outerHeight();
+
+            $touch
+                .css({
+                    transform: 'rotateY(' + (e.offsetX / w * 90 - 45) + 'deg) rotateX(' + -(e.offsetY / h * 90 - 45) + 'deg)'
+                })
+                .delay(400)
+                .queue(function() {
+                    $touch.css({ transform: 'none' });
+                    $touch.dequeue();
+                });
+
+            $warp.css({
+                transition: 'none',
+                transform: 'scale(0)',
+                opacity: 0,
+                left: e.pageX - w / 20, top: e.pageY - w / 20,
+                width: w / 10,
+                height: w / 10
+            });
+            $warp[0].offsetWidth;
+            $warp
+                .css({
+                    transition: '.2s',
+                    transform: 'scale(1)',
+                    opacity: .5
+                }).delay(400)
+                .queue(function() {
+                    $warp.css({ transform: 'scale(0)', opacity: 0 });
+                    $warp.dequeue();
+                });
+        });
+    </script>
+</body>
+</html>
