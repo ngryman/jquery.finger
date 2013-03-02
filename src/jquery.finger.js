@@ -90,8 +90,10 @@
 
 	var fingerCustom = {
 		setup: function() {
-			$.event.add(this, startEvent + '.finger', startHandler);
-			$.data(this, 'finger', {});
+			if (!$.data(this, 'finger')) {
+				$.event.add(this, startEvent + '.finger', startHandler);
+				$.data(this, 'finger', {});
+			}
 		},
 
 		add: function(handleObj) {
@@ -103,7 +105,10 @@
 		},
 
 		teardown: function() {
-			$.event.remove(this, startEvent + '.finger', startHandler);
+			if ($.data(this, 'finger')) {
+				$.event.remove(this, startEvent + '.finger', startHandler);
+				$.data(this, 'finger', null);
+			}
 		}
 	};
 

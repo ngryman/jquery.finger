@@ -102,7 +102,6 @@
 	describe('jquery.finger', function() {
 		beforeEach(function() {
 			this.$elems = $('#qunit-fixture .touchme');
-			console.log('=============');
 		});
 
 		afterEach(function() {
@@ -211,14 +210,14 @@
 				});
 			});
 
-//			it('should not trigger press when tapping twice', function(done) {
-//				var handler = sinon.spy();
-//				$('body').on('press', '.touchme', handler);
-//				this.doubleTap(function() {
-//					handler.should.not.have.been.calledOnce;
-//					done();
-//				}, $.Finger.pressDuration);
-//			});
+			it('should not trigger press when tapping twice', function(done) {
+				var handler = sinon.spy();
+				$('body').on('press', '.touchme', handler);
+				this.doubleTap(function() {
+					handler.should.not.have.been.calledOnce;
+					done();
+				}, $.Finger.pressDuration);
+			});
 		});
 
 		describe('double tap event', function() {
