@@ -27,7 +27,7 @@
 	function startHandler(event) {
 		var data = {};
 		data.move = { x: page('x', event), y: page('y', event) };
-		data.start = $.extend({ time: event.timeStamp }, data.move);
+		data.start = $.extend({ time: event.timeStamp, target: event.target }, data.move);
 
 		$.event.add(this, moveEvent + '.finger', moveHandler, data);
 		$.event.add(this, stopEvent + '.finger', stopHandler, data);

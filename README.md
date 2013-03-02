@@ -47,6 +47,10 @@ Here is a complete list of gestures that will *probably* be supported: http://sm
 ## Examples
 _(Coming soon)_
 
+## Notes
+
+When running tests in the browser, your mouse / finger must not interact with the page.
+
 ## Release History
 
 ### v0.0.7

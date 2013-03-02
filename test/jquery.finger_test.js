@@ -110,7 +110,7 @@
 			this.$elems = null;
 		});
 
-		describe('tap event', function() {
+		xdescribe('tap event', function() {
 			it('should work with direct events', function() {
 				var handler = sinon.spy();
 				this.$elems.on('tap', handler);
@@ -178,7 +178,7 @@
 		});
 
 		describe('press event', function() {
-			it('should work with direct events', function(done) {
+			xit('should work with direct events', function(done) {
 				var handler = sinon.spy();
 				this.$elems.on('press', handler);
 				this.press(function() {
@@ -188,7 +188,7 @@
 				});
 			});
 
-			it('should work with delegated events', function(done) {
+			xit('should work with delegated events', function(done) {
 				var handler = sinon.spy();
 				$('body').on('press', '.touchme', handler);
 				this.press(function() {
@@ -210,7 +210,7 @@
 				});
 			});
 
-			it('should not trigger press when tapping twice', function(done) {
+			xit('should not trigger press when tapping twice', function(done) {
 				var handler = sinon.spy();
 				$('body').on('press', '.touchme', handler);
 				this.doubleTap(function() {
@@ -220,7 +220,7 @@
 			});
 		});
 
-		describe('double tap event', function() {
+		xdescribe('double tap event', function() {
 			it('should work with direct events', function(done) {
 				var handler = sinon.spy();
 				this.$elems.on('doubletap', handler);
@@ -242,7 +242,7 @@
 			});
 		});
 
-		describe('drag event', function() {
+		xdescribe('drag event', function() {
 			it('should work with direct events', function(done) {
 				var handler = sinon.spy();
 				this.$elems.on('drag', handler);
@@ -319,7 +319,7 @@
 			});
 		});
 
-		describe('flick event', function() {
+		xdescribe('flick event', function() {
 			it('should work with direct events', function(done) {
 				var handler = sinon.spy();
 				this.$elems.on('flick', handler);
