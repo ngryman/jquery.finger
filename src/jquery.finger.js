@@ -81,6 +81,7 @@
 		// motion events
 		else {
 			evtName = now - data.start.time < $.Finger.flickDuration ? 'flick' : 'drag';
+			data.move.end = true;
 			$.event.trigger($.Event(evtName + $.expando, data.move), null, event.target);
 		}
 

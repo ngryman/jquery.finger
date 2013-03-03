@@ -304,6 +304,17 @@
 				this.drag(done, 50, 100);
 			});
 
+			it('should tell what the last event is', function(done) {
+				var end;
+				this.$elems.on('drag', function(e) {
+					end = e.end;
+				});
+				this.drag(function() {
+					end.should.be.truthy;
+					done();
+				}, 100, 0);
+			});
+
 			it('should not fire removed events', function(done) {
 				var self = this;
 				var handler = sinon.spy();
