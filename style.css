@@ -25,6 +25,15 @@
 
 }
 
+@font-face {
+	font-family: 'Fontello';
+	src: url('fonts/fontello.eot');
+	src: url('fonts/fontello.woff') format('woff'), url('fonts/fontello.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+
+}
+
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -33,6 +42,7 @@
 
 html, body {
 	margin: 0;
+	min-width: 320px;
 	height: 100%;
 }
 
@@ -49,6 +59,17 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+body::after {
+	content: 'mobile';
+	position: absolute;
+	opacity: .3;
+	top: 0;
+	padding: 1em;
+	background: rgba(255, 255, 255, .3);
+	font-size: 2em;
+	color: white;
+}
+
 h2 {
 	font-size: 2.4em;
 	font-weight: 100;
@@ -57,18 +78,93 @@ h2 {
 p {
 	font-size: 1.4em;
 	line-height: 1.6em;
+	word-wrap: break-word;
+	/*text-align: justify;*/
+	/*-webkit-hyphens: auto;*/
+	/*-moz-hyphens: auto;*/
+	/*hyphens: auto;*/
+}
+
+a {
+	display: inline-block;
+	vertical-align: middle;
+	/*border: 2px solid #9ac847;*/
+	margin-bottom: 1em;
+	border: 2px solid #bbb;
+	border-radius: 5px;
+	background: #bbb;
+	padding: .8em;
+	font-size: 1.6em;
+	line-height: 1.2em;
+	width: 100%;
+	color: black;
+	text-decoration: none;
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	transition: .3s;
+}
+
+strong {
+	font-weight: 700;
+}
+
+a:hover {
+	box-shadow: 0 0 5px #bcec4b;
+	border-color: #bcec4b;
+	background: black;
+	color: #9ac847;
 }
 
 section {
-	padding: 4em;
+	padding: 1em;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
 }
 
+[class^="icon-"]::before,
+[class*=" icon-"]::before {
+	vertical-align: middle;
+	font-family: 'Fontello';
+	font-size: 2em;
+	/*font-style: normal;*/
+	/*font-weight: normal;*/
+	speak: none;
+	text-decoration: inherit;
+	margin-right: 0.4em;
+}
+
+.icon-code:before { content: '\e714'; } /* '' */
+.icon-firefox:before { content: '\e840'; } /* '' */
+.icon-chrome:before { content: '\e841'; } /* '' */
+.icon-opera:before { content: '\e842'; } /* '' */
+.icon-ie:before { content: '\e843'; } /* '' */
+.icon-github-repo:before { content: '\f09b'; } /* '' */
+.icon-github:before { content: '\f300'; } /* '' */
+.icon-github-circled:before { content: '\f301'; } /* '' */
+.icon-twitter:before { content: '\f309'; } /* '' */
+.icon-twitter-circled:before { content: '\f30a'; } /* '' */
+.icon-facebook:before { content: '\f30c'; } /* '' */
+.icon-facebook-circled:before { content: '\f30d'; } /* '' */
+.icon-gplus:before { content: '\f30f'; } /* '' */
+.icon-gplus-circled:before { content: '\f310'; } /* '' */
+.icon-tumblr:before { content: '\f315'; } /* '' */
+.icon-tumblr-circled:before { content: '\f316'; } /* '' */
+.icon-linkedin:before { content: '\f318'; } /* '' */
+.icon-linkedin-circled:before { content: '\f319'; } /* '' */
+.icon-spotify:before { content: '\f327'; } /* '' */
+.icon-spotify-circled:before { content: '\f328'; } /* '' */
+.icon-instagram:before { content: '\f32d'; } /* '' */
+.icon-download:before { content: '\1f4e5'; } /* '\1f4e5' */
+
+
 section:first-child {
-	background-color: #dfdfdf;
-	background-image: -webkit-linear-gradient(#f5f5f5 2px, transparent 1px), -webkit-linear-gradient(left, #eee 2px, transparent 1px);
-	background-image: -moz-linear-gradient(#f5f5f5 2px, transparent 1px), -moz-linear-gradient(left, #eee 2px, transparent 1px);
+	background-color: #333;
+	background-image: -webkit-linear-gradient(#2e2e2e 2px, transparent 1px), -webkit-linear-gradient(left, #2e2e2e 2px, transparent 1px);
+	background-image: -moz-linear-gradient(#2e2e2e 2px, transparent 1px), -moz-linear-gradient(left, #2e2e2e 2px, transparent 1px);
 	background-size: 3px 3px;
 	background-position: -1px -1px, -1px -1px;
+	color: #bbb;
 }
 
 section:first-child h2 {
@@ -87,14 +183,28 @@ section:first-child p {
 
 .touchzone {
 	position: relative;
-	margin: 12em auto;
+	margin: 4em auto;
 	border: 10px solid rgba(255, 255, 255, .2);
 	padding-top: 75%;
 	width: 100%;
 	background: #a5b83e;
-	-webkit-transition: .2s;
-	-moz-transition: .2s;
-	transition: .2s;
+	-webkit-animation-duration: .2s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-iteration-count: 2;
+}
+
+.touchzone.tap {
+	-webkit-animation-name: touch-tap;
+}
+
+.touchzone.drag {
+	-webkit-animation-name: touch-drag;
+	-webkit-animation-iteration-count: 1;
+}
+
+.actions {
+	text-align: center;
 }
 
 .warp {
@@ -103,10 +213,38 @@ section:first-child p {
 	border: 4px solid rgba(255, 255, 255, .8);;
 	border-radius: 100%;
 	background: rgba(255, 255, 255, .5);
-	pointer-events: none;
+	pointer-events: none; /* pass through */
+	-webkit-transform: scale(.6);
+	-webkit-animation-duration: .2s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-iteration-count: 2;
+}
+
+.warp.tap {
+	-webkit-animation-name: warp-tap;
+}
+
+@media only screen and (min-width: 25em /* 400px */) {
+	body::after {
+		content: 'big-mobile';
+	}
+
+	a {
+		margin-left: 1em;
+		width: 12em;
+	}
 }
 
 @media only screen and (min-width: 42.5em /* 680px */) {
+	body::after {
+		content: 'tablet';
+	}
+
+	section {
+		padding: 1em 4em;
+	}
+
 	.touchzone {
 		padding-top: 0;
 		width: 60em;
@@ -115,20 +253,57 @@ section:first-child p {
 }
 
 @media only screen and (min-width: 62.5em /* 1000px */) {
-	.touchzone-wrapper {
-		margin: 4em auto;
-		background: rgba(0, 0, 0, .1);
-		padding: 8em 0;
+	body::after {
+		content: 'desktop';
 	}
 
-	.touchzone {
-		margin: 0 auto;
+	section {
+		width: 100em;
+		margin: 0 auto; /* fallback if calc is not supported */
+		padding: 1em -webkit-calc(50% - 50em);
+		padding: 1em -moz-calc(50% - 50em);
 	}
 }
 
 @media only screen and (min-width: 80em /* 1280px */) {
-	body {
-		margin: 0 auto;
-		width: 128em;
-	}
+
+	/*body {*/
+		/*margin: 0 auto;*/
+		/*width: 128em;*/
+	/*}*/
+}
+
+@-webkit-keyframes touch-tap {
+	to { -webkit-transform: scale(.95); opacity: .6; }
+}
+
+@-webkit-keyframes warp-tap {
+	to { -webkit-transform: scale(1); opacity: 1; }
+}
+
+html.green a:hover {
+	box-shadow: 0 0 5px #bcec4b;
+	border-color: #bcec4b;
+	color: #9ac847;
+}
+html.green .touchzone {
+	background-color: #a5b83e;
+}
+
+html.blue a:hover {
+	box-shadow: 0 0 5px #44adec;
+	border-color: #44adec;
+	color: #418cc8;
+}
+html.blue .touchzone {
+	background-color: #3984b8;
+}
+
+html.pink a:hover {
+	box-shadow: 0 0 5px #ec48e9;
+	border-color: #ec48e9;
+	color: #be45bb;
+}
+html.pink .touchzone {
+	background-color: #b844b5;
 }

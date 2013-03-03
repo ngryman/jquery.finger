@@ -16,85 +16,126 @@
             <h2>Try it...</h2>
 
             <div class="touchzone-wrapper">
-                <div class="touchzone">
-                    <div class="warp"></div>
-                </div>
+                <div class="touchzone"></div>
             </div>
+
+            <div class="actions">
+                <a href="http://github.com/ngryman/jquery.finger/zipball/v0.0.6" class="icon-download">Download</a>
+                <a href="http://github.com/ngryman/jquery.finger" class="icon-github-repo">Github</a>
+            </div>
+
             <p>
-                jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices. It also provide a common set of events to handle basic gestures such as drag and pinch. Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery delegated events.
+                jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices.
+                It also provide a common set of events to handle basic gestures such as drag and pinch.
+                Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery
+                delegated events.
             </p>
         </section>
         <section>
             <h2>Try it</h2>
 
             <p>
-                jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices. It also provide a common set of events to handle basic gestures such as drag and pinch. Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery delegated events.
+                <strong>jQuery Finger</strong> unifies click and touch events by removing the 300ms delay on touch
+                devices. It also provide a common set of events to handle basic gestures such as drag and pinch.
+                Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery
+                delegated events.
             </p>
         </section>
     </main>
     <footer></footer>
 
+    <div class="warp"></div>
+
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="jquery.finger.min.js"></script>
     <script>
+        (function($) {
+
+            // https://code.google.com/p/jquery-debounce/
+            $.debounce = function(fn, timeout, invokeAsap, ctx) {
+
+                if (arguments.length == 3 && typeof invokeAsap != 'boolean') {
+                    ctx = invokeAsap;
+                    invokeAsap = false;
+                }
+
+                var timer;
+
+                return function() {
+
+                    var args = arguments;
+                    ctx = ctx || this;
+
+                    invokeAsap && !timer && fn.apply(ctx, args);
+
+                    clearTimeout(timer);
+
+                    timer = setTimeout(function() {
+                        invokeAsap || fn.apply(ctx, args);
+                        timer = null;
+                    }, timeout);
+
+                };
+
+            };
+
+        })(jQuery);
+    </script>
+    <script>
+        (function($) {
+            $.fn.cssanim = function(animation, cls) {
+                var $this = $(this);
+                $this.removeClass().addClass(cls);
+                $this[0].offsetWidth;
+                $this.addClass(animation);
+            };
+        })(jQuery);
+    </script>
+    <script>
         var $touch = $('.touchzone');
         var $warp = $('.warp');
+        var w, h;
+        var colors = 'green blue pink'.split(' ');
+        colors.index = 0;
 
         $touch.on('tap', function(e) {
-            console.log(e);
-            var w = $touch.outerWidth(),
-                h = $touch.outerHeight(),
-                x = e.x - $touch.offset().left,
-                y = e.y - $touch.offset().top;
+            var x = e.x,
+                y = e.y;
 
-            // XXX
-            $('.touchzone-wrapper').css('perspective', $('.touchzone-wrapper').innerWidth());
-
-            $touch
-                .css({
-                    transform: 'rotateY(' + (x / w * 60 - 30) + 'deg) rotateX(' + -(y / h * 60 - 30) + 'deg)'
-                })
-                .delay(400)
-                .queue(function() {
-                    $touch.css({ transform: 'none' });
-                    $touch.dequeue();
-                });
-
+            $touch.cssanim('tap', 'touchzone');
+            $warp.cssanim('tap', 'warp');
             $warp.css({
-                transition: 'none',
-                transform: 'scale(0)',
-                opacity: 0,
-                left: x - w / 20 - 8,
-                top: y - w / 20 - 8,
+                left: x - w / 20,
+                top: y - w / 20,
                 width: w / 10,
                 height: w / 10
             });
-            $warp[0].offsetWidth;
-            $warp
-                .css({
-                    transition: '.2s',
-                    transform: 'scale(1)',
-                    opacity: .4
-                }).delay(400)
-                .queue(function() {
-                    $warp.css({ transform: 'scale(0)', opacity: 0 });
-                    $warp.dequeue();
-                });
         });
 
         $touch.on('doubletap', function(e) {
-            console.log(e);
-            $warp
-                .css({
-                    transition: '.2s',
-                    transform: 'scale(1.5)',
-                    opacity: .8
-                }).delay(400)
-                .queue(function() {
-                    $warp.css({ transform: 'scale(0)', opacity: 0 });
-                    $warp.dequeue();
-                });
+            $('html').removeClass(colors[colors.index]);
+            colors.index = (colors.index + 1) % colors.length;
+            $('html').addClass(colors[colors.index]);
         });
+
+        $touch.on('drag', function(e) {
+            var dx = e.dx,
+                dy = e.dy;
+
+            $touch.css({
+                transition: !e.end ? 'none' : '.2s linear',
+                transform: !e.end ? 'rotateY(' + dx / 2 + 'deg)' : 'rotateY(0)'
+            });
+            $touch.cssanim('drag', 'touchzone');
+        });
+
+        $(window).on('resize', $.debounce(function(e) {
+            w = $touch.outerWidth();
+            h = $touch.outerHeight();
+
+            $('.touchzone-wrapper').css('perspective', $('.touchzone-wrapper').innerWidth());
+
+        }, 100));
     </script>
 </body>
 </html>
