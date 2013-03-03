@@ -83,11 +83,17 @@
     </script>
     <script>
         (function($) {
-            $.fn.cssanim = function(animation, cls) {
-                var $this = $(this);
-                $this.removeClass().addClass(cls);
-                $this[0].offsetWidth;
-                $this.addClass(animation);
+            $.fn.cssanim = function(animation, cls, reverse) {
+                this.removeClass().addClass(cls);
+                this[0].offsetWidth;
+                return this.addClass(animation).addClass(reverse ? 'reverse' : '');
+            };
+
+            $.fn.cssreset = function() {
+                return this.css({
+                    transition: 'none',
+                    transform: 'rotateY(0)'
+                });
             };
         })(jQuery);
     </script>
@@ -102,7 +108,7 @@
             var x = e.x,
                 y = e.y;
 
-            $touch.cssanim('tap', 'touchzone');
+            $touch.cssreset().cssanim('tap', 'touchzone');
             $warp.cssanim('tap', 'warp');
             $warp.css({
                 left: x - w / 20,
@@ -124,9 +130,13 @@
 
             $touch.css({
                 transition: !e.end ? 'none' : '.2s linear',
-                transform: !e.end ? 'rotateY(' + dx / 2 + 'deg)' : 'rotateY(0)'
+                transform: !e.end ? 'horizontal' == e.orientation ? 'rotateY(' + -dx / 2 + 'deg)' : 'rotateX(' + dy / 2 + 'deg)' : 'rotateY(0)'
             });
             $touch.cssanim('drag', 'touchzone');
+        });
+        
+        $touch.on('flick', function(e) {
+            $touch.cssreset().cssanim('flick-' + e.orientation, 'touchzone', -1 == e.direction);
         });
 
         $(window).on('resize', $.debounce(function(e) {

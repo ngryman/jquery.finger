@@ -203,6 +203,22 @@ section:first-child p {
 	-webkit-animation-iteration-count: 1;
 }
 
+.touchzone.flick-horizontal {
+	-webkit-animation-name: touch-flick-horizontal;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-iteration-count: 1;
+}
+
+.touchzone.flick-vertical {
+	-webkit-animation-name: touch-flick-vertical;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-iteration-count: 1;
+}
+
+.touchzone.reverse {
+	-webkit-animation-direction: reverse;
+}
+
 .actions {
 	text-align: center;
 }
@@ -275,6 +291,14 @@ section:first-child p {
 
 @-webkit-keyframes touch-tap {
 	to { -webkit-transform: scale(.95); opacity: .6; }
+}
+
+@-webkit-keyframes touch-flick-horizontal {
+	to { -webkit-transform: rotateY(360deg); }
+}
+
+@-webkit-keyframes touch-flick-vertical {
+	to { -webkit-transform: rotateX(360deg); }
 }
 
 @-webkit-keyframes warp-tap {
