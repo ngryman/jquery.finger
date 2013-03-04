@@ -10,13 +10,20 @@
 </head>
 
 <body>
-    <header></header>
+    <header>
+        <h1>jQuery Finger</h1>
+    </header>
+
     <main>
         <section>
+            <blockquote>
+                jQuery tap & gestures, fingers in the nose.
+            </blockquote>
+
             <h2>Try it...</h2>
 
             <div class="touchzone-wrapper">
-                <div class="touchzone"></div>
+                <div class="touchzone" data-event></div>
             </div>
 
             <div class="actions">
@@ -31,6 +38,7 @@
                 delegated events.
             </p>
         </section>
+
         <section>
             <h2>Try it</h2>
 
@@ -42,6 +50,7 @@
             </p>
         </section>
     </main>
+
     <footer></footer>
 
     <div class="warp"></div>
@@ -108,7 +117,7 @@
             var x = e.x,
                 y = e.y;
 
-            $touch.cssreset().cssanim('tap', 'touchzone');
+            $touch.cssreset().cssanim('tap', 'touchzone').attr('data-event', 'tap');
             $warp.cssanim('tap', 'warp');
             $warp.css({
                 left: x - w / 20,
@@ -122,6 +131,8 @@
             $('html').removeClass(colors[colors.index]);
             colors.index = (colors.index + 1) % colors.length;
             $('html').addClass(colors[colors.index]);
+
+            $touch.attr('data-event', 'doubletap');
         });
 
         $touch.on('drag', function(e) {
@@ -132,11 +143,11 @@
                 transition: !e.end ? 'none' : '.2s linear',
                 transform: !e.end ? 'horizontal' == e.orientation ? 'rotateY(' + -dx / 2 + 'deg)' : 'rotateX(' + dy / 2 + 'deg)' : 'rotateY(0)'
             });
-            $touch.cssanim('drag', 'touchzone');
+            $touch.cssanim('drag', 'touchzone').attr('data-event', 'drag');
         });
         
         $touch.on('flick', function(e) {
-            $touch.cssreset().cssanim('flick-' + e.orientation, 'touchzone', -1 == e.direction);
+            $touch.cssreset().cssanim('flick-' + e.orientation, 'touchzone', -1 == e.direction).attr('data-event', 'flick');;
         });
 
         $(window).on('resize', $.debounce(function(e) {
