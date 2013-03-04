@@ -131,7 +131,7 @@ a:hover {
 	border-color: #bcec4b;
 	background: black;
 	color: #9ac847;
-	text-shadow: 1px 1px 2px #bcec4b;
+	text-shadow: none;
 }
 
 blockquote {
@@ -388,7 +388,6 @@ html.green a:hover {
 	box-shadow: 0 0 5px #bcec4b;
 	border-color: #bcec4b;
 	color: #9ac847;
-	text-shadow: 1px 1px 2px #bcec4b;
 }
 html.green .touchzone {
 	background-color: #a5b83e;
@@ -398,7 +397,6 @@ html.blue a:hover {
 	box-shadow: 0 0 5px #44adec;
 	border-color: #44adec;
 	color: #418cc8;
-	text-shadow: 1px 1px 2px #44adec;
 }
 html.blue .touchzone {
 	background-color: #3984b8;
@@ -408,7 +406,6 @@ html.pink a:hover {
 	box-shadow: 0 0 5px #ec48e9;
 	border-color: #ec48e9;
 	color: #be45bb;
-	text-shadow: 1px 1px 2px #ec48e9;
 }
 html.pink .touchzone {
 	background-color: #b844b5;
