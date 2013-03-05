@@ -26,12 +26,11 @@
 }
 
 @font-face {
-	font-family: 'Calligraffiti';
-	src: url('fonts/calligraffiti.eot');
-	src: url('fonts/calligraffiti.woff') format('woff'), url('fonts/calligraffiti.ttf') format('truetype');
+	font-family: 'Days';
+	src: url('fonts/days.eot');
+	src: url('fonts/days.woff') format('woff'), url('fonts/days.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
-
 }
 
 @font-face {
@@ -82,9 +81,13 @@ body::after {
 }
 
 h1 {
-	font-family: 'Calligraffiti', 'Arial Bold', sans-serif;
+	border-radius: 5px;
+	background: rgba(0, 0, 0, .1);
+	font-family: 'Days', 'Arial Bold', sans-serif;
 	font-size: 2.4em;
-	font-weight: 100;
+	font-weight: bold;
+	line-height: 2;
+	color: #eee;
 }
 
 h2 {
@@ -135,11 +138,10 @@ a:hover {
 }
 
 blockquote {
-	margin: 1em 0;
-	background: rgba(255, 255, 255, .1);
+	margin: 0;
 	padding: .2em;
 	font-size: 1.2em;
-	line-height: 2em;
+	line-height: 1.5;
 	text-align: center;
 	border-radius: 5px;
 }
@@ -155,24 +157,17 @@ blockquote::after {
 }
 
 header {
-	position: fixed;
-	z-index: 1;
-	border-top: .3em solid #a5b83e;
-	background: black;
 	width: 100%;
-	color: #bbb;
-	box-shadow: 0 0 10px #111;
+	text-align: center;
 }
 
 header h1 {
-	display: inline-block;
 	vertical-align: middle;
 	margin: 0;
 	padding: .3em 1em;
 }
 
 main {
-	padding-top: 5em;
 }
 
 section {
@@ -219,6 +214,7 @@ section {
 .icon-download::before { content: '\1f4e5'; } /* '\1f4e5*/
 
 
+header,
 section:first-child {
 	background-color: #333;
 	background-image: -webkit-linear-gradient(#2e2e2e 2px, transparent 1px), -webkit-linear-gradient(left, #2e2e2e 2px, transparent 1px);
