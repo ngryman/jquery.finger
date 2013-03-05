@@ -1,7 +1,9 @@
 @font-face {
 	font-family: 'Open Sans';
 	src: url('fonts/opensans-light.eot');
-	src: url('fonts/opensans-light.woff') format('woff'), url('fonts/opensans-light.ttf') format('truetype');
+	src: url('fonts/opensans-light.woff') format('woff'),
+	url('fonts/opensans-light.ttf') format('truetype'),
+	url('fonts/opensans-light.svg#opensans-light') format('svg');
 	font-weight: 100;
 	font-style: normal;
 
@@ -10,7 +12,9 @@
 @font-face {
 	font-family: 'Open Sans';
 	src: url('fonts/opensans-regular.eot');
-	src: url('fonts/opensans-regular.woff') format('woff'), url('fonts/opensans-regular.ttf') format('truetype');
+	src: url('fonts/opensans-regular.woff') format('woff'),
+	url('fonts/opensans-regular.ttf') format('truetype'),
+	url('fonts/opensans-regular.svg#opensans-regular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 
@@ -19,16 +23,19 @@
 @font-face {
 	font-family: 'Open Sans';
 	src: url('fonts/opensans-bold.eot');
-	src: url('fonts/opensans-bold.woff') format('woff'), url('fonts/opensans-bold.ttf') format('truetype');
+	src: url('fonts/opensans-bold.woff') format('woff'),
+	url('fonts/opensans-bold.ttf') format('truetype'),
+	url('fonts/opensans-bold.svg#opensans') format('svg');
 	font-weight: 700;
 	font-style: normal;
-
 }
 
 @font-face {
 	font-family: 'Days';
 	src: url('fonts/days.eot');
-	src: url('fonts/days.woff') format('woff'), url('fonts/days.ttf') format('truetype');
+	src: url('fonts/days.woff') format('woff'),
+	url('fonts/days.ttf') format('truetype'),
+	url('fonts/days.svg#days') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -36,7 +43,9 @@
 @font-face {
 	font-family: 'Fontello';
 	src: url('fonts/fontello.eot');
-	src: url('fonts/fontello.woff') format('woff'), url('fonts/fontello.ttf') format('truetype');
+	src: url('fonts/fontello.woff') format('woff'),
+	url('fonts/fontello.ttf') format('truetype'),
+	url('fonts/fontello.svg#fontello') format('svg');
 	font-weight: 700;
 	font-style: normal;
 
