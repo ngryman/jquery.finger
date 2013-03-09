@@ -275,8 +275,8 @@ section:first-child p {
 
 .touchzone.flick-horizontal {
 	-webkit-animation-name: touch-flick-horizontal;
-	-webkit-animation-duration: .5s;
-	-webkit-animation-iteration-count: 1;
+	-webkit-animation-duration: .2s;
+	-webkit-animation-iteration-count: 2;
 }
 
 .touchzone.flick-vertical {
@@ -378,11 +378,11 @@ section:first-child p {
 }
 
 @-webkit-keyframes touch-flick-horizontal {
-	to { -webkit-transform: rotateY(360deg); }
+	to { -webkit-transform: rotateY(-45deg); }
 }
 
 @-webkit-keyframes touch-flick-vertical {
-	to { -webkit-transform: rotateX(360deg); }
+	to { -webkit-transform: rotateX(180deg); }
 }
 
 @-webkit-keyframes warp-tap {

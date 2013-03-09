@@ -100,7 +100,7 @@
             $.fn.cssreset = function() {
                 return this.css({
                     transition: 'none',
-                    transform: 'rotateY(0)'
+                    transform: 'rotateY(0) rotateX(0)'
                 });
             };
         })(jQuery);
@@ -140,16 +140,20 @@
 
             $touch.css({
                 transition: !e.end ? 'none' : '.2s linear',
-                transform: !e.end ? 'horizontal' == e.orientation ? 'rotateY(' + -dx / 2 + 'deg)' : 'rotateX(' + dy / 2 + 'deg)' : 'rotateY(0)'
+                transform: !e.end ? 'horizontal' == e.orientation ? 'rotateY(' + -dx / 4 + 'deg)' : 'rotateX(' + dy / 4 + 'deg)' : 'rotateY(0)'
             });
             $touch.cssanim('drag', 'touchzone').attr('data-event', 'drag');
         });
         
         $touch.on('flick', function(e) {
-            $touch.cssreset().cssanim('flick-' + e.orientation, 'touchzone', -1 == e.direction).attr('data-event', 'flick');;
+            /*
+             * TODO
+             * s'abonner a animationend pour reset et s'assurer qu'il n'y a aucun attribut de style de transformation et de transition
+             */
+            $touch.cssanim('flick-' + e.orientation, 'touchzone', -1 == e.direction).attr('data-event', 'flick');;
         });
 
-        $(window).on('resize', $.debounce(function(e) {
+        $(window).on('load resize', $.debounce(function(e) {
             w = $touch.outerWidth();
             h = $touch.outerHeight();
 
