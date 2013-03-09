@@ -5,7 +5,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <link rel="stylesheet" href="normalize.css">
+    <!--<link rel="stylesheet" href="normalize.css">-->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -21,9 +21,7 @@
         <section>
             <h2>Try it...</h2>
 
-            <div class="touchzone-wrapper">
-                <div class="touchzone" data-event></div>
-            </div>
+            <div class="touchzone" data-event></div>
 
             <div class="actions">
                 <a href="http://github.com/ngryman/jquery.finger/zipball/v0.0.6" class="icon-download">Download</a>
@@ -140,7 +138,7 @@
 
             $touch.css({
                 transition: !e.end ? 'none' : '.2s linear',
-                transform: !e.end ? 'horizontal' == e.orientation ? 'rotateY(' + -dx / 4 + 'deg)' : 'rotateX(' + dy / 4 + 'deg)' : 'rotateY(0)'
+                transform: 'perspective(400px) ' + !e.end ? 'horizontal' == e.orientation ? 'rotateY(' + -dx / 4 + 'deg)' : 'rotateX(' + dy / 4 + 'deg)' : 'rotateY(0)'
             });
             $touch.cssanim('drag', 'touchzone').attr('data-event', 'drag');
         });
@@ -157,7 +155,7 @@
             w = $touch.outerWidth();
             h = $touch.outerHeight();
 
-            $('.touchzone-wrapper').css('perspective', $('.touchzone-wrapper').innerWidth());
+//            $('.touchzone-wrapper').css('perspective', $('.touchzone-wrapper').innerWidth());
 
         }, 100));
     </script>

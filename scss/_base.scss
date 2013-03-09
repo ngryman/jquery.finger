@@ -1,0 +1,57 @@
+div, a {
+	@include box-sizing(border-box);
+}
+
+html, body {
+	margin: 0;
+	min-width: 320px;
+	height: 100%;
+
+	/* on touch devices only */
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+body {
+	font-size: 62.5%;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	color: #555;
+
+	/* enhances font rendering? */
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+h1 {
+	background-color: #333;
+	padding: .3em 1em;
+	font-family: 'Days', 'Arial Bold', sans-serif;
+	color: #eee;
+	font-size: 2.4em;
+	font-weight: bold;
+	line-height: 2;
+	text-align: center;
+}
+
+h2 {
+	font-size: 2.4em;
+	font-weight: 100;
+}
+
+p {
+	font-size: 1.4em;
+	line-height: 1.6em;
+	word-wrap: break-word;
+	/*text-align: justify;*/
+	/*-webkit-hyphens: auto;*/
+	/*-moz-hyphens: auto;*/
+	/*hyphens: auto;*/
+}
+
+strong {
+	font-weight: 700;
+}
+
+section {
+	padding: 1em;
+}

@@ -1,0 +1,120 @@
+// third party
+@import 'compass';
+@import 'compass/reset';
+@import 'animation';
+
+// mixins
+@import 'mq';
+@import 'colors';
+
+// classes
+@import 'base';
+@import 'fonts';
+@import 'icons';
+@import 'anims';
+
+//
+// sections - groups bunch of content together
+// Section are visually well delimited to let the user navigate easily and jump to the most interesting section for him.
+//
+
+section {
+	@include large-size-and-up {
+		padding: 1em 4em;
+	}
+	@include xlarge-size-and-up {
+		width: 100em;
+		margin: 0 auto; /* fallback if calc is not supported */
+		padding: 1em -webkit-calc(50% - 50em);
+		padding: 1em -moz-calc(50% - 50em);
+	}
+}
+
+section:first-child {
+	background-color: #333;
+	background-image: -webkit-linear-gradient(#2e2e2e 2px, transparent 1px), -webkit-linear-gradient(left, #2e2e2e 2px, transparent 1px);
+	background-image: -moz-linear-gradient(#2e2e2e 2px, transparent 1px), -moz-linear-gradient(left, #2e2e2e 2px, transparent 1px);
+	background-size: 3px 3px;
+	background-position: -1px -1px, -1px -1px;
+	color: #bbb;
+
+	p {
+		line-height: 2em;
+	}
+}
+
+//
+// actions - provides github and download buttons
+//
+
+.actions {
+	text-align: center;
+
+	a {
+		display: inline-block;
+		margin-bottom: 1em;
+		border: 2px solid #bbb;
+		border-radius: 5px;
+		background: #bbb;
+		padding: .8em;
+		width: 100%;
+		font-size: 1.6em;
+		color: #333;
+		line-height: 1.2em;
+		vertical-align: middle;
+		text-decoration: none;
+		@include text-shadow(1px 1px 2px #888);
+		@include transition(.3s);
+		@include normal-size-and-up {
+			margin-left: 1em;
+			width: 12em;
+		}
+
+		&:hover {
+			@include box-shadow(0 0 5px #bcec4b);
+			border-color: #bcec4b;
+			background: black;
+			color: #9ac847;
+			@include text-shadow(none);
+		}
+	}
+}
+
+//
+// touch zone - let the user test jquery.finger
+// Let the user play with a funny visual feedback :)
+//
+
+.touchzone {
+	position: relative;
+	margin: 2em auto 4em auto;
+	border: 10px solid rgba(255, 255, 255, .2);
+	background: #a5b83e;
+	padding-top: 75%;
+	width: 100%;
+	@include experimental(user-select, none);
+	@include large-size-and-up {
+		padding-top: 0;
+		width: 60em;
+		height: 45em;
+	}
+
+	&::after {
+		content: attr(data-event);
+	}
+}
+
+// visual indicator on the location of the tap
+.warp {
+	position: absolute;
+	//opacity: 0;
+	border: 4px solid rgba(255, 255, 255, .8);;
+	border-radius: 100%;
+	background: rgba(255, 255, 255, .5);
+	pointer-events: none; /* pass through */
+	//-webkit-transform: scale(.6);
+
+	&.tap {
+		@include animation(bounceIn .2s linear alternate 2);
+	}
+}

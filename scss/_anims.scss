@@ -1,0 +1,51 @@
+@include keyframes(tap) {
+	to {
+		@include scale(.95);
+		opacity: .6;
+	}
+}
+
+@-webkit-keyframes flick-horizontal {
+	to {
+		@include transform(perspective(400px) rotateY(-45deg));
+	}
+}
+
+@-webkit-keyframes flick-vertical {
+	to {
+		@include transform(perspective(400px) rotateX(180deg));
+	}
+}
+
+$animations: (tap .2s linear alternate 2) (drag .2s linear 1) (flick-horizontal .2s linear alternate 2) (flick-vertical .2s linear alternate 2);
+
+@each $anim in $animations {
+	.#{nth($anim, 1)} {
+		@include animation($anim);
+	}
+}
+
+//.tap {
+//	@include animation-name(tap);
+//}
+//
+//.drag {
+//	-webkit-animation-name: touch-drag;
+//	-webkit-animation-iteration-count: 1;
+//}
+//
+//.flick-horizontal {
+//	-webkit-animation-name: touch-flick-horizontal;
+//	-webkit-animation-duration: .2s;
+//	-webkit-animation-iteration-count: 2;
+//}
+//
+//.flick-vertical {
+//	-webkit-animation-name: touch-flick-vertical;
+//	-webkit-animation-duration: .5s;
+//	-webkit-animation-iteration-count: 1;
+//}
+//
+//.reverse {
+//	-webkit-animation-direction: reverse;
+//}

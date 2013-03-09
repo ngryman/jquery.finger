@@ -1,0 +1,61 @@
+$mq-small: 20em /* 320px */ !default;
+$mq-normal: 25em /* 400px */ !default;
+$mq-large: 42.5em /* 680px */ !default;
+$mq-xlarge: 62.5em /* 1000px */ !default;
+$mq-xlarge: 62.5em /* 1000px */ !default;
+$mq-xxlarge: 80em /* 1280px */ !default;
+
+//
+// normal size
+//
+
+@mixin normal-size-only {
+	@media (min-width: $mq-small + 1) and (max-width: $mq-normal) { @content; }
+}
+
+@mixin normal-size-and-up {
+	@media (min-width: $mq-normal) { @content; }
+}
+
+//
+// large size
+//
+
+@mixin large-size-only {
+	@media (min-width: $mq-normal + 1) and (max-width: $mq-large) { @content; }
+}
+
+@mixin large-size-and-up {
+	@media (min-width: $mq-large) { @content; }
+}
+
+//
+// xlarge size
+//
+
+@mixin xlarge-size-only {
+	@media (min-width: $mq-large + 1) and (max-width: $mq-xlarge) { @content; }
+}
+
+@mixin xlarge-size-and-up {
+	@media (min-width: $mq-xlarge) { @content; }
+}
+
+//
+// xxlarge size
+//
+
+@mixin xxlarge-size-only {
+	@media (min-width: $mq-xlarge + 1) and (max-width: $mq-xxlarge) { @content; }
+}
+
+@mixin xxlarge-size-and-up {
+	@media (min-width: $mq-xxlarge) { @content; }
+}
+
+// retina screens have a 1.5 pixel ratio, not 2
+@mixin retina {
+	@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+		@content;
+	}
+}

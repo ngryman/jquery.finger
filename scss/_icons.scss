@@ -1,0 +1,35 @@
+[class^="icon-"]::before,
+[class*=" icon-"]::before {
+	vertical-align: middle;
+	font-family: 'Fontello';
+	font-size: 2em;
+	/*font-style: normal;*/
+	/*font-weight: normal;*/
+	speak: none;
+	text-decoration: inherit;
+	margin-right: 0.4em;
+}
+
+.icon-up-hand::before { content: '\261d'; } /* '?' */
+.icon-code::before { content: '\e714'; } /* '?' */
+.icon-firefox::before { content: '\e840'; } /* '?' */
+.icon-chrome::before { content: '\e841'; } /* '?' */
+.icon-opera::before { content: '\e842'; } /* '?' */
+.icon-ie::before { content: '\e843'; } /* '?' */
+.icon-github-repo::before { content: '\f09b'; } /* '?' */
+.icon-github::before { content: '\f300'; } /* '?' */
+.icon-github-circled::before { content: '\f301'; } /* '?' */
+.icon-twitter::before { content: '\f309'; } /* '?' */
+.icon-twitter-circled::before { content: '\f30a'; } /* '?' */
+.icon-facebook::before { content: '\f30c'; } /* '?' */
+.icon-facebook-circled::before { content: '\f30d'; } /* '?' */
+.icon-gplus::before { content: '\f30f'; } /* '?' */
+.icon-gplus-circled::before { content: '\f310'; } /* '?' */
+.icon-tumblr::before { content: '\f315'; } /* '?' */
+.icon-tumblr-circled::before { content: '\f316'; } /* '?' */
+.icon-linkedin::before { content: '\f318'; } /* '?' */
+.icon-linkedin-circled::before { content: '\f319'; } /* '?' */
+.icon-spotify::before { content: '\f327'; } /* '?' */
+.icon-spotify-circled::before { content: '\f328'; } /* '?' */
+.icon-instagram::before { content: '\f32d'; } /* '?' */
+.icon-download::before { content: '\1f4e5'; } /* '\1f4e5*/

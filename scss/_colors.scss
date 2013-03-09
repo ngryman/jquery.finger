@@ -1,0 +1,14 @@
+@mixin define-global-color($name, $color) {
+	html.#{$name} a:hover {
+		box-shadow: 0 0 5px saturate($color, 20%);
+		border-color: saturate($color, 20%);
+		color: saturate($color, 5%);
+	}
+	html.#{$name} .touchzone {
+		background-color: $color
+	}
+}
+
+@include define-global-color(green, #a5b83e);
+@include define-global-color(blue, #3984b8);
+@include define-global-color(pink, #b844b5);

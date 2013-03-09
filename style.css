@@ -1,417 +1,572 @@
-@font-face {
-	font-family: 'Open Sans';
-	src: url('fonts/opensans-light.eot');
-	src: url('fonts/opensans-light.woff') format('woff'),
-	url('fonts/opensans-light.ttf') format('truetype'),
-	url('fonts/opensans-light.svg#opensans-light') format('svg');
-	font-weight: 100;
-	font-style: normal;
-
+/* line 17, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
 }
 
-@font-face {
-	font-family: 'Open Sans';
-	src: url('fonts/opensans-regular.eot');
-	src: url('fonts/opensans-regular.woff') format('woff'),
-	url('fonts/opensans-regular.ttf') format('truetype'),
-	url('fonts/opensans-regular.svg#opensans-regular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-
-}
-
-@font-face {
-	font-family: 'Open Sans';
-	src: url('fonts/opensans-bold.eot');
-	src: url('fonts/opensans-bold.woff') format('woff'),
-	url('fonts/opensans-bold.ttf') format('truetype'),
-	url('fonts/opensans-bold.svg#opensans') format('svg');
-	font-weight: 700;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Days';
-	src: url('fonts/days.eot');
-	src: url('fonts/days.woff') format('woff'),
-	url('fonts/days.ttf') format('truetype'),
-	url('fonts/days.svg#days') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Fontello';
-	src: url('fonts/fontello.eot');
-	src: url('fonts/fontello.woff') format('woff'),
-	url('fonts/fontello.ttf') format('truetype'),
-	url('fonts/fontello.svg#fontello') format('svg');
-	font-weight: 700;
-	font-style: normal;
-
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-html, body {
-	margin: 0;
-	min-width: 320px;
-	height: 100%;
-}
-
+/* line 22, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
+  line-height: 1;
 }
 
+/* line 24, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 2, scss/_colors.scss */
+html.green a:hover {
+  box-shadow: 0 0 5px #b6d125;
+  border-color: #b6d125;
+  color: #a9be38;
+}
+
+/* line 7, scss/_colors.scss */
+html.green .touchzone {
+  background-color: #a5b83e;
+}
+
+/* line 2, scss/_colors.scss */
+html.blue a:hover {
+  box-shadow: 0 0 5px #2188d0;
+  border-color: #2188d0;
+  color: #3385be;
+}
+
+/* line 7, scss/_colors.scss */
+html.blue .touchzone {
+  background-color: #3984b8;
+}
+
+/* line 2, scss/_colors.scss */
+html.pink a:hover {
+  box-shadow: 0 0 5px #d12bcd;
+  border-color: #d12bcd;
+  color: #be3ebb;
+}
+
+/* line 7, scss/_colors.scss */
+html.pink .touchzone {
+  background-color: #b844b5;
+}
+
+/* line 1, scss/_base.scss */
+div, a {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 5, scss/_base.scss */
+html, body {
+  margin: 0;
+  min-width: 320px;
+  height: 100%;
+  /* on touch devices only */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* line 15, scss/_base.scss */
 body {
-	font-size: 62.5%;
-	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-	color: #555;
-	-webkit-font-smoothing: antialiased;
-	text-rendering: optimizeLegibility;
+  font-size: 62.5%;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  color: #555;
+  /* enhances font rendering? */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-body::after {
-	content: 'mobile';
-	position: absolute;
-	z-index: 2;
-	opacity: .3;
-	top: 0;
-	right: 0;
-	padding: 1em;
-	background: rgba(255, 255, 255, .3);
-	font-size: 2em;
-	color: white;
-}
-
+/* line 25, scss/_base.scss */
 h1 {
-	border-radius: 5px;
-	background: rgba(0, 0, 0, .1);
-	font-family: 'Days', 'Arial Bold', sans-serif;
-	font-size: 2.4em;
-	font-weight: bold;
-	line-height: 2;
-	color: #eee;
+  background-color: #333;
+  padding: 0.3em 1em;
+  font-family: "Days", "Arial Bold", sans-serif;
+  color: #eee;
+  font-size: 2.4em;
+  font-weight: bold;
+  line-height: 2;
+  text-align: center;
 }
 
+/* line 36, scss/_base.scss */
 h2 {
-	font-size: 2.4em;
-	font-weight: 100;
+  font-size: 2.4em;
+  font-weight: 100;
 }
 
+/* line 41, scss/_base.scss */
 p {
-	font-size: 1.4em;
-	line-height: 1.6em;
-	word-wrap: break-word;
-	/*text-align: justify;*/
-	/*-webkit-hyphens: auto;*/
-	/*-moz-hyphens: auto;*/
-	/*hyphens: auto;*/
+  font-size: 1.4em;
+  line-height: 1.6em;
+  word-wrap: break-word;
+  /*text-align: justify;*/
+  /*-webkit-hyphens: auto;*/
+  /*-moz-hyphens: auto;*/
+  /*hyphens: auto;*/
 }
 
-a {
-	display: inline-block;
-	vertical-align: middle;
-	/*border: 2px solid #9ac847;*/
-	margin-bottom: 1em;
-	border: 2px solid #bbb;
-	border-radius: 5px;
-	background: #bbb;
-	padding: .8em;
-	font-size: 1.6em;
-	line-height: 1.2em;
-	width: 100%;
-	color: #333;
-	text-decoration: none;
-	text-shadow: 1px 1px 2px #888;
-	-webkit-transition: .3s;
-	-moz-transition: .3s;
-	transition: .3s;
-}
-
+/* line 51, scss/_base.scss */
 strong {
-	font-weight: 700;
+  font-weight: 700;
 }
 
-a:hover {
-	box-shadow: 0 0 5px #bcec4b;
-	border-color: #bcec4b;
-	background: black;
-	color: #9ac847;
-	text-shadow: none;
-}
-
-blockquote {
-	margin: 0;
-	padding: .2em;
-	font-size: 1.2em;
-	line-height: 1.5;
-	text-align: center;
-	border-radius: 5px;
-}
-
-blockquote::before {
-	content: '\201F';
-	font-size: 2em;
-}
-
-blockquote::after {
-	content: '\201E';
-	font-size: 2em;
-}
-
-header {
-	width: 100%;
-	text-align: center;
-}
-
-header h1 {
-	vertical-align: middle;
-	margin: 0;
-	padding: .3em 1em;
-}
-
-main {
-}
-
+/* line 55, scss/_base.scss */
 section {
-	padding: 1em;
-	-webkit-box-sizing: content-box;
-	-moz-box-sizing: content-box;
-	box-sizing: content-box;
+  padding: 1em;
 }
 
+@font-face {
+  font-family: "Open Sans";
+  src: url('fonts/opensans-light.eot');
+  src: url('fonts/opensans-light.eot?#iefix') format('eot'), url('fonts/opensans-light.woff') format('woff'), url('fonts/opensans-light.ttf') format('truetype'), url('fonts/opensans-light.svg') format('svg');
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url('fonts/opensans-regular.eot');
+  src: url('fonts/opensans-regular.eot?#iefix') format('eot'), url('fonts/opensans-regular.woff') format('woff'), url('fonts/opensans-regular.ttf') format('truetype'), url('fonts/opensans-regular.svg') format('svg');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url('fonts/opensans-bold.eot');
+  src: url('fonts/opensans-bold.eot?#iefix') format('eot'), url('fonts/opensans-bold.woff') format('woff'), url('fonts/opensans-bold.ttf') format('truetype'), url('fonts/opensans-bold.svg') format('svg');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Days";
+  src: url('fonts/days.eot');
+  src: url('fonts/days.eot?#iefix') format('eot'), url('fonts/days.woff') format('woff'), url('fonts/days.ttf') format('truetype'), url('fonts/days.svg') format('svg');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Fontello";
+  src: url('fonts/fontello.eot');
+  src: url('fonts/fontello.eot?#iefix') format('eot'), url('fonts/fontello.woff') format('woff'), url('fonts/fontello.ttf') format('truetype'), url('fonts/fontello.svg') format('svg');
+  font-weight: normal;
+}
+
+/* line 2, scss/_icons.scss */
 [class^="icon-"]::before,
 [class*=" icon-"]::before {
-	vertical-align: middle;
-	font-family: 'Fontello';
-	font-size: 2em;
-	/*font-style: normal;*/
-	/*font-weight: normal;*/
-	speak: none;
-	text-decoration: inherit;
-	margin-right: 0.4em;
+  vertical-align: middle;
+  font-family: 'Fontello';
+  font-size: 2em;
+  /*font-style: normal;*/
+  /*font-weight: normal;*/
+  speak: none;
+  text-decoration: inherit;
+  margin-right: 0.4em;
 }
 
-.icon-up-hand::before { content: '\261d'; } /* '☝' */
-.icon-code::before { content: '\e714'; } /* '' */
-.icon-firefox::before { content: '\e840'; } /* '' */
-.icon-chrome::before { content: '\e841'; } /* '' */
-.icon-opera::before { content: '\e842'; } /* '' */
-.icon-ie::before { content: '\e843'; } /* '' */
-.icon-github-repo::before { content: '\f09b'; } /* '' */
-.icon-github::before { content: '\f300'; } /* '' */
-.icon-github-circled::before { content: '\f301'; } /* '' */
-.icon-twitter::before { content: '\f309'; } /* '' */
-.icon-twitter-circled::before { content: '\f30a'; } /* '' */
-.icon-facebook::before { content: '\f30c'; } /* '' */
-.icon-facebook-circled::before { content: '\f30d'; } /* '' */
-.icon-gplus::before { content: '\f30f'; } /* '' */
-.icon-gplus-circled::before { content: '\f310'; } /* '' */
-.icon-tumblr::before { content: '\f315'; } /* '' */
-.icon-tumblr-circled::before { content: '\f316'; } /* '' */
-.icon-linkedin::before { content: '\f318'; } /* '' */
-.icon-linkedin-circled::before { content: '\f319'; } /* '' */
-.icon-spotify::before { content: '\f327'; } /* '' */
-.icon-spotify-circled::before { content: '\f328'; } /* '' */
-.icon-instagram::before { content: '\f32d'; } /* '' */
-.icon-download::before { content: '\1f4e5'; } /* '\1f4e5*/
+/* line 13, scss/_icons.scss */
+.icon-up-hand::before {
+  content: '\261d';
+}
 
+/* '?' */
+/* line 14, scss/_icons.scss */
+.icon-code::before {
+  content: '\e714';
+}
 
-header,
+/* '?' */
+/* line 15, scss/_icons.scss */
+.icon-firefox::before {
+  content: '\e840';
+}
+
+/* '?' */
+/* line 16, scss/_icons.scss */
+.icon-chrome::before {
+  content: '\e841';
+}
+
+/* '?' */
+/* line 17, scss/_icons.scss */
+.icon-opera::before {
+  content: '\e842';
+}
+
+/* '?' */
+/* line 18, scss/_icons.scss */
+.icon-ie::before {
+  content: '\e843';
+}
+
+/* '?' */
+/* line 19, scss/_icons.scss */
+.icon-github-repo::before {
+  content: '\f09b';
+}
+
+/* '?' */
+/* line 20, scss/_icons.scss */
+.icon-github::before {
+  content: '\f300';
+}
+
+/* '?' */
+/* line 21, scss/_icons.scss */
+.icon-github-circled::before {
+  content: '\f301';
+}
+
+/* '?' */
+/* line 22, scss/_icons.scss */
+.icon-twitter::before {
+  content: '\f309';
+}
+
+/* '?' */
+/* line 23, scss/_icons.scss */
+.icon-twitter-circled::before {
+  content: '\f30a';
+}
+
+/* '?' */
+/* line 24, scss/_icons.scss */
+.icon-facebook::before {
+  content: '\f30c';
+}
+
+/* '?' */
+/* line 25, scss/_icons.scss */
+.icon-facebook-circled::before {
+  content: '\f30d';
+}
+
+/* '?' */
+/* line 26, scss/_icons.scss */
+.icon-gplus::before {
+  content: '\f30f';
+}
+
+/* '?' */
+/* line 27, scss/_icons.scss */
+.icon-gplus-circled::before {
+  content: '\f310';
+}
+
+/* '?' */
+/* line 28, scss/_icons.scss */
+.icon-tumblr::before {
+  content: '\f315';
+}
+
+/* '?' */
+/* line 29, scss/_icons.scss */
+.icon-tumblr-circled::before {
+  content: '\f316';
+}
+
+/* '?' */
+/* line 30, scss/_icons.scss */
+.icon-linkedin::before {
+  content: '\f318';
+}
+
+/* '?' */
+/* line 31, scss/_icons.scss */
+.icon-linkedin-circled::before {
+  content: '\f319';
+}
+
+/* '?' */
+/* line 32, scss/_icons.scss */
+.icon-spotify::before {
+  content: '\f327';
+}
+
+/* '?' */
+/* line 33, scss/_icons.scss */
+.icon-spotify-circled::before {
+  content: '\f328';
+}
+
+/* '?' */
+/* line 34, scss/_icons.scss */
+.icon-instagram::before {
+  content: '\f32d';
+}
+
+/* '?' */
+/* line 35, scss/_icons.scss */
+.icon-download::before {
+  content: '\1f4e5';
+}
+
+/* '\1f4e5*/
+@-moz-keyframes tap {
+  /* line 2, scss/_anims.scss */
+  to {
+    -moz-transform: scale(0.95, 0.95);
+    transform: scale(0.95, 0.95);
+    opacity: .6;
+  }
+}
+
+@-webkit-keyframes tap {
+  /* line 2, scss/_anims.scss */
+  to {
+    -webkit-transform: scale(0.95, 0.95);
+    transform: scale(0.95, 0.95);
+    opacity: .6;
+  }
+}
+
+@-o-keyframes tap {
+  /* line 2, scss/_anims.scss */
+  to {
+    -o-transform: scale(0.95, 0.95);
+    transform: scale(0.95, 0.95);
+    opacity: .6;
+  }
+}
+
+@-ms-keyframes tap {
+  /* line 2, scss/_anims.scss */
+  to {
+    -ms-transform: scale(0.95, 0.95);
+    transform: scale(0.95, 0.95);
+    opacity: .6;
+  }
+}
+
+@keyframes tap {
+  /* line 2, scss/_anims.scss */
+  to {
+    transform: scale(0.95, 0.95);
+    opacity: .6;
+  }
+}
+
+@-webkit-keyframes flick-horizontal {
+  /* line 9, scss/_anims.scss */
+  to {
+    -webkit-transform: perspective(400px) rotateY(-45deg);
+    -moz-transform: perspective(400px) rotateY(-45deg);
+    -ms-transform: perspective(400px) rotateY(-45deg);
+    -o-transform: perspective(400px) rotateY(-45deg);
+    transform: perspective(400px) rotateY(-45deg);
+  }
+}
+
+@-webkit-keyframes flick-vertical {
+  /* line 15, scss/_anims.scss */
+  to {
+    -webkit-transform: perspective(400px) rotateX(180deg);
+    -moz-transform: perspective(400px) rotateX(180deg);
+    -ms-transform: perspective(400px) rotateX(180deg);
+    -o-transform: perspective(400px) rotateX(180deg);
+    transform: perspective(400px) rotateX(180deg);
+  }
+}
+
+/* line 23, scss/_anims.scss */
+.tap {
+  -webkit-animation: tap 0.2s linear alternate 2;
+  -moz-animation: tap 0.2s linear alternate 2;
+  -ms-animation: tap 0.2s linear alternate 2;
+  -o-animation: tap 0.2s linear alternate 2;
+  animation: tap 0.2s linear alternate 2;
+}
+
+/* line 23, scss/_anims.scss */
+.drag {
+  -webkit-animation: drag 0.2s linear 1;
+  -moz-animation: drag 0.2s linear 1;
+  -ms-animation: drag 0.2s linear 1;
+  -o-animation: drag 0.2s linear 1;
+  animation: drag 0.2s linear 1;
+}
+
+/* line 23, scss/_anims.scss */
+.flick-horizontal {
+  -webkit-animation: flick-horizontal 0.2s linear alternate 2;
+  -moz-animation: flick-horizontal 0.2s linear alternate 2;
+  -ms-animation: flick-horizontal 0.2s linear alternate 2;
+  -o-animation: flick-horizontal 0.2s linear alternate 2;
+  animation: flick-horizontal 0.2s linear alternate 2;
+}
+
+/* line 23, scss/_anims.scss */
+.flick-vertical {
+  -webkit-animation: flick-vertical 0.2s linear alternate 2;
+  -moz-animation: flick-vertical 0.2s linear alternate 2;
+  -ms-animation: flick-vertical 0.2s linear alternate 2;
+  -o-animation: flick-vertical 0.2s linear alternate 2;
+  animation: flick-vertical 0.2s linear alternate 2;
+}
+
+@media (min-width: 42.5em) {
+  /* line 21, scss/style.scss */
+  section {
+    padding: 1em 4em;
+  }
+}
+@media (min-width: 62.5em) {
+  /* line 21, scss/style.scss */
+  section {
+    width: 100em;
+    margin: 0 auto;
+    /* fallback if calc is not supported */
+    padding: 1em -webkit-calc(50% - 50em);
+    padding: 1em -moz-calc(50% - 50em);
+  }
+}
+
+/* line 33, scss/style.scss */
 section:first-child {
-	background-color: #333;
-	background-image: -webkit-linear-gradient(#2e2e2e 2px, transparent 1px), -webkit-linear-gradient(left, #2e2e2e 2px, transparent 1px);
-	background-image: -moz-linear-gradient(#2e2e2e 2px, transparent 1px), -moz-linear-gradient(left, #2e2e2e 2px, transparent 1px);
-	background-size: 3px 3px;
-	background-position: -1px -1px, -1px -1px;
-	color: #bbb;
+  background-color: #333;
+  background-image: -webkit-linear-gradient(#2e2e2e 2px, transparent 1px), -webkit-linear-gradient(left, #2e2e2e 2px, transparent 1px);
+  background-image: -moz-linear-gradient(#2e2e2e 2px, transparent 1px), -moz-linear-gradient(left, #2e2e2e 2px, transparent 1px);
+  background-size: 3px 3px;
+  background-position: -1px -1px, -1px -1px;
+  color: #bbb;
 }
-
-/*section:first-child h2 {*/
-	/*font-size: 3.8em;*/
-/*}*/
-
+/* line 41, scss/style.scss */
 section:first-child p {
-	line-height: 2em;
+  line-height: 2em;
 }
 
-.touchzone-wrapper {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
-}
-
-.touchzone {
-	position: relative;
-	margin: 2em auto 4em auto;
-	border: 10px solid rgba(255, 255, 255, .2);
-	padding-top: 75%;
-	width: 100%;
-	background: #a5b83e;
-	-webkit-animation-duration: .2s;
-	-webkit-animation-timing-function: linear;
-	-webkit-animation-direction: alternate;
-	-webkit-animation-iteration-count: 2;
-}
-
-.touchzone::after {
-	content: attr(data-event);
-}
-
-.touchzone.tap {
-	-webkit-animation-name: touch-tap;
-}
-
-.touchzone.drag {
-	-webkit-animation-name: touch-drag;
-	-webkit-animation-iteration-count: 1;
-}
-
-.touchzone.flick-horizontal {
-	-webkit-animation-name: touch-flick-horizontal;
-	-webkit-animation-duration: .2s;
-	-webkit-animation-iteration-count: 2;
-}
-
-.touchzone.flick-vertical {
-	-webkit-animation-name: touch-flick-vertical;
-	-webkit-animation-duration: .5s;
-	-webkit-animation-iteration-count: 1;
-}
-
-.touchzone.reverse {
-	-webkit-animation-direction: reverse;
-}
-
+/* line 50, scss/style.scss */
 .actions {
-	text-align: center;
+  text-align: center;
+}
+/* line 53, scss/style.scss */
+.actions a {
+  display: inline-block;
+  margin-bottom: 1em;
+  border: 2px solid #bbbbbb;
+  border-radius: 5px;
+  background: #bbb;
+  padding: .8em;
+  width: 100%;
+  font-size: 1.6em;
+  color: #333;
+  line-height: 1.2em;
+  vertical-align: middle;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px #888888;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+@media (min-width: 25em) {
+  /* line 53, scss/style.scss */
+  .actions a {
+    margin-left: 1em;
+    width: 12em;
+  }
+}
+/* line 73, scss/style.scss */
+.actions a:hover {
+  -webkit-box-shadow: 0 0 5px #bcec4b;
+  -moz-box-shadow: 0 0 5px #bcec4b;
+  box-shadow: 0 0 5px #bcec4b;
+  border-color: #bcec4b;
+  background: black;
+  color: #9ac847;
+  text-shadow: none;
 }
 
+/* line 88, scss/style.scss */
+.touchzone {
+  position: relative;
+  margin: 2em auto 4em auto;
+  border: 10px solid rgba(255, 255, 255, 0.2);
+  background: #a5b83e;
+  padding-top: 75%;
+  width: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+@media (min-width: 42.5em) {
+  /* line 88, scss/style.scss */
+  .touchzone {
+    padding-top: 0;
+    width: 60em;
+    height: 45em;
+  }
+}
+/* line 102, scss/style.scss */
+.touchzone::after {
+  content: attr(data-event);
+}
+
+/* line 108, scss/style.scss */
 .warp {
-	position: absolute;
-	opacity: 0;
-	border: 4px solid rgba(255, 255, 255, .8);;
-	border-radius: 100%;
-	background: rgba(255, 255, 255, .5);
-	pointer-events: none; /* pass through */
-	-webkit-transform: scale(.6);
-	-webkit-animation-duration: .2s;
-	-webkit-animation-timing-function: linear;
-	-webkit-animation-direction: alternate;
-	-webkit-animation-iteration-count: 2;
+  position: absolute;
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  border-radius: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  /* pass through */
 }
-
+/* line 117, scss/style.scss */
 .warp.tap {
-	-webkit-animation-name: warp-tap;
-}
-
-@media only screen and (min-width: 25em /* 400px */) {
-	body::after {
-		content: 'big-mobile';
-	}
-
-	a {
-		margin-left: 1em;
-		width: 12em;
-	}
-
-	blockquote {
-		font-size: 1.4em;
-	}
-
-	blockquote::before {
-		margin-right: .2em;
-		font-size: 3em;
-	}
-
-	blockquote::after {
-		margin-left: .2em;
-		font-size: 3em;
-	}
-}
-
-@media only screen and (min-width: 42.5em /* 680px */) {
-	body::after {
-		content: 'tablet';
-	}
-
-	section {
-		padding: 1em 4em;
-	}
-
-	.touchzone {
-		padding-top: 0;
-		width: 60em;
-		height: 45em;
-	}
-}
-
-@media only screen and (min-width: 62.5em /* 1000px */) {
-	body::after {
-		content: 'desktop';
-	}
-
-	section {
-		width: 100em;
-		margin: 0 auto; /* fallback if calc is not supported */
-		padding: 1em -webkit-calc(50% - 50em);
-		padding: 1em -moz-calc(50% - 50em);
-	}
-}
-
-@media only screen and (min-width: 80em /* 1280px */) {
-
-	/*body {*/
-		/*margin: 0 auto;*/
-		/*width: 128em;*/
-	/*}*/
-}
-
-@-webkit-keyframes touch-tap {
-	to { -webkit-transform: scale(.95); opacity: .6; }
-}
-
-@-webkit-keyframes touch-flick-horizontal {
-	to { -webkit-transform: rotateY(-45deg); }
-}
-
-@-webkit-keyframes touch-flick-vertical {
-	to { -webkit-transform: rotateX(180deg); }
-}
-
-@-webkit-keyframes warp-tap {
-	to { -webkit-transform: scale(1); opacity: 1; }
-}
-
-html.green a:hover {
-	box-shadow: 0 0 5px #bcec4b;
-	border-color: #bcec4b;
-	color: #9ac847;
-}
-html.green .touchzone {
-	background-color: #a5b83e;
-}
-
-html.blue a:hover {
-	box-shadow: 0 0 5px #44adec;
-	border-color: #44adec;
-	color: #418cc8;
-}
-html.blue .touchzone {
-	background-color: #3984b8;
-}
-
-html.pink a:hover {
-	box-shadow: 0 0 5px #ec48e9;
-	border-color: #ec48e9;
-	color: #be45bb;
-}
-html.pink .touchzone {
-	background-color: #b844b5;
+  -webkit-animation: bounceIn 0.2s linear alternate 2;
+  -moz-animation: bounceIn 0.2s linear alternate 2;
+  -ms-animation: bounceIn 0.2s linear alternate 2;
+  -o-animation: bounceIn 0.2s linear alternate 2;
+  animation: bounceIn 0.2s linear alternate 2;
 }
