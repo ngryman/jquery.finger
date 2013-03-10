@@ -20,13 +20,13 @@
 
 section {
 	@include large-size-and-up {
-		padding: 1em 4em;
+		padding: 1rem 4rem;
 	}
 	@include xlarge-size-and-up {
-		width: 100em;
+		width: 100rem;
 		margin: 0 auto; /* fallback if calc is not supported */
-		padding: 1em -webkit-calc(50% - 50em);
-		padding: 1em -moz-calc(50% - 50em);
+		padding: 1rem -webkit-calc(50% - 50rem);
+		padding: 1rem -moz-calc(50% - 50rem);
 	}
 }
 
@@ -39,7 +39,7 @@ section:first-child {
 	color: #bbb;
 
 	p {
-		line-height: 2em;
+		line-height: 3rem;
 	}
 }
 
@@ -48,26 +48,34 @@ section:first-child {
 //
 
 .actions {
-	text-align: center;
+	margin: 4rem 0;
+	@include normal-size-and-up {
+		text-align: center;
+	}
 
 	a {
 		display: inline-block;
-		margin-bottom: 1em;
 		border: 2px solid #bbb;
 		border-radius: 5px;
 		background: #bbb;
-		padding: .8em;
+		padding: 1rem;
 		width: 100%;
-		font-size: 1.6em;
+		font-size: 1.6rem;
 		color: #333;
-		line-height: 1.2em;
+		line-height: 2rem;
 		vertical-align: middle;
 		text-decoration: none;
 		@include text-shadow(1px 1px 2px #888);
-		@include transition(.3s);
+		@include transition(.2s);
 		@include normal-size-and-up {
-			margin-left: 1em;
-			width: 12em;
+			margin-left: 1rem;
+			width: 18rem;
+		}
+
+		&:first-child {
+			@include normal-size-and-below {
+				margin-bottom: 2rem;
+			}
 		}
 
 		&:hover {
@@ -87,7 +95,7 @@ section:first-child {
 
 .touchzone {
 	position: relative;
-	margin: 2em auto 4em auto;
+	margin: 2rem auto;
 	border: 10px solid rgba(255, 255, 255, .2);
 	background: #a5b83e;
 	padding-top: 75%;
@@ -95,8 +103,8 @@ section:first-child {
 	@include experimental(user-select, none);
 	@include large-size-and-up {
 		padding-top: 0;
-		width: 60em;
-		height: 45em;
+		width: 60rem;
+		height: 45rem;
 	}
 
 	&::after {
@@ -117,4 +125,13 @@ section:first-child {
 	&.tap {
 		@include animation(bounceIn .2s linear alternate 2);
 	}
+}
+
+//
+// misc
+//
+
+// gives pre a wider margin that prism does
+pre[class*="language-"] {
+	margin: 1.5rem 0;
 }

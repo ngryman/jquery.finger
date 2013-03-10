@@ -1,13 +1,16 @@
 [class^="icon-"]::before,
 [class*=" icon-"]::before {
-	vertical-align: middle;
+	vertical-align: top;
 	font-family: 'Fontello';
-	font-size: 2em;
+	font-size: 3.2rem;
 	/*font-style: normal;*/
 	/*font-weight: normal;*/
 	speak: none;
 	text-decoration: inherit;
-	margin-right: 0.4em;
+	margin-right: 0.8rem;
+	@include normal-size-and-below {
+		padding-left: 1rem;
+	}
 }
 
 .icon-up-hand::before { content: '\261d'; } /* '?' */

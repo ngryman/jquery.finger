@@ -111,14 +111,14 @@ html, body {
   margin: 0;
   min-width: 320px;
   height: 100%;
+  font-size: 62.5%;
   /* on touch devices only */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
 
-/* line 15, scss/_base.scss */
+/* line 16, scss/_base.scss */
 body {
-  font-size: 62.5%;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   color: #555;
   /* enhances font rendering? */
@@ -129,10 +129,10 @@ body {
 /* line 25, scss/_base.scss */
 h1 {
   background-color: #333;
-  padding: 0.3em 1em;
+  padding: 0.3rem 1rem;
   font-family: "Days", "Arial Bold", sans-serif;
   color: #eee;
-  font-size: 2.4em;
+  font-size: 2.4rem;
   font-weight: bold;
   line-height: 2;
   text-align: center;
@@ -140,29 +140,89 @@ h1 {
 
 /* line 36, scss/_base.scss */
 h2 {
-  font-size: 2.4em;
+  margin: 2rem 0;
+  font-size: 2.8rem;
   font-weight: 100;
+  text-shadow: 0 1px 1px #dddddd;
 }
 
-/* line 41, scss/_base.scss */
+/* line 43, scss/_base.scss */
+h3 {
+  margin: 1rem 0;
+  border-bottom: 1px solid #dddddd;
+  font-size: 2rem;
+  font-weight: 100;
+  line-height: 4rem;
+  text-shadow: 0 1px 1px #dddddd;
+}
+
+/* line 52, scss/_base.scss */
+a {
+  color: #0077aa;
+  text-decoration: none;
+}
+/* line 18, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:visited {
+  color: #0077aa;
+}
+/* line 21, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:focus {
+  color: #0077aa;
+}
+/* line 24, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:hover {
+  color: #0077aa;
+}
+/* line 27, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:active {
+  color: #0077aa;
+}
+/* line 4, ../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_hover-link.scss */
+a:hover {
+  text-decoration: underline;
+}
+
+/* line 57, scss/_base.scss */
 p {
-  font-size: 1.4em;
-  line-height: 1.6em;
+  margin: 1.5rem 0;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
   word-wrap: break-word;
   /*text-align: justify;*/
   /*-webkit-hyphens: auto;*/
   /*-moz-hyphens: auto;*/
   /*hyphens: auto;*/
 }
+/* line 67, scss/_base.scss */
+p + p {
+  margin-top: 2.5rem;
+}
 
-/* line 51, scss/_base.scss */
+/* line 72, scss/_base.scss */
+code {
+  font-size: 1.4rem;
+}
+
+/* line 76, scss/_base.scss */
+blockquote::before {
+  content: '\201F';
+  font-size: 2rem;
+}
+
+/* line 81, scss/_base.scss */
+blockquote::after {
+  content: '\201E';
+  font-size: 2rem;
+}
+
+/* line 86, scss/_base.scss */
 strong {
   font-weight: 700;
 }
 
-/* line 55, scss/_base.scss */
+/* line 90, scss/_base.scss */
 section {
-  padding: 1em;
+  padding: 1rem;
 }
 
 @font-face {
@@ -203,149 +263,156 @@ section {
 /* line 2, scss/_icons.scss */
 [class^="icon-"]::before,
 [class*=" icon-"]::before {
-  vertical-align: middle;
+  vertical-align: top;
   font-family: 'Fontello';
-  font-size: 2em;
+  font-size: 3.2rem;
   /*font-style: normal;*/
   /*font-weight: normal;*/
   speak: none;
   text-decoration: inherit;
-  margin-right: 0.4em;
+  margin-right: 0.8rem;
+}
+@media (max-width: 25em) {
+  /* line 2, scss/_icons.scss */
+  [class^="icon-"]::before,
+  [class*=" icon-"]::before {
+    padding-left: 1rem;
+  }
 }
 
-/* line 13, scss/_icons.scss */
+/* line 16, scss/_icons.scss */
 .icon-up-hand::before {
   content: '\261d';
 }
 
 /* '?' */
-/* line 14, scss/_icons.scss */
+/* line 17, scss/_icons.scss */
 .icon-code::before {
   content: '\e714';
 }
 
 /* '?' */
-/* line 15, scss/_icons.scss */
+/* line 18, scss/_icons.scss */
 .icon-firefox::before {
   content: '\e840';
 }
 
 /* '?' */
-/* line 16, scss/_icons.scss */
+/* line 19, scss/_icons.scss */
 .icon-chrome::before {
   content: '\e841';
 }
 
 /* '?' */
-/* line 17, scss/_icons.scss */
+/* line 20, scss/_icons.scss */
 .icon-opera::before {
   content: '\e842';
 }
 
 /* '?' */
-/* line 18, scss/_icons.scss */
+/* line 21, scss/_icons.scss */
 .icon-ie::before {
   content: '\e843';
 }
 
 /* '?' */
-/* line 19, scss/_icons.scss */
+/* line 22, scss/_icons.scss */
 .icon-github-repo::before {
   content: '\f09b';
 }
 
 /* '?' */
-/* line 20, scss/_icons.scss */
+/* line 23, scss/_icons.scss */
 .icon-github::before {
   content: '\f300';
 }
 
 /* '?' */
-/* line 21, scss/_icons.scss */
+/* line 24, scss/_icons.scss */
 .icon-github-circled::before {
   content: '\f301';
 }
 
 /* '?' */
-/* line 22, scss/_icons.scss */
+/* line 25, scss/_icons.scss */
 .icon-twitter::before {
   content: '\f309';
 }
 
 /* '?' */
-/* line 23, scss/_icons.scss */
+/* line 26, scss/_icons.scss */
 .icon-twitter-circled::before {
   content: '\f30a';
 }
 
 /* '?' */
-/* line 24, scss/_icons.scss */
+/* line 27, scss/_icons.scss */
 .icon-facebook::before {
   content: '\f30c';
 }
 
 /* '?' */
-/* line 25, scss/_icons.scss */
+/* line 28, scss/_icons.scss */
 .icon-facebook-circled::before {
   content: '\f30d';
 }
 
 /* '?' */
-/* line 26, scss/_icons.scss */
+/* line 29, scss/_icons.scss */
 .icon-gplus::before {
   content: '\f30f';
 }
 
 /* '?' */
-/* line 27, scss/_icons.scss */
+/* line 30, scss/_icons.scss */
 .icon-gplus-circled::before {
   content: '\f310';
 }
 
 /* '?' */
-/* line 28, scss/_icons.scss */
+/* line 31, scss/_icons.scss */
 .icon-tumblr::before {
   content: '\f315';
 }
 
 /* '?' */
-/* line 29, scss/_icons.scss */
+/* line 32, scss/_icons.scss */
 .icon-tumblr-circled::before {
   content: '\f316';
 }
 
 /* '?' */
-/* line 30, scss/_icons.scss */
+/* line 33, scss/_icons.scss */
 .icon-linkedin::before {
   content: '\f318';
 }
 
 /* '?' */
-/* line 31, scss/_icons.scss */
+/* line 34, scss/_icons.scss */
 .icon-linkedin-circled::before {
   content: '\f319';
 }
 
 /* '?' */
-/* line 32, scss/_icons.scss */
+/* line 35, scss/_icons.scss */
 .icon-spotify::before {
   content: '\f327';
 }
 
 /* '?' */
-/* line 33, scss/_icons.scss */
+/* line 36, scss/_icons.scss */
 .icon-spotify-circled::before {
   content: '\f328';
 }
 
 /* '?' */
-/* line 34, scss/_icons.scss */
+/* line 37, scss/_icons.scss */
 .icon-instagram::before {
   content: '\f32d';
 }
 
 /* '?' */
-/* line 35, scss/_icons.scss */
+/* line 38, scss/_icons.scss */
 .icon-download::before {
   content: '\1f4e5';
 }
@@ -456,17 +523,17 @@ section {
 @media (min-width: 42.5em) {
   /* line 21, scss/style.scss */
   section {
-    padding: 1em 4em;
+    padding: 1rem 4rem;
   }
 }
 @media (min-width: 62.5em) {
   /* line 21, scss/style.scss */
   section {
-    width: 100em;
+    width: 100rem;
     margin: 0 auto;
     /* fallback if calc is not supported */
-    padding: 1em -webkit-calc(50% - 50em);
-    padding: 1em -moz-calc(50% - 50em);
+    padding: 1rem -webkit-calc(50% - 50rem);
+    padding: 1rem -moz-calc(50% - 50rem);
   }
 }
 
@@ -481,41 +548,52 @@ section:first-child {
 }
 /* line 41, scss/style.scss */
 section:first-child p {
-  line-height: 2em;
+  line-height: 3rem;
 }
 
 /* line 50, scss/style.scss */
 .actions {
-  text-align: center;
+  margin: 4rem 0;
 }
-/* line 53, scss/style.scss */
+@media (min-width: 25em) {
+  /* line 50, scss/style.scss */
+  .actions {
+    text-align: center;
+  }
+}
+/* line 56, scss/style.scss */
 .actions a {
   display: inline-block;
-  margin-bottom: 1em;
   border: 2px solid #bbbbbb;
   border-radius: 5px;
   background: #bbb;
-  padding: .8em;
+  padding: 1rem;
   width: 100%;
-  font-size: 1.6em;
+  font-size: 1.6rem;
   color: #333;
-  line-height: 1.2em;
+  line-height: 2rem;
   vertical-align: middle;
   text-decoration: none;
   text-shadow: 1px 1px 2px #888888;
-  -webkit-transition: 0.3s;
-  -moz-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
 }
 @media (min-width: 25em) {
-  /* line 53, scss/style.scss */
+  /* line 56, scss/style.scss */
   .actions a {
-    margin-left: 1em;
-    width: 12em;
+    margin-left: 1rem;
+    width: 18rem;
   }
 }
-/* line 73, scss/style.scss */
+@media (max-width: 25em) {
+  /* line 75, scss/style.scss */
+  .actions a:first-child {
+    margin-bottom: 2rem;
+  }
+}
+/* line 81, scss/style.scss */
 .actions a:hover {
   -webkit-box-shadow: 0 0 5px #bcec4b;
   -moz-box-shadow: 0 0 5px #bcec4b;
@@ -526,10 +604,10 @@ section:first-child p {
   text-shadow: none;
 }
 
-/* line 88, scss/style.scss */
+/* line 96, scss/style.scss */
 .touchzone {
   position: relative;
-  margin: 2em auto 4em auto;
+  margin: 2rem auto;
   border: 10px solid rgba(255, 255, 255, 0.2);
   background: #a5b83e;
   padding-top: 75%;
@@ -541,19 +619,19 @@ section:first-child p {
   user-select: none;
 }
 @media (min-width: 42.5em) {
-  /* line 88, scss/style.scss */
+  /* line 96, scss/style.scss */
   .touchzone {
     padding-top: 0;
-    width: 60em;
-    height: 45em;
+    width: 60rem;
+    height: 45rem;
   }
 }
-/* line 102, scss/style.scss */
+/* line 110, scss/style.scss */
 .touchzone::after {
   content: attr(data-event);
 }
 
-/* line 108, scss/style.scss */
+/* line 116, scss/style.scss */
 .warp {
   position: absolute;
   border: 4px solid rgba(255, 255, 255, 0.8);
@@ -562,11 +640,16 @@ section:first-child p {
   pointer-events: none;
   /* pass through */
 }
-/* line 117, scss/style.scss */
+/* line 125, scss/style.scss */
 .warp.tap {
   -webkit-animation: bounceIn 0.2s linear alternate 2;
   -moz-animation: bounceIn 0.2s linear alternate 2;
   -ms-animation: bounceIn 0.2s linear alternate 2;
   -o-animation: bounceIn 0.2s linear alternate 2;
   animation: bounceIn 0.2s linear alternate 2;
+}
+
+/* line 135, scss/style.scss */
+pre[class*="language-"] {
+  margin: 1.5rem 0;
 }

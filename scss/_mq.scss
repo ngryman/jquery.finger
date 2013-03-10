@@ -2,8 +2,15 @@ $mq-small: 20em /* 320px */ !default;
 $mq-normal: 25em /* 400px */ !default;
 $mq-large: 42.5em /* 680px */ !default;
 $mq-xlarge: 62.5em /* 1000px */ !default;
-$mq-xlarge: 62.5em /* 1000px */ !default;
 $mq-xxlarge: 80em /* 1280px */ !default;
+
+//
+// small size
+//
+
+@mixin small-size-only {
+	@media (max-width: $mq-small) { @content; }
+}
 
 //
 // normal size
@@ -15,6 +22,10 @@ $mq-xxlarge: 80em /* 1280px */ !default;
 
 @mixin normal-size-and-up {
 	@media (min-width: $mq-normal) { @content; }
+}
+
+@mixin normal-size-and-below {
+	@media (max-width: $mq-normal) { @content; }
 }
 
 //

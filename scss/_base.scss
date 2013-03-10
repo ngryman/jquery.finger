@@ -6,6 +6,7 @@ html, body {
 	margin: 0;
 	min-width: 320px;
 	height: 100%;
+	font-size: 62.5%;
 
 	/* on touch devices only */
 	-webkit-text-size-adjust: 100%;
@@ -13,7 +14,6 @@ html, body {
 }
 
 body {
-	font-size: 62.5%;
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	color: #555;
 
@@ -24,28 +24,63 @@ body {
 
 h1 {
 	background-color: #333;
-	padding: .3em 1em;
+	padding: .3rem 1rem;
 	font-family: 'Days', 'Arial Bold', sans-serif;
 	color: #eee;
-	font-size: 2.4em;
+	font-size: 2.4rem;
 	font-weight: bold;
 	line-height: 2;
 	text-align: center;
 }
 
 h2 {
-	font-size: 2.4em;
+	margin: 2rem 0;
+	font-size: 2.8rem;
 	font-weight: 100;
+	@include text-shadow(0 1px 1px #ddd);
+}
+
+h3 {
+	margin: 1rem 0;
+	border-bottom: 1px solid #ddd;
+	font-size: 2rem;
+	font-weight: 100;
+	line-height: 4rem;
+	@include text-shadow(0 1px 1px #ddd);
+}
+
+a{
+	@include link-colors(#07a, saturate(#07a, 10%), #07a, #07a, #07a);
+	@include hover-link;
 }
 
 p {
-	font-size: 1.4em;
-	line-height: 1.6em;
+	margin: 1.5rem 0;
+	font-size: 1.4rem;
+	line-height: 2.4rem;
 	word-wrap: break-word;
 	/*text-align: justify;*/
 	/*-webkit-hyphens: auto;*/
 	/*-moz-hyphens: auto;*/
 	/*hyphens: auto;*/
+
+	+p {
+		margin-top: 2.5rem;
+	}
+}
+
+code {
+	font-size: 1.4rem;
+}
+
+blockquote::before {
+	content: '\201F';
+	font-size: 2rem;
+}
+
+blockquote::after {
+	content: '\201E';
+	font-size: 2rem;
 }
 
 strong {
@@ -53,5 +88,5 @@ strong {
 }
 
 section {
-	padding: 1em;
+	padding: 1rem;
 }

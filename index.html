@@ -5,7 +5,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <!--<link rel="stylesheet" href="normalize.css">-->
+    <link rel="stylesheet" href="libs/prism.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,32 +20,86 @@
     <main>
         <section>
             <h2>Try it...</h2>
-
             <div class="touchzone" data-event></div>
-
             <div class="actions">
                 <a href="http://github.com/ngryman/jquery.finger/zipball/v0.0.6" class="icon-download">Download</a>
                 <a href="http://github.com/ngryman/jquery.finger" class="icon-github-repo">Github</a>
             </div>
-
-            <p>
-                jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices.
-                It also provide a common set of events to handle basic gestures such as drag and pinch.
-                Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery
-                delegated events.
-            </p>
+			<p>
+				jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices.
+				It also provide a common set of events to handle basic gestures such as drag and pinch.
+				Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery
+				delegated events.
+			</p>
         </section>
 
         <section>
-            <h2>Try it</h2>
+            <h2>Getting started</h2>
+			<p>
+				You can give it a shot by adding the script right after <strong>jQuery</strong>:
+			</p>
+			<pre><code class="language-markup">
+&lt;script src="https://github.com/ngryman/jquery.finger/blob/v0.0.6/dist/jquery.finger.js"&gt;&lt;/script&gt;
+			</code></pre>
+			<p>
+				Then you can subscribe to any of the <srong>jQuery Finger</srong>
+				<a href="#events">events</a> like this:
+			</p>
+			<pre><code class="language-javascript">
+// for direct event
+$('.touch').on('tap', function(e) {
+    console.log(this, e);
+});
 
-            <p>
-                <strong>jQuery Finger</strong> unifies click and touch events by removing the 300ms delay on touch
-                devices. It also provide a common set of events to handle basic gestures such as drag and pinch.
-                Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery
-                delegated events.
-            </p>
+// for direct event
+$('.parent').on('tap', '.touch', function(e) {
+    console.log(this, e);
+});
+			</code></pre>
         </section>
+
+		<section>
+			<h2 id="events">Events</h2>
+			<p>
+				<strong>jQuery Finger</strong> tries to focus on a small, simple set of events. You can use the
+				provided events like any other <strong>jQuery</strong> event.
+			</p>
+			<p>
+				Direct and delegated events are both supported which can be
+			</p>
+			<h3>Tap</h3>
+			<p>
+				The <strong>tap</strong> event is the most basic one and is essentially like a <strong>click</strong>.
+				On touch devices, it removes the 300ms delay of the standard click.
+			</p>
+			<p>
+				<strong>jQuery Finger</strong> won't fire this event if the pointer has moved above a specific threshold
+				(see <a href="#configuration">Configuration</a>).
+			</p>
+			<pre><code class="language-javascript">
+// for direct event
+$('.touch').on('tap', function(e) {
+console.log(this, e);
+});
+
+// for direct event
+$('.parent').on('tap', '.touch', function(e) {
+console.log(this, e);
+});
+			</code></pre>
+		</section>
+
+		<section>
+			<h2 id="configuration">Configuration</h2>
+			<pre><code class="language-javascript">
+$.Finger = {
+    pressDuration: 300,
+    doubleTapInterval: 300,
+    flickDuration: 150,
+    motionThreshold: 5
+};
+			</code></pre>
+		</section>
     </main>
 
     <footer></footer>
@@ -54,6 +108,7 @@
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="jquery.finger.min.js"></script>
+    <script src="libs/prism.min.js"></script>
     <script>
         (function($) {
 
