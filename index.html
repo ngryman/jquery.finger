@@ -1,9 +1,27 @@
 <!doctype html>
+<!--
+     _                       ___ _
+    |_|___ _ _ ___ ___ _ _  |  _|_|___ ___ ___ ___
+    | | . | | | -_|  _| | |_|  _| |   | . | -_|  _|
+   _| |_  |___|___|_| |_  |_|_| |_|_|_|_  |___|_|
+  |___| |_|           |___|           |___|
+
+  Because ASCII matters...
+
+  I salute you young h@x0r.
+  I invite you to open the humans.txt file for more info about some cool stuff used to make this website.
+
+  May the source be with you :)
+
+  Nico
+-->
 <html>
 <head>
     <title>jQuery Finger</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link type="text/plain" rel="author" href="http://ngryman.github.com/jquery.finger/humans.txt">
 
     <link rel="stylesheet" href="libs/prism.css">
     <link rel="stylesheet" href="style.css">
@@ -20,7 +38,7 @@
     <main>
         <section>
             <h2>Try it...</h2>
-            <div class="touchzone" data-event></div>
+            <div id="touchzone" data-event></div>
             <div class="actions">
                 <a href="http://github.com/ngryman/jquery.finger/zipball/v0.0.6" class="icon-download">Download</a>
                 <a href="http://github.com/ngryman/jquery.finger" class="icon-github-repo">Github</a>
@@ -104,115 +122,12 @@ $.Finger = {
 
     <footer></footer>
 
-    <div class="warp"></div>
+    <div id="nipple"></div>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="jquery.finger.min.js"></script>
+    <script src="libs/jquery.finger.js"></script>
+    <script src="libs/plugins.js"></script>
     <script src="libs/prism.min.js"></script>
-    <script>
-        (function($) {
-
-            // https://code.google.com/p/jquery-debounce/
-            $.debounce = function(fn, timeout, invokeAsap, ctx) {
-
-                if (arguments.length == 3 && typeof invokeAsap != 'boolean') {
-                    ctx = invokeAsap;
-                    invokeAsap = false;
-                }
-
-                var timer;
-
-                return function() {
-
-                    var args = arguments;
-                    ctx = ctx || this;
-
-                    invokeAsap && !timer && fn.apply(ctx, args);
-
-                    clearTimeout(timer);
-
-                    timer = setTimeout(function() {
-                        invokeAsap || fn.apply(ctx, args);
-                        timer = null;
-                    }, timeout);
-
-                };
-
-            };
-
-        })(jQuery);
-    </script>
-    <script>
-        (function($) {
-            $.fn.cssanim = function(animation, cls, reverse) {
-                this.removeClass().addClass(cls);
-                this[0].offsetWidth;
-                return this.addClass(animation).addClass(reverse ? 'reverse' : '');
-            };
-
-            $.fn.cssreset = function() {
-                return this.css({
-                    transition: 'none',
-                    transform: 'rotateY(0) rotateX(0)'
-                });
-            };
-        })(jQuery);
-    </script>
-    <script>
-        var $touch = $('.touchzone');
-        var $warp = $('.warp');
-        var w, h;
-        var colors = 'green blue pink'.split(' ');
-        colors.index = 0;
-
-        $touch.on('tap', function(e) {
-            var x = e.x,
-                y = e.y;
-
-            $touch.cssreset().cssanim('tap', 'touchzone').attr('data-event', 'tap');
-            $warp.cssanim('tap', 'warp');
-            $warp.css({
-                left: x - w / 20,
-                top: y - w / 20,
-                width: w / 10,
-                height: w / 10
-            });
-        });
-
-        $touch.on('doubletap', function(e) {
-            $('html').removeClass(colors[colors.index]);
-            colors.index = (colors.index + 1) % colors.length;
-            $('html').addClass(colors[colors.index]);
-
-            $touch.attr('data-event', 'doubletap');
-        });
-
-        $touch.on('drag', function(e) {
-            var dx = e.dx,
-                dy = e.dy;
-
-            $touch.css({
-                transition: !e.end ? 'none' : '.2s linear',
-                transform: 'perspective(400px) ' + !e.end ? 'horizontal' == e.orientation ? 'rotateY(' + -dx / 4 + 'deg)' : 'rotateX(' + dy / 4 + 'deg)' : 'rotateY(0)'
-            });
-            $touch.cssanim('drag', 'touchzone').attr('data-event', 'drag');
-        });
-        
-        $touch.on('flick', function(e) {
-            /*
-             * TODO
-             * s'abonner a animationend pour reset et s'assurer qu'il n'y a aucun attribut de style de transformation et de transition
-             */
-            $touch.cssanim('flick-' + e.orientation, 'touchzone', -1 == e.direction).attr('data-event', 'flick');;
-        });
-
-        $(window).on('load resize', $.debounce(function(e) {
-            w = $touch.outerWidth();
-            h = $touch.outerHeight();
-
-//            $('.touchzone-wrapper').css('perspective', $('.touchzone-wrapper').innerWidth());
-
-        }, 100));
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>

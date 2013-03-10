@@ -4,7 +4,7 @@
 		border-color: saturate($color, 20%);
 		color: saturate($color, 5%);
 	}
-	html.#{$name} .touchzone {
+	html.#{$name} #touchzone {
 		background-color: $color
 	}
 }

@@ -17,35 +17,13 @@
 	}
 }
 
-$animations: (tap .2s linear alternate 2) (drag .2s linear 1) (flick-horizontal .2s linear alternate 2) (flick-vertical .2s linear alternate 2);
+$animations: (tap .2s linear alternate 2)
+	(drag .2s linear 1)
+	(flick-horizontal .2s linear alternate 2)
+	(flick-vertical .2s linear alternate 2);
 
 @each $anim in $animations {
-	.#{nth($anim, 1)} {
+	[data-animation=#{nth($anim, 1)}] {
 		@include animation($anim);
 	}
 }
-
-//.tap {
-//	@include animation-name(tap);
-//}
-//
-//.drag {
-//	-webkit-animation-name: touch-drag;
-//	-webkit-animation-iteration-count: 1;
-//}
-//
-//.flick-horizontal {
-//	-webkit-animation-name: touch-flick-horizontal;
-//	-webkit-animation-duration: .2s;
-//	-webkit-animation-iteration-count: 2;
-//}
-//
-//.flick-vertical {
-//	-webkit-animation-name: touch-flick-vertical;
-//	-webkit-animation-duration: .5s;
-//	-webkit-animation-iteration-count: 1;
-//}
-//
-//.reverse {
-//	-webkit-animation-direction: reverse;
-//}

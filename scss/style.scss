@@ -93,13 +93,15 @@ section:first-child {
 // Let the user play with a funny visual feedback :)
 //
 
-.touchzone {
+#touchzone {
 	position: relative;
 	margin: 2rem auto;
 	border: 10px solid rgba(255, 255, 255, .2);
 	background: #a5b83e;
 	padding-top: 75%;
 	width: 100%;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
 	@include experimental(user-select, none);
 	@include large-size-and-up {
 		padding-top: 0;
@@ -110,10 +112,15 @@ section:first-child {
 	&::after {
 		content: attr(data-event);
 	}
+
+	&.grabbing {
+		cursor: -webkit-grabbing;
+		cursor: -moz-grabbing;
+	}
 }
 
 // visual indicator on the location of the tap
-.warp {
+#nipple {
 	position: absolute;
 	//opacity: 0;
 	border: 4px solid rgba(255, 255, 255, .8);;

@@ -22,7 +22,7 @@
 
 	function startHandler(event) {
 		var data = {};
-		data.move = { x: event.pageX, y: event.pageY };
+		data.move = { x: event.originalEvent.pageX, y: event.originalEvent.pageY };
 		data.start = $.extend({ time: event.timeStamp, target: event.target }, data.move);
 
 		$.event.add(this, moveEvent + '.finger', moveHandler, data);
@@ -33,10 +33,10 @@
 		var data = event.data;
 
 		// motion data
-		data.move.x = event.pageX;
-		data.move.y = event.pageY;
-		data.move.dx = event.pageX - data.start.x;
-		data.move.dy = event.pageY - data.start.y;
+		data.move.x = event.originalEvent.pageX;
+		data.move.y = event.originalEvent.pageY;
+		data.move.dx = data.move.x - data.start.x;
+		data.move.dy = data.move.y - data.start.y;
 		data.move.adx = Math.abs(data.move.dx);
 		data.move.ady = Math.abs(data.move.dy);
 

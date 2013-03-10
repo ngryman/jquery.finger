@@ -71,7 +71,7 @@ html.green a:hover {
 }
 
 /* line 7, scss/_colors.scss */
-html.green .touchzone {
+html.green #touchzone {
   background-color: #a5b83e;
 }
 
@@ -83,7 +83,7 @@ html.blue a:hover {
 }
 
 /* line 7, scss/_colors.scss */
-html.blue .touchzone {
+html.blue #touchzone {
   background-color: #3984b8;
 }
 
@@ -95,7 +95,7 @@ html.pink a:hover {
 }
 
 /* line 7, scss/_colors.scss */
-html.pink .touchzone {
+html.pink #touchzone {
   background-color: #b844b5;
 }
 
@@ -484,8 +484,8 @@ section {
   }
 }
 
-/* line 23, scss/_anims.scss */
-.tap {
+/* line 26, scss/_anims.scss */
+[data-animation=tap] {
   -webkit-animation: tap 0.2s linear alternate 2;
   -moz-animation: tap 0.2s linear alternate 2;
   -ms-animation: tap 0.2s linear alternate 2;
@@ -493,8 +493,8 @@ section {
   animation: tap 0.2s linear alternate 2;
 }
 
-/* line 23, scss/_anims.scss */
-.drag {
+/* line 26, scss/_anims.scss */
+[data-animation=drag] {
   -webkit-animation: drag 0.2s linear 1;
   -moz-animation: drag 0.2s linear 1;
   -ms-animation: drag 0.2s linear 1;
@@ -502,8 +502,8 @@ section {
   animation: drag 0.2s linear 1;
 }
 
-/* line 23, scss/_anims.scss */
-.flick-horizontal {
+/* line 26, scss/_anims.scss */
+[data-animation=flick-horizontal] {
   -webkit-animation: flick-horizontal 0.2s linear alternate 2;
   -moz-animation: flick-horizontal 0.2s linear alternate 2;
   -ms-animation: flick-horizontal 0.2s linear alternate 2;
@@ -511,8 +511,8 @@ section {
   animation: flick-horizontal 0.2s linear alternate 2;
 }
 
-/* line 23, scss/_anims.scss */
-.flick-vertical {
+/* line 26, scss/_anims.scss */
+[data-animation=flick-vertical] {
   -webkit-animation: flick-vertical 0.2s linear alternate 2;
   -moz-animation: flick-vertical 0.2s linear alternate 2;
   -ms-animation: flick-vertical 0.2s linear alternate 2;
@@ -605,13 +605,15 @@ section:first-child p {
 }
 
 /* line 96, scss/style.scss */
-.touchzone {
+#touchzone {
   position: relative;
   margin: 2rem auto;
   border: 10px solid rgba(255, 255, 255, 0.2);
   background: #a5b83e;
   padding-top: 75%;
   width: 100%;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -620,19 +622,24 @@ section:first-child p {
 }
 @media (min-width: 42.5em) {
   /* line 96, scss/style.scss */
-  .touchzone {
+  #touchzone {
     padding-top: 0;
     width: 60rem;
     height: 45rem;
   }
 }
-/* line 110, scss/style.scss */
-.touchzone::after {
+/* line 112, scss/style.scss */
+#touchzone::after {
   content: attr(data-event);
 }
-
 /* line 116, scss/style.scss */
-.warp {
+#touchzone.grabbing {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
+/* line 123, scss/style.scss */
+#nipple {
   position: absolute;
   border: 4px solid rgba(255, 255, 255, 0.8);
   border-radius: 100%;
@@ -640,8 +647,8 @@ section:first-child p {
   pointer-events: none;
   /* pass through */
 }
-/* line 125, scss/style.scss */
-.warp.tap {
+/* line 132, scss/style.scss */
+#nipple.tap {
   -webkit-animation: bounceIn 0.2s linear alternate 2;
   -moz-animation: bounceIn 0.2s linear alternate 2;
   -ms-animation: bounceIn 0.2s linear alternate 2;
@@ -649,7 +656,7 @@ section:first-child p {
   animation: bounceIn 0.2s linear alternate 2;
 }
 
-/* line 135, scss/style.scss */
+/* line 142, scss/style.scss */
 pre[class*="language-"] {
   margin: 1.5rem 0;
 }

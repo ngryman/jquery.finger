@@ -1,0 +1,27 @@
+/* TEAM */
+Developer: Nicolas Gryman
+Site: http://ngryman.sh
+Email: ngryman@gmail.com
+Twitter: @ngryman
+Location: Montreal, Canada
+
+/* THANKS */
+All the open source community and particularly some very inspiring people:
+ - Paul Irish
+ - Chris Coyier
+ - Lea Verou
+ - Paul Lewis
+ - Hakim El Hattab
+ - ... much more ...
+
+/* SITE */
+Last update: sometime between 2013 and 2100 (I hope to live old. And seriously? I will never update this).
+Standards: HTML5, CSS3, JavaScript (ECMA 5)
+Components: jQuery, jQuery Finger ;), Prism, Compass, Animate
+Software: IntelliJ 12, Chrome Dev Tools
+
+/* WIHL (What I Have Learn) */
+- Use media queries w/ rem units
+- Use them in place with the beautiful SASS @content instruction: http://paulstamatiou.com/responsive-retina-blog-development-part-1
+- Use of Fontello (http://fontello.com) which is a really great font icon generator
+- Have to learn some design stuff ;)
