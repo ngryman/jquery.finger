@@ -10,7 +10,7 @@
 
 	var hasTouch = 'ontouchstart' in window,
 		startEvent = hasTouch ? 'touchstart' : 'mousedown',
-		stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup',
+		stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup mouseleave',
 		moveEvent = hasTouch ? 'touchmove' : 'mousemove';
 
 	$.Finger = {
