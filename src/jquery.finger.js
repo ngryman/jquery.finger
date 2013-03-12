@@ -102,6 +102,9 @@
 			now = event.timeStamp,
 			evtName;
 
+		// no start event fired, do nothing
+		if (!f.start) return;
+
 		// tap-like events
 		evtName = now - f.start.time < $.Finger.pressDuration ? 'tap' : 'press';
 		// is it a double tap ?
