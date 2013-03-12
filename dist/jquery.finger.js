@@ -1,4 +1,4 @@
-/*! jquery.finger - v0.0.6 - 2013-02-28
+/*! jquery.finger - v0.0.7 - 2013-03-12
 * https://github.com/ngryman/jquery.finger
 * Copyright (c) 2013 Nicolas Gryman; Licensed MIT */
 
@@ -6,7 +6,7 @@
 
 	var hasTouch = 'ontouchstart' in window,
 		startEvent = hasTouch ? 'touchstart' : 'mousedown',
-		stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup',
+		stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup mouseleave',
 		moveEvent = hasTouch ? 'touchmove' : 'mousemove';
 
 	$.Finger = {
@@ -35,6 +35,10 @@
 		$.event[action](el, stopEvent, stopHandler, null, handleObj.selector);
 	}
 
+	function page(coord, e) {
+		return (hasTouch ? e.originalEvent.touches[0] : e)['page' + coord.toUpperCase()];
+	}
+
 	function fire(evtName, event, f) {
 		if (f[evtName] && !f[evtName].canceled) {
 			$.extend(event, f.move);
@@ -49,7 +53,7 @@
 
 	function startHandler(event) {
 		var f = finger(event.delegateTarget);
-		f.move = { x: event.pageX, y: event.pageY };
+		f.move = { x: page('x', event), y: page('y', event) };
 		f.start = $.extend({ time: event.timeStamp }, f.move);
 	}
 
@@ -60,10 +64,10 @@
 		if (!f.start) return;
 
 		// motion data
-		f.move.x = event.pageX;
-		f.move.y = event.pageY;
-		f.move.dx = event.pageX - f.start.x;
-		f.move.dy = event.pageY - f.start.y;
+		f.move.x = page('x', event);
+		f.move.y = page('y', event);
+		f.move.dx = f.move.x - f.start.x;
+		f.move.dy = f.move.y - f.start.y;
 		f.move.adx = Math.abs(f.move.dx);
 		f.move.ady = Math.abs(f.move.dy);
 
@@ -93,6 +97,9 @@
 		var f = finger(event.delegateTarget),
 			now = event.timeStamp,
 			evtName;
+
+		// no start event fired, do nothing
+		if (!f.start) return;
 
 		// tap-like events
 		evtName = now - f.start.time < $.Finger.pressDuration ? 'tap' : 'press';

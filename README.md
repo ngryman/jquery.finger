@@ -49,6 +49,9 @@ _(Coming soon)_
 
 ## Release History
 
+### v0.0.7
+  - various cross browsers fixes.
+
 ### v0.0.6
   - updated description.
 
