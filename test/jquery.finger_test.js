@@ -10,7 +10,16 @@
 	/** extend Mocha.Context to hence event trigger */
 
 	Mocha.Context.prototype.tapStart = function() {
-		this.$elems.filter(':first').trigger(new $.Event(startEvent, { pageX: 0, pageY: 0 }));
+		this.$elems.filter(':first').trigger(new $.Event(startEvent, {
+			pageX: 0,
+			pageY: 0,
+			originalEvent: {
+				touches: [{
+					pageX: 0,
+					pageY: 0
+				}]
+			}
+		}));
 	};
 
 	Mocha.Context.prototype.tapEnd = function() {
@@ -35,7 +44,13 @@
 
 			self.$elems.filter(':first').trigger($.Event(moveEvent, {
 				pageX: Math.ceil(t / duration * x),
-				pageY: Math.ceil(t / duration * y)
+				pageY: Math.ceil(t / duration * y),
+				originalEvent: {
+					touches: [{
+						pageX: Math.ceil(t / duration * x),
+						pageY: Math.ceil(t / duration * y)
+					}]
+				}
 			}));
 			timer = setTimeout(mv, 0);
 		})();

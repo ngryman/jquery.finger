@@ -39,6 +39,10 @@
 		$.event[action](el, stopEvent, stopHandler, null, handleObj.selector);
 	}
 
+	function page(coord, e) {
+		return (hasTouch ? e.originalEvent.touches[0] : e)['page' + coord.toUpperCase()];
+	}
+
 	function fire(evtName, event, f) {
 		if (f[evtName] && !f[evtName].canceled) {
 			$.extend(event, f.move);
@@ -53,7 +57,7 @@
 
 	function startHandler(event) {
 		var f = finger(event.delegateTarget);
-		f.move = { x: event.pageX, y: event.pageY };
+		f.move = { x: page('x', event), y: page('y', event) };
 		f.start = $.extend({ time: event.timeStamp }, f.move);
 	}
 
@@ -64,10 +68,10 @@
 		if (!f.start) return;
 
 		// motion data
-		f.move.x = event.pageX;
-		f.move.y = event.pageY;
-		f.move.dx = event.pageX - f.start.x;
-		f.move.dy = event.pageY - f.start.y;
+		f.move.x = page('x', event);
+		f.move.y = page('y', event);
+		f.move.dx = f.move.x - f.start.x;
+		f.move.dy = f.move.y - f.start.y;
 		f.move.adx = Math.abs(f.move.dx);
 		f.move.ady = Math.abs(f.move.dy);
 
