@@ -9,21 +9,28 @@
 
 	/** extend Mocha.Context to hence event trigger */
 
+	Mocha.Context.prototype.cursorPos = { x: 0, y: 0 };
+
 	Mocha.Context.prototype.tapStart = function() {
-		this.$elems.filter(':first').trigger(new $.Event(startEvent, {
-			pageX: 0,
-			pageY: 0,
+		this.cursorPos.x = 0;
+		this.cursorPos.y = 0;
+
+		var $el = $(document.elementFromPoint(this.cursorPos.x, this.cursorPos.y));
+		$el.trigger(new $.Event(startEvent, {
+			pageX: this.cursorPos.x,
+			pageY: this.cursorPos.y,
 			originalEvent: {
 				touches: [{
-					pageX: 0,
-					pageY: 0
+					pageX: this.cursorPos.x,
+					pageY: this.cursorPos.y
 				}]
 			}
 		}));
 	};
 
 	Mocha.Context.prototype.tapEnd = function() {
-		this.$elems.filter(':first').trigger(stopEvent);
+		var $el = $(document.elementFromPoint(this.cursorPos.x, this.cursorPos.y));
+		$el.trigger(stopEvent);
 	};
 
 	Mocha.Context.prototype.move = function(callback, x, y, duration) {
@@ -42,13 +49,17 @@
 			}
 			last = now;
 
-			self.$elems.filter(':first').trigger($.Event(moveEvent, {
-				pageX: Math.ceil(t / duration * x),
-				pageY: Math.ceil(t / duration * y),
+			self.cursorPos.x = Math.ceil(t / duration * x);
+			self.cursorPos.y = Math.ceil(t / duration * y);
+
+			var $el = $(document.elementFromPoint(self.cursorPos.x, self.cursorPos.y));
+			$el.trigger($.Event(moveEvent, {
+				pageX: self.cursorPos.x,
+				pageY: self.cursorPos.y,
 				originalEvent: {
 					touches: [{
-						pageX: Math.ceil(t / duration * x),
-						pageY: Math.ceil(t / duration * y)
+						pageX: self.cursorPos.x,
+						pageY: self.cursorPos.y
 					}]
 				}
 			}));
@@ -101,7 +112,7 @@
 
 	describe('jquery.finger', function() {
 		beforeEach(function() {
-			this.$elems = $('#qunit-fixture .touchme');
+			this.$elems = $('#fixtures .touchme');
 		});
 
 		afterEach(function() {
