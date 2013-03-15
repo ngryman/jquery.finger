@@ -63,6 +63,7 @@
 		// for delegated events, the target may change over time
 		// this ensures we notify the right target and simulates the mouseleave behavior
 		if (event.target !== data.start.target) {
+			event.target = data.start.target;
 			stopHandler.call(this, $.Event(stopEvent + '.finger', event));
 			return;
 		}
