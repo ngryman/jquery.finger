@@ -339,6 +339,20 @@
 					}, 100, 100);
 				}, 100, 100);
 			});
+
+			it('should correctly stop at the edge of an element for delegated events', function(done) {
+				var targets = [];
+				$('body').on('drag', '.touchme', function(event) {
+					console.log(event.target);
+					if (-1 == targets.indexOf(event.target)) {
+						targets.push(event.target);
+					}
+				});
+				this.drag(function() {
+					targets.length.should.equal(1);
+					done();
+				}, 0, 200);
+			});
 		});
 
 		describe('flick event', function() {
