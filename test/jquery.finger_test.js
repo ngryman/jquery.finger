@@ -136,6 +136,13 @@
 				handler.should.have.been.calledOn(this.$elems[0]);
 			});
 
+			it('should pass the correct event type', function() {
+				this.$elems.on('tap', function(e) {
+					e.type.should.equal('tap');
+				});
+				this.tap();
+			});
+
 			it('should fire handlers in order', function() {
 				var handler1 = sinon.spy();
 				var handler2 = sinon.spy();
@@ -216,6 +223,13 @@
 				});
 			});
 
+			it('should pass the correct event type', function(done) {
+				this.$elems.on('press', function(e) {
+					e.type.should.equal('press');
+				});
+				this.press(done);
+			});
+
 			it('should not fire tap event', function(done) {
 				var handler1 = sinon.spy();
 				var handler2 = sinon.spy();
@@ -258,6 +272,13 @@
 					done();
 				});
 			});
+
+			it('should pass the correct event type', function(done) {
+				this.$elems.on('doubletap', function(e) {
+					e.type.should.equal('doubletap');
+				});
+				this.doubleTap(done);
+			});
 		});
 
 		describe('drag event', function() {
@@ -279,6 +300,13 @@
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
 				}, 100, 0);
+			});
+
+			it('should pass the correct event type', function(done) {
+				this.$elems.on('drag', function(e) {
+					e.type.should.equal('drag');
+				});
+				this.drag(done);
 			});
 
 			it('should pass valid coordinates', function(done) {
@@ -380,6 +408,13 @@
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
 				}, 100, 0);
+			});
+
+			it('should pass the correct event type', function(done) {
+				this.$elems.on('flick', function(e) {
+					e.type.should.equal('flick');
+				});
+				this.flick(done);
 			});
 		});
 	});
