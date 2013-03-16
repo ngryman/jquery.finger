@@ -69,7 +69,7 @@
 		}
 
 		// fire drag event
-		$.event.trigger($.Event('drag' + $.expando, data.move), null, event.target);
+		$.event.trigger($.Event('drag', data.move), null, event.target);
 	}
 
 	function stopHandler(event) {
@@ -87,13 +87,13 @@
 				!f.prev || f.prev && now - f.prev > $.Finger.doubleTapInterval ? 'tap' : 'doubletap' :
 				'press';
 			f.prev = now;
-			$.event.trigger($.Event(evtName + $.expando, data.move), null, event.target);
+			$.event.trigger($.Event(evtName, data.move), null, event.target);
 		}
 		// motion events
 		else {
 			evtName = now - data.start.time < $.Finger.flickDuration ? 'flick' : 'drag';
 			data.move.end = true;
-			$.event.trigger($.Event(evtName + $.expando, data.move), null, event.target);
+			$.event.trigger($.Event(evtName, data.move), null, event.target);
 		}
 
 		$.event.remove(this, moveEvent + '.finger', moveHandler);
@@ -106,14 +106,6 @@
 				$.event.add(this, startEvent + '.finger', startHandler);
 				$.data(this, 'finger', {});
 			}
-		},
-
-		add: function(handleObj) {
-			$.event.add(this, handleObj.type + $.expando, handleObj.handler, null, handleObj.selector);
-		},
-
-		remove: function(handleObj) {
-			$.event.add(this, handleObj.type + $.expando, handleObj.handler, null, handleObj.selector);
 		},
 
 		teardown: function() {
