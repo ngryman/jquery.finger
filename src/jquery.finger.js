@@ -78,6 +78,9 @@
 			f = $.data(this, 'finger'),
 			evtName;
 
+		// ensures start target and end target are the same
+		if (event.target !== data.start.target) return;
+
 		// tap-like events
 		if (!data.motion) {
 			evtName = now - data.start.time < $.Finger.pressDuration ?

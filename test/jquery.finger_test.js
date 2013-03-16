@@ -187,7 +187,7 @@
 
 			it('should not fire when another target is under the pointer before release', function() {
 				var handler = sinon.spy();
-				this.$elems.on('tap', handler);
+				$('body').on('tap', '.touchme', handler);
 				this.tapStart();
 				this.cursorPos.y = 100;
 				this.tapEnd();
