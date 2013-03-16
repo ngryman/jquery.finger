@@ -1,4 +1,4 @@
-# jQuery Finger
+# jQuery Finger <sup>0.0.8</sup>
 
 jQuery tap & gestures, fingers in the nose.
 
@@ -52,6 +52,11 @@ _(Coming soon)_
 When running tests in the browser, your mouse / finger must not interact with the page.
 
 ## Release History
+
+### v0.0.8
+  - fixed bugs on delegated events.
+  - better cross-browser support (still needs some work/tests).
+  - internal refactoring for consistency and performance.
 
 ### v0.0.7
   - various cross browsers fixes.
