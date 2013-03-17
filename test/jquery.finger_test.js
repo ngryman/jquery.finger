@@ -2,113 +2,18 @@
 
 (function($) {
 
-	var hasTouch = 'ontouchstart' in window,
-		startEvent = hasTouch ? 'touchstart' : 'mousedown',
-		stopEvent = hasTouch ? 'touchend' : 'mouseup',
-		moveEvent = hasTouch ? 'touchmove' : 'mousemove';
-
-	/** extend Mocha.Context to hence event trigger */
-
-	Mocha.Context.prototype.cursorPos = { x: 0, y: 0 };
-
-	Mocha.Context.prototype.tapStart = function() {
-		this.cursorPos.x = 0;
-		this.cursorPos.y = 0;
-
-		var $el = $(document.elementFromPoint(this.cursorPos.x, this.cursorPos.y));
-		$el.trigger(new $.Event(startEvent, {
-			pageX: this.cursorPos.x,
-			pageY: this.cursorPos.y,
-			originalEvent: {
-				touches: [{
-					pageX: this.cursorPos.x,
-					pageY: this.cursorPos.y
-				}]
-			}
-		}));
-	};
-
-	Mocha.Context.prototype.tapEnd = function() {
-		var $el = $(document.elementFromPoint(this.cursorPos.x, this.cursorPos.y));
-		$el.trigger(stopEvent);
-	};
-
-	Mocha.Context.prototype.move = function(callback, x, y, duration) {
-		var self = this, last = Date.now(), t = 0, timer;
-
-		this.tapStart();
-		(function mv() {
-			var now = Date.now();
-			t += now - last;
-			if (t >= duration) {
-				self.tapEnd();
-				callback.call(self);
-				return;
-			}
-			last = now;
-
-			self.cursorPos.x = Math.ceil(t / duration * x);
-			self.cursorPos.y = Math.ceil(t / duration * y);
-
-			var $el = $(document.elementFromPoint(self.cursorPos.x, self.cursorPos.y));
-			$el.trigger($.Event(moveEvent, {
-				pageX: self.cursorPos.x,
-				pageY: self.cursorPos.y,
-				originalEvent: {
-					touches: [{
-						pageX: self.cursorPos.x,
-						pageY: self.cursorPos.y
-					}]
-				}
-			}));
-			timer = setTimeout(mv, 0);
-		})();
-	};
-
-	Mocha.Context.prototype.tap = function() {
-		this.tapStart();
-		this.tapEnd();
-	};
-
-	Mocha.Context.prototype.press = function(callback, duration) {
-		var self = this;
-		duration = duration || $.Finger.pressDuration * 1.5 /* security */;
-		this.tapStart();
-		setTimeout(function() {
-			self.tapEnd();
-			callback.call(self);
-		}, duration);
-	};
-
-	Mocha.Context.prototype.doubleTap = function(callback, duration) {
-		var self = this;
-		duration = duration || $.Finger.doubleTapInterval * 0.5 /* security */;
-		this.tap();
-		setTimeout(function() {
-			self.tap();
-			callback.call(self);
-		}, duration);
-	};
-
-	Mocha.Context.prototype.drag = function(callback, x, y, duration) {
-		duration = duration || $.Finger.flickDuration * 1.5 /* security */;
-		this.move(callback, x, y, duration);
-	};
-
-	Mocha.Context.prototype.flick = function(callback, x, y, duration) {
-		duration = duration || $.Finger.flickDuration * 0.5 /* security */;
-		this.move(callback, x, y, duration);
-	};
-
-	/** adjusting time values for testing purposes */
-
-	$.Finger.doubleTapInterval = 25;
-	$.Finger.pressDuration = 25;
-	$.Finger.flickDuration = 25;
-
 	/** test suite */
 
 	describe('jquery.finger', function() {
+		before(function() {
+			this.pointer = VirtualPointer(this);
+
+			// adjusting time values for testing purposes
+			this.pointer.DOUBLETAP_DURATION = $.Finger.doubleTapInterval = 25;
+			this.pointer.PRESS_DURATION = $.Finger.pressDuration = 25;
+			this.pointer.FLICK_DURATION = $.Finger.flickDuration = 25;
+		});
+
 		beforeEach(function() {
 			this.$elems = $('#fixtures').find('.touchme');
 		});
@@ -123,7 +28,7 @@
 			it('should work with direct events', function() {
 				var handler = sinon.spy();
 				this.$elems.on('tap', handler);
-				this.tap();
+				this.pointer.tap();
 				handler.should.have.been.calledOnce;
 				handler.should.have.been.calledOn(this.$elems[0]);
 			});
@@ -131,7 +36,7 @@
 			it('should work with delegated events', function() {
 				var handler = sinon.spy();
 				$('body').on('tap', '.touchme', handler);
-				this.tap();
+				this.pointer.tap();
 				handler.should.have.been.calledOnce;
 				handler.should.have.been.calledOn(this.$elems[0]);
 			});
@@ -140,7 +45,7 @@
 				this.$elems.on('tap', function(e) {
 					e.type.should.equal('tap');
 				});
-				this.tap();
+				this.pointer.tap();
 			});
 
 			it('should fire handlers in order', function() {
@@ -148,7 +53,7 @@
 				var handler2 = sinon.spy();
 				$('body').on('tap', '.touchme', handler1);
 				$('body').on('tap', '.touchme', handler2);
-				this.tap();
+				this.pointer.tap();
 				handler1.should.have.been.calledOnce;
 				handler2.should.have.been.calledOnce;
 				handler1.should.have.been.calledBefore(handler2);
@@ -159,7 +64,7 @@
 				var handler2 = sinon.spy();
 				$('body').on('tap', handler1);
 				$('body').on('tap', '.touchme', handler2);
-				this.tap();
+				this.pointer.tap();
 				handler1.should.have.been.calledOnce;
 				handler2.should.have.been.calledOnce;
 				handler2.should.have.been.calledBefore(handler1);
@@ -168,36 +73,36 @@
 			it('should not fire removed direct events', function() {
 				var handler = sinon.spy();
 				this.$elems.on('tap', handler);
-				this.tap();
+				this.pointer.tap();
 				this.$elems.off('tap', handler);
-				this.tap();
+				this.pointer.tap();
 				handler.should.have.been.calledOnce;
 			});
 
 			it('should not fire removed delegated events', function() {
 				var handler = sinon.spy();
 				$('body').on('tap', '.touchme', handler);
-				this.tap();
+				this.pointer.tap();
 				$('body').off('tap', '.touchme', handler);
-				this.tap();
+				this.pointer.tap();
 				handler.should.have.been.calledOnce;
 			});
 
 			it('should not fire when moving', function(done) {
 				var handler = sinon.spy();
 				$('body').on('tap', '.touchme', handler);
-				this.drag(function() {
+				this.pointer.drag(50, 0, function() {
 					handler.should.not.have.been.called;
 					done();
-				}, 50, 0);
+				});
 			});
 
 			it('should not fire when another target is under the pointer before release', function() {
 				var handler = sinon.spy();
 				$('body').on('tap', '.touchme', handler);
-				this.tapStart();
-				this.cursorPos.y = 100;
-				this.tapEnd();
+				this.pointer.tapStart();
+				this.pointer.y = 100;
+				this.pointer.tapEnd();
 				handler.should.not.have.been.called;
 			});
 		});
@@ -206,7 +111,7 @@
 			it('should work with direct events', function(done) {
 				var handler = sinon.spy();
 				this.$elems.on('press', handler);
-				this.press(function() {
+				this.pointer.press(function() {
 					handler.should.have.been.calledOnce;
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
@@ -216,7 +121,7 @@
 			it('should work with delegated events', function(done) {
 				var handler = sinon.spy();
 				$('body').on('press', '.touchme', handler);
-				this.press(function() {
+				this.pointer.press(function() {
 					handler.should.have.been.calledOnce;
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
@@ -227,7 +132,7 @@
 				this.$elems.on('press', function(e) {
 					e.type.should.equal('press');
 				});
-				this.press(done);
+				this.pointer.press(done);
 			});
 
 			it('should not fire tap event', function(done) {
@@ -235,7 +140,7 @@
 				var handler2 = sinon.spy();
 				$('body').on('tap', '.touchme', handler1);
 				$('body').on('press', '.touchme', handler2);
-				this.press(function() {
+				this.pointer.press(function() {
 					handler1.should.not.have.been.called;
 					handler2.should.have.been.calledOnce;
 					done();
@@ -245,7 +150,7 @@
 			it('should not trigger press when tapping twice', function(done) {
 				var handler = sinon.spy();
 				$('body').on('press', '.touchme', handler);
-				this.doubleTap(function() {
+				this.pointer.doubleTap(function() {
 					handler.should.not.have.been.calledOnce;
 					done();
 				}, $.Finger.pressDuration);
@@ -256,7 +161,7 @@
 			it('should work with direct events', function(done) {
 				var handler = sinon.spy();
 				this.$elems.on('doubletap', handler);
-				this.doubleTap(function() {
+				this.pointer.doubleTap(function() {
 					handler.should.have.been.calledOnce;
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
@@ -266,7 +171,7 @@
 			it('should work with delegated events', function(done) {
 				var handler = sinon.spy();
 				$('body').on('doubletap', '.touchme', handler);
-				this.doubleTap(function() {
+				this.pointer.doubleTap(function() {
 					handler.should.have.been.calledOnce;
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
@@ -277,7 +182,7 @@
 				this.$elems.on('doubletap', function(e) {
 					e.type.should.equal('doubletap');
 				});
-				this.doubleTap(done);
+				this.pointer.doubleTap(done);
 			});
 		});
 
@@ -285,28 +190,28 @@
 			it('should work with direct events', function(done) {
 				var handler = sinon.spy();
 				this.$elems.on('drag', handler);
-				this.drag(function() {
+				this.pointer.drag(100, 0, function() {
 					handler.callCount.should.be.above(1);
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
-				}, 100, 0);
+				});
 			});
 
 			it('should work with delegated events', function(done) {
 				var handler = sinon.spy();
 				$('body').on('drag', '.touchme', handler);
-				this.drag(function() {
+				this.pointer.drag(100, 0, function() {
 					handler.callCount.should.be.above(1);
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
-				}, 100, 0);
+				});
 			});
 
 			it('should pass the correct event type', function(done) {
 				this.$elems.on('drag', function(e) {
 					e.type.should.equal('drag');
 				});
-				this.drag(done);
+				this.pointer.drag(100, 0, done);
 			});
 
 			it('should pass valid coordinates', function(done) {
@@ -321,7 +226,7 @@
 					lastY = e.y;
 					e.x.should.equal(e.y);
 				});
-				this.drag(done, 100, 100);
+				this.pointer.drag(100, 100, done);
 			});
 
 			it('should pass valid delta', function(done) {
@@ -333,21 +238,21 @@
 					e.dy.should.be.at.least(lastDy);
 					lastDy = e.dy;
 				});
-				this.drag(done, 0, 100);
+				this.pointer.drag(0, 100, done);
 			});
 
 			it('should detect horizontal orientation', function(done) {
 				this.$elems.on('drag', function(e) {
 					e.orientation.should.be.equal('horizontal');
 				});
-				this.drag(done, 100, 50);
+				this.pointer.drag(100, 50, done);
 			});
 
 			it('should detect vertical orientation', function(done) {
 				this.$elems.on('drag', function(e) {
 					e.orientation.should.be.equal('vertical');
 				});
-				this.drag(done, 50, 100);
+				this.pointer.drag(50, 100, done);
 			});
 
 			it('should tell what the last event is', function(done) {
@@ -355,24 +260,24 @@
 				this.$elems.on('drag', function(e) {
 					end = e.end;
 				});
-				this.drag(function() {
+				this.pointer.drag(100, 0, function() {
 					end.should.be.truthy;
 					done();
-				}, 100, 0);
+				});
 			});
 
 			it('should not fire removed events', function(done) {
 				var self = this;
 				var handler = sinon.spy();
 				this.$elems.on('drag', handler);
-				this.drag(function() {
+				this.pointer.drag(100, 100, function() {
 					var callCount = handler.callCount;
 					self.$elems.off('drag', handler);
-					self.drag(function() {
+					self.pointer.drag(100, 100, function() {
 						handler.callCount.should.equal(callCount);
 						done();
-					}, 100, 100);
-				}, 100, 100);
+					});
+				});
 			});
 
 			it('should correctly stop at the edge of an element for delegated events', function(done) {
@@ -382,10 +287,10 @@
 						targets.push(event.target);
 					}
 				});
-				this.drag(function() {
+				this.pointer.drag(0, 200, function() {
 					targets.length.should.equal(1);
 					done();
-				}, 0, 200);
+				});
 			});
 		});
 
@@ -393,28 +298,28 @@
 			it('should work with direct events', function(done) {
 				var handler = sinon.spy();
 				this.$elems.on('flick', handler);
-				this.flick(function() {
+				this.pointer.flick(100, 0, function() {
 					handler.should.have.been.calledOnce;
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
-				}, 100, 0);
+				});
 			});
 
 			it('should work with delegated events', function(done) {
 				var handler = sinon.spy();
 				$('body').on('flick', '.touchme', handler);
-				this.flick(function() {
+				this.pointer.flick(100, 0, function() {
 					handler.should.have.been.calledOnce;
 					handler.should.have.been.calledOn(this.$elems[0]);
 					done();
-				}, 100, 0);
+				});
 			});
 
 			it('should pass the correct event type', function(done) {
 				this.$elems.on('flick', function(e) {
 					e.type.should.equal('flick');
 				});
-				this.flick(done);
+				this.pointer.flick(100, 0, done);
 			});
 		});
 	});
