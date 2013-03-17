@@ -53,6 +53,11 @@ When running tests in the browser, your mouse / finger must not interact with th
 
 ## Release History
 
+### v0.0.9
+  - fixed incorrect event type.
+  - added to jam.
+  - added to bower.
+
 ### v0.0.8
   - fixed bugs on delegated events.
   - better cross-browser support (still needs some work/tests).

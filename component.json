@@ -1,0 +1,8 @@
+{
+	"name": "jquery.finger",
+	"version": "0.0.8",
+	"main": "dist/jquery.finger.js",
+	"dependencies": {
+		"jquery": "~1.7.0"
+	}
+}

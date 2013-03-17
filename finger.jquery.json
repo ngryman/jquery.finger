@@ -24,7 +24,7 @@
 		}
 	],
 	"dependencies": {
-		"jquery": "*"
+		"jquery": "~1.7.0"
 	},
 	"keywords": [
 		"tap",
