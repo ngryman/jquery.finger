@@ -7,7 +7,7 @@ set of events to handle basic gestures such as drag and pinch.
 Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery delegated events.
 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
-[![Build Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
+[![Dependency Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
@@ -82,3 +82,9 @@ When running tests in the browser, your mouse / finger must not interact with th
 
 ### v0.0.1
   - `tap` gesture first implementation.
+
+## Instacode
+
+<p align="center">
+  <img src="http://instacod.es/file/65854">
+</p>
