@@ -72,6 +72,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-mocha');
 
-	grunt.registerTask('default', ['jshint', 'mocha', 'concat', 'uglify']);
+	grunt.registerTask('default', ['watch']);
 	grunt.registerTask('test', ['jshint', 'mocha']);
 };
