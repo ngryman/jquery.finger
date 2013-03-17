@@ -1,4 +1,4 @@
-# jQuery Finger <sup>0.0.8</sup>
+# jQuery Finger <sup>0.0.9</sup>
 
 jQuery tap & gestures, fingers in the nose.
 

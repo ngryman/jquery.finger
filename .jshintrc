@@ -11,6 +11,7 @@
 	"eqnull": true,
 	"browser": true,
 	"expr": true,
+	"newcap": false,
 	"globals": {
 		"jQuery": true
 	}
