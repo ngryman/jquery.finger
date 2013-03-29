@@ -51,6 +51,12 @@ _(Coming soon)_
 
 When running tests in the browser, your mouse / finger must not interact with the page.
 
+## Instacode
+
+<p align="center">
+  <img src="http://instacod.es/file/65854">
+</p>
+
 ## Release History
 
 ### v0.0.9
@@ -87,9 +93,3 @@ When running tests in the browser, your mouse / finger must not interact with th
 
 ### v0.0.1
   - `tap` gesture first implementation.
-
-## Instacode
-
-<p align="center">
-  <img src="http://instacod.es/file/65854">
-</p>
