@@ -10,7 +10,7 @@ Small (< 1kb gzipped), it is focused on performance, is well tested and ... also
 [![Dependency Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
 
 ## Getting Started
-Download the [production version][min] or the [development version][max].
+Download the [production version][min] *(746 bytes gzipped)* or the [development version][max] *(3536 bytes)*.
 
 [min]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js
 [max]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.js
