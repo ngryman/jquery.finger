@@ -49,7 +49,9 @@ _(Coming soon)_
 
 ## Notes
 
-When running tests in the browser, your mouse / finger must not interact with the page.
+**jQuery Finger** uses [VirtualPointer] in its test suite to simulate mouse and touch events.
+
+[VirtualPointer]: https://github.com/ngryman/virtual-pointer
 
 ## Instacode
 
