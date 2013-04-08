@@ -10,10 +10,14 @@ Small (< 1kb gzipped), it is focused on performance, is well tested and ... also
 [![Dependency Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
 
 ## Getting Started
-Download the [production version][min] *(746 bytes gzipped)* or the [development version][max] *(3536 bytes)*.
+
+Download the [production version][min] *(746 bytes gzipped)* or the [development version][max] *(3536 bytes)*.<br>
+You can also install it via [Jam] or [Bower].
 
 [min]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js
 [max]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.js
+[Jam]: http://jamjs.org
+[Bower]: http://twitter.github.io/bower
 
 In your web page:
 
