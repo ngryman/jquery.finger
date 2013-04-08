@@ -20,14 +20,11 @@
 	],
 	"categories": ["UI", "DOM", "Shims", "Utilities"],
 	"jam": {
+		"main": "dist/jquery.finger.js",
+		"include": ["dist/jquery.finger.js"],
 		"dependencies": {
 			"jquery": "~1.7.0"
-		},
-		"main": "dist/jquery.finger.js",
-		"include": [
-			"example.js",
-			"README"
-		]
+		}
 	},
 	"author": {
 		"name": "Nicolas Gryman",
