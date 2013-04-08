@@ -36,6 +36,9 @@
 
 		data.move = { x: page('x', event), y: page('y', event) };
 		data.start = $.extend({ time: event.timeStamp, target: event.target }, data.move);
+		data.timeout = setTimeout(function() {
+			$.event.trigger($.Event('press', data.move), null, event.target);
+		}, $.Finger.pressDuration);
 
 		$.event.add(this, moveEvent + '.' + namespace, moveHandler, data);
 		$.event.add(this, stopEvent + '.' + namespace, stopHandler, data);
@@ -59,6 +62,9 @@
 		// security
 		data.motion = move.adx > Finger.motionThreshold || move.ady > Finger.motionThreshold;
 		if (!data.motion) return;
+
+		// moves cancel press events
+		clearTimeout(data.timeout);
 
 		// orientation
 		if (!move.orientation) {
@@ -91,14 +97,16 @@
 			dt = now - data.start.time,
 			evtName;
 
+		// always clears press timeout
+		clearTimeout(data.timeout);
+
 		// ensures start target and end target are the same
 		if (event.target !== data.start.target) return;
 
 		// tap-like events
 		if (!data.motion) {
-			evtName = dt < Finger.pressDuration ?
-				!f.prev || f.prev && now - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap' :
-				'press';
+			evtName = dt < Finger.pressDuration &&
+				!f.prev || f.prev && now - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap';
 			f.prev = now;
 		}
 		// motion events

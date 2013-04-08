@@ -166,6 +166,24 @@
 				}, $.Finger.pressDuration);
 			});
 
+			it('should not trigger press when tapping twice', function(done) {
+				var handler = sinon.spy();
+				$('body').on('press', '.touchme', handler);
+				this.pointer.doubleTap(function() {
+					handler.should.not.have.been.calledOnce;
+					done();
+				}, $.Finger.pressDuration);
+			});
+
+			it('should not trigger press when dragging a long time', function(done) {
+				var handler = sinon.spy();
+				$('body').on('press', '.touchme', handler);
+				this.pointer.drag(100, 0, function() {
+					handler.should.not.have.been.calledOnce;
+					done();
+				}, $.Finger.pressDuration * 1.5);
+			});
+
 			it('should not fire mix events multiple times (#1)', function(done) {
 				var directHandler = sinon.spy();
 				var delegatedHandler = sinon.spy();
