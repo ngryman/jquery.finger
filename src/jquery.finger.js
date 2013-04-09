@@ -25,12 +25,16 @@
 	}
 
 	function startHandler(event) {
-		var data = {};
+		var data = {},
+			f = $.data(this, 'finger');
+
 		data.move = { x: page('x', event), y: page('y', event) };
 		data.start = $.extend({ time: event.timeStamp, target: event.target }, data.move);
 
 		$.event.add(this, moveEvent + '.finger', moveHandler, data);
 		$.event.add(this, stopEvent + '.finger', stopHandler, data);
+
+		if (f.preventDefault) event.preventDefault();
 	}
 
 	function moveHandler(event) {
@@ -106,6 +110,12 @@
 				$.event.add(this, startEvent + '.finger', startHandler);
 				$.data(this, 'finger', {});
 			}
+		},
+
+		add: function(handleObj) {
+			var data = handleObj.data,
+				f = $.data(this, 'finger');
+			if ($.Finger.preventDefault || data && data.preventDefault) f.preventDefault = true;
 		},
 
 		teardown: function() {

@@ -53,7 +53,9 @@ _(Coming soon)_
 
 ## Notes
 
-**jQuery Finger** uses [VirtualPointer] in its test suite to simulate mouse and touch events.
+ - **jQuery Finger** uses [VirtualPointer] in its test suite to simulate mouse and touch events.
+ - On Chrome 25+, `preventDefault` does not work as expected because `ontouchstart` is defined. To make it work, you
+ have to manually prevent the default behavior in the `mousedown` or `click` event.
 
 [VirtualPointer]: https://github.com/ngryman/virtual-pointer
 
