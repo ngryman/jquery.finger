@@ -23,20 +23,24 @@ body {
 }
 
 h1 {
-	background-color: #333;
 	padding: .3rem 1rem;
-	font-family: 'Days', 'Arial Bold', sans-serif;
-	color: #eee;
-	font-size: 2.4rem;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #333;
+	font-size: 4rem;
 	font-weight: bold;
 	line-height: 2;
 	text-align: center;
+	text-transform: lowercase;
+	@include large-size-and-up {
+		font-size: 8rem;
+	}
 }
 
 h2 {
 	margin: 2rem 0;
 	font-size: 2.8rem;
 	font-weight: 100;
+	color: black;
 	@include text-shadow(0 1px 1px #ddd);
 }
 
@@ -46,6 +50,7 @@ h3 {
 	font-size: 2rem;
 	font-weight: 100;
 	line-height: 4rem;
+	color: black;
 	@include text-shadow(0 1px 1px #ddd);
 }
 

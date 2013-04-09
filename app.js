@@ -64,9 +64,7 @@
 
 	$(window).on('load resize', $.debounce(function(e) {
 		w = $elem.outerWidth();
-
-            $('#touchzone').css('perspective', $('.touchzone-wrapper').innerWidth());
-
+		$('#touchzone').css('perspective', $('.touchzone-wrapper').innerWidth());
 	}, 100));
 })();
 

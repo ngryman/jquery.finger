@@ -128,35 +128,43 @@ body {
 
 /* line 25, scss/_base.scss */
 h1 {
-  background-color: #333;
   padding: 0.3rem 1rem;
-  font-family: "Days", "Arial Bold", sans-serif;
-  color: #eee;
-  font-size: 2.4rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+  font-size: 4rem;
   font-weight: bold;
   line-height: 2;
   text-align: center;
+  text-transform: lowercase;
+}
+@media (min-width: 42.5em) {
+  /* line 25, scss/_base.scss */
+  h1 {
+    font-size: 8rem;
+  }
 }
 
-/* line 36, scss/_base.scss */
+/* line 39, scss/_base.scss */
 h2 {
   margin: 2rem 0;
   font-size: 2.8rem;
   font-weight: 100;
+  color: black;
   text-shadow: 0 1px 1px #dddddd;
 }
 
-/* line 43, scss/_base.scss */
+/* line 47, scss/_base.scss */
 h3 {
   margin: 1rem 0;
   border-bottom: 1px solid #dddddd;
   font-size: 2rem;
   font-weight: 100;
   line-height: 4rem;
+  color: black;
   text-shadow: 0 1px 1px #dddddd;
 }
 
-/* line 52, scss/_base.scss */
+/* line 57, scss/_base.scss */
 a {
   color: #0077aa;
   text-decoration: none;
@@ -182,7 +190,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* line 57, scss/_base.scss */
+/* line 62, scss/_base.scss */
 p {
   margin: 1.5rem 0;
   font-size: 1.4rem;
@@ -193,34 +201,34 @@ p {
   /*-moz-hyphens: auto;*/
   /*hyphens: auto;*/
 }
-/* line 67, scss/_base.scss */
+/* line 72, scss/_base.scss */
 p + p {
   margin-top: 2.5rem;
 }
 
-/* line 72, scss/_base.scss */
+/* line 77, scss/_base.scss */
 code {
   font-size: 1.4rem;
 }
 
-/* line 76, scss/_base.scss */
+/* line 81, scss/_base.scss */
 blockquote::before {
   content: '\201F';
   font-size: 2rem;
 }
 
-/* line 81, scss/_base.scss */
+/* line 86, scss/_base.scss */
 blockquote::after {
   content: '\201E';
   font-size: 2rem;
 }
 
-/* line 86, scss/_base.scss */
+/* line 91, scss/_base.scss */
 strong {
   font-weight: 700;
 }
 
-/* line 90, scss/_base.scss */
+/* line 95, scss/_base.scss */
 section {
   padding: 1rem;
 }
@@ -547,21 +555,26 @@ section:first-child {
   color: #bbb;
 }
 /* line 41, scss/style.scss */
+section:first-child h2 {
+  color: #bbb;
+  text-align: center;
+}
+/* line 45, scss/style.scss */
 section:first-child p {
   line-height: 3rem;
 }
 
-/* line 50, scss/style.scss */
+/* line 54, scss/style.scss */
 .actions {
   margin: 4rem 0;
 }
 @media (min-width: 25em) {
-  /* line 50, scss/style.scss */
+  /* line 54, scss/style.scss */
   .actions {
     text-align: center;
   }
 }
-/* line 56, scss/style.scss */
+/* line 60, scss/style.scss */
 .actions a {
   display: inline-block;
   border: 2px solid #bbbbbb;
@@ -581,19 +594,19 @@ section:first-child p {
   transition: 0.2s;
 }
 @media (min-width: 25em) {
-  /* line 56, scss/style.scss */
+  /* line 60, scss/style.scss */
   .actions a {
     margin-left: 1rem;
     width: 18rem;
   }
 }
 @media (max-width: 25em) {
-  /* line 75, scss/style.scss */
+  /* line 79, scss/style.scss */
   .actions a:first-child {
     margin-bottom: 2rem;
   }
 }
-/* line 81, scss/style.scss */
+/* line 85, scss/style.scss */
 .actions a:hover {
   -webkit-box-shadow: 0 0 5px #bcec4b;
   -moz-box-shadow: 0 0 5px #bcec4b;
@@ -604,7 +617,7 @@ section:first-child p {
   text-shadow: none;
 }
 
-/* line 96, scss/style.scss */
+/* line 100, scss/style.scss */
 #touchzone {
   position: relative;
   margin: 2rem auto;
@@ -621,24 +634,24 @@ section:first-child p {
   user-select: none;
 }
 @media (min-width: 42.5em) {
-  /* line 96, scss/style.scss */
+  /* line 100, scss/style.scss */
   #touchzone {
     padding-top: 0;
     width: 60rem;
     height: 45rem;
   }
 }
-/* line 112, scss/style.scss */
+/* line 116, scss/style.scss */
 #touchzone::after {
   content: attr(data-event);
 }
-/* line 116, scss/style.scss */
+/* line 120, scss/style.scss */
 #touchzone.grabbing {
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
 }
 
-/* line 123, scss/style.scss */
+/* line 127, scss/style.scss */
 #nipple {
   position: absolute;
   border: 4px solid rgba(255, 255, 255, 0.8);
@@ -647,7 +660,7 @@ section:first-child p {
   pointer-events: none;
   /* pass through */
 }
-/* line 132, scss/style.scss */
+/* line 136, scss/style.scss */
 #nipple.tap {
   -webkit-animation: bounceIn 0.2s linear alternate 2;
   -moz-animation: bounceIn 0.2s linear alternate 2;
@@ -656,7 +669,7 @@ section:first-child p {
   animation: bounceIn 0.2s linear alternate 2;
 }
 
-/* line 142, scss/style.scss */
+/* line 146, scss/style.scss */
 pre[class*="language-"] {
   margin: 1.5rem 0;
 }

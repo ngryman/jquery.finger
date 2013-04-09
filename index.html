@@ -30,17 +30,17 @@
 <body>
     <header>
         <h1>jQuery Finger</h1>
-        <blockquote>
-            jQuery tap & gestures, fingers in the nose.
-        </blockquote>
+        <!--<blockquote>-->
+            <!--jQuery tap & gestures, fingers in the nose.-->
+        <!--</blockquote>-->
     </header>
 
     <main>
         <section>
-            <h2>Try it...</h2>
+            <h2>Try it</h2>
             <div id="touchzone" data-event></div>
             <div class="actions">
-                <a href="http://github.com/ngryman/jquery.finger/zipball/v0.0.6" class="icon-download">Download</a>
+                <a href="http://github.com/ngryman/jquery.finger/zipball/v0.0.9" class="icon-download">Download</a>
                 <a href="http://github.com/ngryman/jquery.finger" class="icon-github-repo">Github</a>
             </div>
 			<p>
@@ -57,19 +57,19 @@
 				You can give it a shot by adding the script right after <strong>jQuery</strong>:
 			</p>
 			<pre><code class="language-markup">
-&lt;script src="https://github.com/ngryman/jquery.finger/blob/v0.0.6/dist/jquery.finger.js"&gt;&lt;/script&gt;
+&lt;script src="https://raw.github.com/ngryman/jquery.finger/v0.0.9/dist/jquery.finger.js"&gt;&lt;/script&gt;
 			</code></pre>
 			<p>
 				Then you can subscribe to any of the <srong>jQuery Finger</srong>
 				<a href="#events">events</a> like this:
 			</p>
 			<pre><code class="language-javascript">
-// for direct event
+// direct event
 $('.touch').on('tap', function(e) {
     console.log(this, e);
 });
 
-// for direct event
+// delegated event
 $('.parent').on('tap', '.touch', function(e) {
     console.log(this, e);
 });
@@ -97,12 +97,12 @@ $('.parent').on('tap', '.touch', function(e) {
 			<pre><code class="language-javascript">
 // for direct event
 $('.touch').on('tap', function(e) {
-console.log(this, e);
+    console.log(this, e);
 });
 
 // for direct event
 $('.parent').on('tap', '.touch', function(e) {
-console.log(this, e);
+    console.log(this, e);
 });
 			</code></pre>
 		</section>
