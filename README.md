@@ -1,4 +1,4 @@
-# jQuery Finger <sup>0.0.9</sup>
+# jQuery Finger <sup>0.0.10</sup>
 
 jQuery tap & gestures, fingers in the nose.
 
@@ -11,7 +11,7 @@ Small (< 1kb gzipped), it is focused on performance, is well tested and ... also
 
 ## Getting Started
 
-Download the [production version][min] *(746 bytes gzipped)* or the [development version][max] *(3536 bytes)*.<br>
+Download the [production version][min] *(794 bytes gzipped)* or the [development version][max] *(3759 bytes)*.<br>
 You can also install it via [Jam] or [Bower].
 
 [min]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js
@@ -66,6 +66,12 @@ _(Coming soon)_
 </p>
 
 ## Release History
+
+### v0.0.10
+
+ - fixed events fired multiple times (#1).
+ - added `preventDefault` support.
+ - internal refactoring for size and performance.
 
 ### v0.0.9
   - fixed incorrect event type.

@@ -1,4 +1,4 @@
-/*! jquery.finger - v0.0.9 - 2013-03-17
+/*! jquery.finger - v0.0.10 - 2013-04-10
 * https://github.com/ngryman/jquery.finger
 * Copyright (c) 2013 Nicolas Gryman; Licensed MIT */
 
@@ -7,71 +7,84 @@
 	var hasTouch = 'ontouchstart' in window,
 		startEvent = hasTouch ? 'touchstart' : 'mousedown',
 		stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup mouseleave',
-		moveEvent = hasTouch ? 'touchmove' : 'mousemove';
+		moveEvent = hasTouch ? 'touchmove' : 'mousemove',
 
-	$.Finger = {
-		pressDuration: 300,
-		doubleTapInterval: 300,
-		flickDuration: 150,
-		motionThreshold: 5
-	};
+		namespace = 'finger',
+		safeguard,
+
+		Finger = $.Finger = {
+			pressDuration: 300,
+			doubleTapInterval: 300,
+			flickDuration: 150,
+			motionThreshold: 5
+		};
 
 	function page(coord, e) {
 		return (hasTouch ? e.originalEvent.touches[0] : e)['page' + coord.toUpperCase()];
 	}
 
 	function startHandler(event) {
-		var data = {};
+		var data = {},
+			f = $.data(this, namespace);
+
+		if (safeguard == event.timeStamp) return;
+		safeguard = event.timeStamp;
+
 		data.move = { x: page('x', event), y: page('y', event) };
 		data.start = $.extend({ time: event.timeStamp, target: event.target }, data.move);
 
-		$.event.add(this, moveEvent + '.finger', moveHandler, data);
-		$.event.add(this, stopEvent + '.finger', stopHandler, data);
+		$.event.add(this, moveEvent + '.' + namespace, moveHandler, data);
+		$.event.add(this, stopEvent + '.' + namespace, stopHandler, data);
+
+		if (f.preventDefault) event.preventDefault();
 	}
 
 	function moveHandler(event) {
-		var data = event.data;
+		var data = event.data,
+			start = data.start,
+			move = data.move;
 
 		// motion data
-		data.move.x = page('x', event);
-		data.move.y = page('y', event);
-		data.move.dx = data.move.x - data.start.x;
-		data.move.dy = data.move.y - data.start.y;
-		data.move.adx = Math.abs(data.move.dx);
-		data.move.ady = Math.abs(data.move.dy);
+		move.x = page('x', event);
+		move.y = page('y', event);
+		move.dx = move.x - start.x;
+		move.dy = move.y - start.y;
+		move.adx = Math.abs(move.dx);
+		move.ady = Math.abs(move.dy);
 
 		// security
-		data.motion = data.move.adx > $.Finger.motionThreshold || data.move.ady > $.Finger.motionThreshold;
+		data.motion = move.adx > Finger.motionThreshold || move.ady > Finger.motionThreshold;
 		if (!data.motion) return;
 
 		// orientation
-		if (!data.move.orientation) {
-			if (data.move.adx > data.move.ady) {
-				data.move.orientation = 'horizontal';
-				data.move.direction = data.move.dx > 0 ? +1 : -1;
+		if (!move.orientation) {
+			if (move.adx > data.move.ady) {
+				move.orientation = 'horizontal';
+				move.direction = move.dx > 0 ? +1 : -1;
 			}
 			else {
-				data.move.orientation = 'vertical';
-				data.move.direction = data.move.dy > 0 ? +1 : -1;
+				move.orientation = 'vertical';
+				move.direction = move.dy > 0 ? +1 : -1;
 			}
 		}
 
 		// for delegated events, the target may change over time
 		// this ensures we notify the right target and simulates the mouseleave behavior
-		if (event.target !== data.start.target) {
-			event.target = data.start.target;
-			stopHandler.call(this, $.Event(stopEvent + '.finger', event));
+		if (event.target !== start.target) {
+			event.target = start.target;
+			stopHandler.call(this, $.Event(stopEvent + '.' + namespace, event));
 			return;
 		}
 
 		// fire drag event
-		$.event.trigger($.Event('drag', data.move), null, event.target);
+		$.event.trigger($.Event('drag', move), null, event.target);
 	}
 
 	function stopHandler(event) {
 		var data = event.data,
 			now = event.timeStamp,
-			f = $.data(this, 'finger'),
+			f = $.data(this, namespace),
+			dt = now - data.start.time,
 			evtName;
 
 		// ensures start target and end target are the same
@@ -79,35 +92,38 @@
 
 		// tap-like events
 		if (!data.motion) {
-			evtName = now - data.start.time < $.Finger.pressDuration ?
-				!f.prev || f.prev && now - f.prev > $.Finger.doubleTapInterval ? 'tap' : 'doubletap' :
+			evtName = dt < Finger.pressDuration ?
+				!f.prev || f.prev && now - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap' :
 				'press';
 			f.prev = now;
-			$.event.trigger($.Event(evtName, data.move), null, event.target);
 		}
 		// motion events
 		else {
-			evtName = now - data.start.time < $.Finger.flickDuration ? 'flick' : 'drag';
+			evtName = dt < Finger.flickDuration ? 'flick' : 'drag';
 			data.move.end = true;
-			$.event.trigger($.Event(evtName, data.move), null, event.target);
 		}
 
-		$.event.remove(this, moveEvent + '.finger', moveHandler);
-		$.event.remove(this, stopEvent + '.finger', stopHandler);
+		$.event.trigger($.Event(evtName, data.move), null, event.target);
+
+		$.event.remove(this, moveEvent + '.' + namespace, moveHandler);
+		$.event.remove(this, stopEvent + '.' + namespace, stopHandler);
 	}
 
 	var fingerCustom = {
-		setup: function() {
-			if (!$.data(this, 'finger')) {
-				$.event.add(this, startEvent + '.finger', startHandler);
-				$.data(this, 'finger', {});
+		add: function(handleObj) {
+			var data = handleObj.data, f;
+
+			if (!$.data(this, namespace)) {
+				$.event.add(this, startEvent + '.' + namespace, startHandler);
+				f = $.data(this, namespace, {});
+				if (Finger.preventDefault || data && data.preventDefault) f.preventDefault = true;
 			}
 		},
 
 		teardown: function() {
-			if ($.data(this, 'finger')) {
-				$.event.remove(this, startEvent + '.finger', startHandler);
-				$.data(this, 'finger', null);
+			if ($.data(this, namespace)) {
+				$.event.remove(this, startEvent + '.' + namespace, startHandler);
+				$.data(this, namespace, null);
 			}
 		}
 	};
