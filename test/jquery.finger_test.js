@@ -105,6 +105,16 @@
 				this.pointer.tapEnd();
 				handler.should.not.have.been.called;
 			});
+
+			it('should not fire mix events multiple times (#1)', function() {
+				var directHandler = sinon.spy();
+				var delegatedHandler = sinon.spy();
+				$('.touchme').on('tap', directHandler);
+				$('body').on('tap', '.touchme', delegatedHandler);
+				this.pointer.tap();
+				directHandler.should.have.been.calledOnce;
+				delegatedHandler.should.have.been.calledOnce;
+			});
 		});
 
 		describe('press event', function() {
@@ -155,6 +165,18 @@
 					done();
 				}, $.Finger.pressDuration);
 			});
+
+			it('should not fire mix events multiple times (#1)', function(done) {
+				var directHandler = sinon.spy();
+				var delegatedHandler = sinon.spy();
+				$('.touchme').on('press', directHandler);
+				$('body').on('press', '.touchme', delegatedHandler);
+				this.pointer.press(function() {
+					directHandler.should.have.been.calledOnce;
+					delegatedHandler.should.have.been.calledOnce;
+					done();
+				});
+			});
 		});
 
 		describe('double tap event', function() {
@@ -183,6 +205,18 @@
 					e.type.should.equal('doubletap');
 				});
 				this.pointer.doubleTap(done);
+			});
+
+			it('should not fire mix events multiple times (#1)', function(done) {
+				var directHandler = sinon.spy();
+				var delegatedHandler = sinon.spy();
+				$('.touchme').on('doubletap', directHandler);
+				$('body').on('doubletap', '.touchme', delegatedHandler);
+				this.pointer.doubleTap(function() {
+					directHandler.should.have.been.calledOnce;
+					delegatedHandler.should.have.been.calledOnce;
+					done();
+				});
 			});
 		});
 
@@ -320,6 +354,18 @@
 					e.type.should.equal('flick');
 				});
 				this.pointer.flick(100, 0, done);
+			});
+
+			it('should not fire mix events multiple times (#1)', function(done) {
+				var directHandler = sinon.spy();
+				var delegatedHandler = sinon.spy();
+				$('.touchme').on('flick', directHandler);
+				$('body').on('flick', '.touchme', delegatedHandler);
+				this.pointer.flick(100, 0, function() {
+					directHandler.should.have.been.calledOnce;
+					delegatedHandler.should.have.been.calledOnce;
+					done();
+				});
 			});
 		});
 	});

@@ -11,7 +11,8 @@
 	var hasTouch = 'ontouchstart' in window,
 		startEvent = hasTouch ? 'touchstart' : 'mousedown',
 		stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup mouseleave',
-		moveEvent = hasTouch ? 'touchmove' : 'mousemove';
+		moveEvent = hasTouch ? 'touchmove' : 'mousemove',
+		safeguard;
 
 	$.Finger = {
 		pressDuration: 300,
@@ -27,6 +28,9 @@
 	function startHandler(event) {
 		var data = {},
 			f = $.data(this, 'finger');
+
+		if (safeguard == event.timeStamp) return;
+		safeguard = event.timeStamp;
 
 		data.move = { x: page('x', event), y: page('y', event) };
 		data.start = $.extend({ time: event.timeStamp, target: event.target }, data.move);
