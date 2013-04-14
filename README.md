@@ -3,15 +3,15 @@
 jQuery tap & gestures, fingers in the nose.
 
 **jQuery Finger** unifies click and touch events by removing the 300ms delay on touch devices. It also provide a common
-set of events to handle basic gestures such as drag and pinch.
-Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery delegated events.
+set of events to handle basic gestures such as drag and flick.
+Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is well tested and also supports jQuery **delegated events**.
 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
 [![Dependency Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
 
 ## Getting Started
 
-Download the [production version][min] *(794 bytes gzipped)* or the [development version][max] *(3759 bytes)*.<br>
+Download the [production version][min] *(465 bytes gzipped)* or the [development version][max] *(4161 bytes)*.<br>
 You can also install it via [Jam] or [Bower].
 
 [min]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js
@@ -42,14 +42,89 @@ In your web page:
 
 ### Gestures
 
-          | tap | doubletap | press | drag | flick | pinch | spread | rotate
-----------|-----|-----------|-------|------|-------|-------|--------|-------
-Available |  ✔ |     ✔     |   ✔  |  ✔  |   ✔  |       |        |
+**jQuery Finger** focuses on one finger event:
 
-Here is a complete list of gestures that will *probably* be supported: http://smustalks.appspot.com/io-12/#44
+          | tap | doubletap | press | drag | flick |
+----------|-----|-----------|-------|------|-------|
+Available |  ✔ |     ✔     |   ✔  |  ✔  |   ✔  |
+
+### Thresholds
+
+You can tweak how **jQuery Finger** handle events by modifying thresholds found in the `$.Finger` object.
+
+#### `pressDuration`
+
+This is the time the user will have to hold in order to fire a `press` event.
+If this time is not reached, a `tap` event will be fired instead.
+This defaults to `300`ms.
+
+#### `doubleTapInterval`
+
+This is the maximum time between two `tap` events to fire a `doubletap` event.
+If this time is reached, two distinct `tap` events will be fired instead.
+This defaults to `300`ms.
+
+#### `flickDuration`
+
+This is the maximum time the user will have to swipe in order to fire a `flick` event.
+If this time is reached, a `drag` event will be fired instead.
+This defaults to `150`ms.
+
+#### `motionThreshold`
+
+This is the number of pixel the user will have to move in order to fire motion events (drag or flick).
+If this time is not reached, no motion will be handled and `tap`, `doubletap` or `press` event will be fired.
+This defaults to `5`px.
+
+### Additional event parameters
+
+**jQuery Finger** enhances the default event object when there is motion (drag & flick). It gives information about
+the pointer position and motion:
+ - **x**: the `x` page coordinate.
+ - **y**: the `y` page coordinate.
+ - **dx**: this `x` *delta* (amount of pixels moved) since the last event.
+ - **dy**: this `y` delta since the last event.
+ - **adx**: this `x` absolute delta since the last event.
+ - **ady**: this `y` absolute delta since the last event.
+ - **orientation**:
+   - `horizontal`: motion was detected as an horizontal one. This can be tweaked with `$.Finger.motionThreshold`.
+   - `vertical`: motion was detected as a vertical one. This can be tweaked with `$.Finger.motionThreshold`.
+ - **direction**:
+   - `1`: motion has a positive direction, either left to right for horizontal, or top to bottom for vertical.
+   - `-1`: motion has a negative direction, either right to left for horizontal, or bottom to top for vertical.
 
 ## Examples
-_(Coming soon)_
+
+### Remove the 300ms delay on every links of your page
+
+```javascript
+$('body').on('tap', 'a', { preventDefault: true }, function() {
+  window.location = $(this).attr('href');
+});
+```
+
+### Delegated events for dynamically loaded elements (AJAX):
+
+```javascript
+$('body').on('tap', '.toggle', function() {
+	$(this).toggleClass('is-selected');
+});
+```
+
+### Swipe to reveal
+
+```javascript
+$('#menu').on('flick', function(e) {
+	if ('horizontal' == e.direction) {
+		if (1 == e.direction) {
+			$(this).addClass('is-opened');
+		}
+		else {
+			$(this).removeClass('is-opened');
+		}
+	}
+});
+```
 
 ## Notes
 
