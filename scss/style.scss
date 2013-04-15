@@ -40,10 +40,14 @@ section:first-child {
 
 	h2 {
 		color: #bbb;
+		font-size: 2rem;
 		text-align: center;
 	}
 	p {
+		margin: 2rem auto;
+		width: 60rem;
 		line-height: 3rem;
+		text-align: justify;
 	}
 }
 
@@ -135,6 +139,24 @@ section:first-child {
 
 	&.tap {
 		@include animation(bounceIn .2s linear alternate 2);
+	}
+}
+
+//
+// footer - informations about me, myself and I
+//
+
+footer {
+	background: #222;
+	color: #eee;
+
+	p {
+		margin: 0;
+		padding: 4rem;
+	}
+	.love {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		color: #ef4eec;
 	}
 }
 

@@ -5,7 +5,7 @@ div, a {
 html, body {
 	margin: 0;
 	min-width: 320px;
-	height: 100%;
+	min-height: 100%;
 	font-size: 62.5%;
 
 	/* on touch devices only */
@@ -20,19 +20,24 @@ body {
 	/* enhances font rendering? */
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 h1 {
 	padding: .3rem 1rem;
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	color: #333;
 	font-size: 4rem;
 	font-weight: bold;
-	line-height: 2;
+	line-height: 1.8;
 	text-align: center;
 	text-transform: lowercase;
 	@include large-size-and-up {
-		font-size: 8rem;
+		font-size: 7rem;
 	}
 }
 
@@ -59,7 +64,7 @@ a{
 	@include hover-link;
 }
 
-p {
+p, li {
 	margin: 1.5rem 0;
 	font-size: 1.4rem;
 	line-height: 2.4rem;
@@ -72,6 +77,15 @@ p {
 	+p {
 		margin-top: 2.5rem;
 	}
+}
+
+ul {
+	list-style: disc;
+	margin: 0 2rem;
+}
+
+li {
+	margin: 0;
 }
 
 code {

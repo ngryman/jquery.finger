@@ -7,6 +7,9 @@
 	html.#{$name} #touchzone {
 		background-color: $color
 	}
+	html.#{$name} footer .love {
+		color: saturate($color, 20%);
+	}
 }
 
 @include define-global-color(green, #a5b83e);

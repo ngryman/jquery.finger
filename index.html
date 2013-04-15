@@ -37,21 +37,25 @@
 
     <main>
         <section>
-            <h2>Try it</h2>
+            <h2>Tap it, Press it, Double tap it, Flick it, Drag it</h2>
             <div id="touchzone" data-event></div>
             <div class="actions">
-                <a href="http://github.com/ngryman/jquery.finger/zipball/v0.0.9" class="icon-download">Download</a>
+                <a href="http://github.com/ngryman/jquery.finger/zipball/v0.0.10" class="icon-download">Download</a>
                 <a href="http://github.com/ngryman/jquery.finger" class="icon-github-repo">Github</a>
             </div>
-			<p>
-				jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices.
-				It also provide a common set of events to handle basic gestures such as drag and pinch.
-				Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery
-				delegated events.
-			</p>
         </section>
 
         <section>
+			<p>
+				jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices.
+				It also provide a common set of events to handle basic gestures such as drag and pinch.
+				Very small (< 0.5kb gzipped), it is focused on performance, is well tested and ... also supports jQuery
+				delegated events.
+			</p>
+			<p>
+				It works on every capable browser and with both touch enabled devices or the mouse.
+			</p>
+
             <h2>Getting started</h2>
 			<p>
 				You can give it a shot by adding the script right after <strong>jQuery</strong>:
@@ -79,36 +83,150 @@ $('.parent').on('tap', '.touch', function(e) {
 		<section>
 			<h2 id="events">Events</h2>
 			<p>
-				<strong>jQuery Finger</strong> tries to focus on a small, simple set of events. You can use the
+				<strong>jQuery Finger</strong> focuses on <strong>one finger</strong> events. You can use the
 				provided events like any other <strong>jQuery</strong> event.
 			</p>
 			<p>
-				Direct and delegated events are both supported which can be
+				Direct and delegated events are both supported. This can be very useful for dynamically loaded
+				content via AJAX for example.
 			</p>
+
 			<h3>Tap</h3>
 			<p>
 				The <strong>tap</strong> event is the most basic one and is essentially like a <strong>click</strong>.
-				On touch devices, it removes the 300ms delay of the standard click.
+				On touch devices, it removes the <strong>300ms delay</strong> of the standard click.
 			</p>
 			<p>
-				<strong>jQuery Finger</strong> won't fire this event if the pointer has moved above a specific threshold
-				(see <a href="#configuration">Configuration</a>).
+				It won't be triggered if the pointer has moved above a specific threshold
+				(see <a href="#thresholds">Thresholds</a>).
 			</p>
 			<pre><code class="language-javascript">
-// for direct event
+// direct event
 $('.touch').on('tap', function(e) {
     console.log(this, e);
 });
 
-// for direct event
+// delegated event
 $('.parent').on('tap', '.touch', function(e) {
     console.log(this, e);
 });
 			</code></pre>
+
+			<h3>Double tap</h3>
+			<p>
+				The <strong>double tap</strong> event is triggered when the user tap twice in a short amount of time.
+			</p>
+			<p>
+				It will only be triggered if the time elapsed between the two taps are under a specific threshold
+				(see <a href="#thresholds">Thresholds</a>).
+			</p>
+			<pre><code class="language-javascript">
+// direct event
+$('.touch').on('doubletap', function(e) {
+    console.log(this, e);
+});
+
+// delegated event
+$('.parent').on('doubletap', '.touch', function(e) {
+    console.log(this, e);
+});
+			</code></pre>
+
+			<h3>Press</h3>
+			<p>
+				The <strong>press</strong> event (aka <strong>long tap</strong> or <strong>tap hold</strong>) is
+				triggered when the user keeps the finger among a certain amount of time.
+			</p>
+			<p>
+				It will only be triggered if the time elapsed is under a specific threshold
+				(see <a href="#thresholds">Thresholds</a>).
+			</p>
+			<pre><code class="language-javascript">
+// direct event
+$('.touch').on('press', function(e) {
+    console.log(this, e);
+});
+
+// delegated event
+$('.parent').on('press', '.touch', function(e) {
+    console.log(this, e);
+});
+			</code></pre>
+
+			<h3>Flick</h3>
+			<p>
+				The <strong>flick</strong> event (aka <strong>swipe</strong>) is triggered when the user swipes rapidly
+				the finger in one direction.
+			</p>
+			<p>
+				It will only be triggered if the time elapsed is under a specific threshold
+				(see <a href="#thresholds">Thresholds</a>).
+			</p>
+			<pre><code class="language-javascript">
+// direct event
+$('.touch').on('flick', function(e) {
+    console.log(this, e);
+});
+
+// delegated event
+$('.parent').on('flick', '.touch', function(e) {
+    console.log(this, e);
+});
+			</code></pre>
+
+			<h3>Drag</h3>
+			<p>
+				The <strong>drag</strong> event is triggered when the user move its finger in one direction.
+			</p>
+			<p>
+				It will only be triggered if the time elapsed is above a specific threshold
+				(see <a href="#thresholds">Thresholds</a>).
+			</p>
+			<pre><code class="language-javascript">
+// direct event
+$('.touch').on('drag', function(e) {
+    console.log(this, e);
+});
+
+// delegated event
+$('.parent').on('drag', '.touch', function(e) {
+    console.log(this, e);
+});
+			</code></pre>
+
 		</section>
 
 		<section>
-			<h2 id="configuration">Configuration</h2>
+			<h2>Events parameters</h2>
+			<p>
+				<strong>jQuery Finger</strong> enhances the default event object when there is motion (drag & flick).
+				It gives information about the pointer position and motion:
+			</p>
+			<ul>
+				<li><strong>x</strong>: the x page coordinate.</li>
+				<li><strong>y</strong>: the y page coordinate.</li>
+				<li><strong>dx</strong>: this x delta (amount of pixels moved) since the last event.</li>
+				<li><strong>dy</strong>: this y delta since the last event.</li>
+				<li><strong>adx</strong>: this x absolute delta since the last event.</li>
+				<li><strong>ady</strong>: this y absolute delta since the last event.</li>
+				<li><strong>orientation</strong>:</li>
+				<ul>
+					<li><strong>horizontal</strong>: motion was detected as an horizontal one. This can be tweaked with $.Finger.motionThreshold.</li>
+					<li><strong>vertical</strong>: motion was detected as a vertical one. This can be tweaked with $.Finger.motionThreshold.</li>
+				</ul>
+				<li><strong>direction</strong>:</li>
+				<ul>
+					<li><strong>1</strong>: motion has a positive direction, either left to right for horizontal, or top to bottom for vertical.</li>
+					<li><strong>-1</strong>: motion has a negative direction, either right to left for horizontal, or bottom to top for vertical.</li>
+				</ul>
+			</ul>
+		</section>
+
+		<section>
+			<h2 id="thresholds">Thresholds</h2>
+			<p>
+				You can tweak how jQuery Finger handle events by modifying thresholds found in the $.Finger object.
+			</p>
 			<pre><code class="language-javascript">
 $.Finger = {
     pressDuration: 300,
@@ -117,10 +235,18 @@ $.Finger = {
     motionThreshold: 5
 };
 			</code></pre>
+			<p>
+				For more information, visit the <a href="http://github.com/ngryman/jquery.finger">Github repository</a>.
+			</p>
 		</section>
     </main>
 
-    <footer></footer>
+    <footer>
+		<p>
+			<strong>jQuery Finger</strong> was crafted with <span class="love">&#x2764;</span> in vanilla JavaScript
+			by <a href="https://twitter.com/ngryman" target="_blank">@ngryman</a>.
+		</p>
+    </footer>
 
     <div id="nipple"></div>
 

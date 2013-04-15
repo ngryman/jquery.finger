@@ -20,9 +20,10 @@
 		},
 
 		doubleTap: function(e) {
-			$('html').removeClass(colors[colors.index]);
+			var $html = $('html');
+			$html.removeClass(colors[colors.index]);
 			colors.index = (colors.index + 1) % colors.length;
-			$('html').addClass(colors[colors.index]);
+			$html.addClass(colors[colors.index]);
 		},
 
 		drag: function(e) {
@@ -58,7 +59,7 @@
 	$elem.on({
 		tap: Tralala.tap,
 		doubletap: Tralala.doubleTap,
-		drag: Tralala.drag,
+		drag: Tralala.drag
 //		flick: Tralala.flick
 	});
 

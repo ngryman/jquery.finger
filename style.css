@@ -75,6 +75,11 @@ html.green #touchzone {
   background-color: #a5b83e;
 }
 
+/* line 10, scss/_colors.scss */
+html.green footer .love {
+  color: #b6d125;
+}
+
 /* line 2, scss/_colors.scss */
 html.blue a:hover {
   box-shadow: 0 0 5px #2188d0;
@@ -85,6 +90,11 @@ html.blue a:hover {
 /* line 7, scss/_colors.scss */
 html.blue #touchzone {
   background-color: #3984b8;
+}
+
+/* line 10, scss/_colors.scss */
+html.blue footer .love {
+  color: #2188d0;
 }
 
 /* line 2, scss/_colors.scss */
@@ -99,6 +109,11 @@ html.pink #touchzone {
   background-color: #b844b5;
 }
 
+/* line 10, scss/_colors.scss */
+html.pink footer .love {
+  color: #d12bcd;
+}
+
 /* line 1, scss/_base.scss */
 div, a {
   -webkit-box-sizing: border-box;
@@ -110,7 +125,7 @@ div, a {
 html, body {
   margin: 0;
   min-width: 320px;
-  height: 100%;
+  min-height: 100%;
   font-size: 62.5%;
   /* on touch devices only */
   -webkit-text-size-adjust: 100%;
@@ -124,27 +139,31 @@ body {
   /* enhances font rendering? */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-/* line 25, scss/_base.scss */
+/* line 30, scss/_base.scss */
 h1 {
   padding: 0.3rem 1rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
   color: #333;
   font-size: 4rem;
   font-weight: bold;
-  line-height: 2;
+  line-height: 1.8;
   text-align: center;
   text-transform: lowercase;
 }
 @media (min-width: 42.5em) {
-  /* line 25, scss/_base.scss */
+  /* line 30, scss/_base.scss */
   h1 {
-    font-size: 8rem;
+    font-size: 7rem;
   }
 }
 
-/* line 39, scss/_base.scss */
+/* line 44, scss/_base.scss */
 h2 {
   margin: 2rem 0;
   font-size: 2.8rem;
@@ -153,7 +172,7 @@ h2 {
   text-shadow: 0 1px 1px #dddddd;
 }
 
-/* line 47, scss/_base.scss */
+/* line 52, scss/_base.scss */
 h3 {
   margin: 1rem 0;
   border-bottom: 1px solid #dddddd;
@@ -164,7 +183,7 @@ h3 {
   text-shadow: 0 1px 1px #dddddd;
 }
 
-/* line 57, scss/_base.scss */
+/* line 62, scss/_base.scss */
 a {
   color: #0077aa;
   text-decoration: none;
@@ -190,8 +209,8 @@ a:hover {
   text-decoration: underline;
 }
 
-/* line 62, scss/_base.scss */
-p {
+/* line 67, scss/_base.scss */
+p, li {
   margin: 1.5rem 0;
   font-size: 1.4rem;
   line-height: 2.4rem;
@@ -201,34 +220,45 @@ p {
   /*-moz-hyphens: auto;*/
   /*hyphens: auto;*/
 }
-/* line 72, scss/_base.scss */
-p + p {
+/* line 77, scss/_base.scss */
+p + p, li + p {
   margin-top: 2.5rem;
 }
 
-/* line 77, scss/_base.scss */
+/* line 82, scss/_base.scss */
+ul {
+  list-style: disc;
+  margin: 0 2rem;
+}
+
+/* line 87, scss/_base.scss */
+li {
+  margin: 0;
+}
+
+/* line 91, scss/_base.scss */
 code {
   font-size: 1.4rem;
 }
 
-/* line 81, scss/_base.scss */
+/* line 95, scss/_base.scss */
 blockquote::before {
   content: '\201F';
   font-size: 2rem;
 }
 
-/* line 86, scss/_base.scss */
+/* line 100, scss/_base.scss */
 blockquote::after {
   content: '\201E';
   font-size: 2rem;
 }
 
-/* line 91, scss/_base.scss */
+/* line 105, scss/_base.scss */
 strong {
   font-weight: 700;
 }
 
-/* line 95, scss/_base.scss */
+/* line 109, scss/_base.scss */
 section {
   padding: 1rem;
 }
@@ -557,24 +587,28 @@ section:first-child {
 /* line 41, scss/style.scss */
 section:first-child h2 {
   color: #bbb;
+  font-size: 2rem;
   text-align: center;
 }
-/* line 45, scss/style.scss */
+/* line 46, scss/style.scss */
 section:first-child p {
+  margin: 2rem auto;
+  width: 60rem;
   line-height: 3rem;
+  text-align: justify;
 }
 
-/* line 54, scss/style.scss */
+/* line 58, scss/style.scss */
 .actions {
   margin: 4rem 0;
 }
 @media (min-width: 25em) {
-  /* line 54, scss/style.scss */
+  /* line 58, scss/style.scss */
   .actions {
     text-align: center;
   }
 }
-/* line 60, scss/style.scss */
+/* line 64, scss/style.scss */
 .actions a {
   display: inline-block;
   border: 2px solid #bbbbbb;
@@ -594,19 +628,19 @@ section:first-child p {
   transition: 0.2s;
 }
 @media (min-width: 25em) {
-  /* line 60, scss/style.scss */
+  /* line 64, scss/style.scss */
   .actions a {
     margin-left: 1rem;
     width: 18rem;
   }
 }
 @media (max-width: 25em) {
-  /* line 79, scss/style.scss */
+  /* line 83, scss/style.scss */
   .actions a:first-child {
     margin-bottom: 2rem;
   }
 }
-/* line 85, scss/style.scss */
+/* line 89, scss/style.scss */
 .actions a:hover {
   -webkit-box-shadow: 0 0 5px #bcec4b;
   -moz-box-shadow: 0 0 5px #bcec4b;
@@ -617,7 +651,7 @@ section:first-child p {
   text-shadow: none;
 }
 
-/* line 100, scss/style.scss */
+/* line 104, scss/style.scss */
 #touchzone {
   position: relative;
   margin: 2rem auto;
@@ -634,24 +668,24 @@ section:first-child p {
   user-select: none;
 }
 @media (min-width: 42.5em) {
-  /* line 100, scss/style.scss */
+  /* line 104, scss/style.scss */
   #touchzone {
     padding-top: 0;
     width: 60rem;
     height: 45rem;
   }
 }
-/* line 116, scss/style.scss */
+/* line 120, scss/style.scss */
 #touchzone::after {
   content: attr(data-event);
 }
-/* line 120, scss/style.scss */
+/* line 124, scss/style.scss */
 #touchzone.grabbing {
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
 }
 
-/* line 127, scss/style.scss */
+/* line 131, scss/style.scss */
 #nipple {
   position: absolute;
   border: 4px solid rgba(255, 255, 255, 0.8);
@@ -660,7 +694,7 @@ section:first-child p {
   pointer-events: none;
   /* pass through */
 }
-/* line 136, scss/style.scss */
+/* line 140, scss/style.scss */
 #nipple.tap {
   -webkit-animation: bounceIn 0.2s linear alternate 2;
   -moz-animation: bounceIn 0.2s linear alternate 2;
@@ -669,7 +703,23 @@ section:first-child p {
   animation: bounceIn 0.2s linear alternate 2;
 }
 
-/* line 146, scss/style.scss */
+/* line 149, scss/style.scss */
+footer {
+  background: #222;
+  color: #eee;
+}
+/* line 153, scss/style.scss */
+footer p {
+  margin: 0;
+  padding: 4rem;
+}
+/* line 157, scss/style.scss */
+footer .love {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ef4eec;
+}
+
+/* line 168, scss/style.scss */
 pre[class*="language-"] {
   margin: 1.5rem 0;
 }
