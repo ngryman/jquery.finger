@@ -18,7 +18,8 @@
 // Section are visually well delimited to let the user navigate easily and jump to the most interesting section for him.
 //
 
-section {
+section,
+footer {
 	@include large-size-and-up {
 		padding: 1rem 4rem;
 	}
@@ -152,7 +153,7 @@ footer {
 
 	p {
 		margin: 0;
-		padding: 4rem;
+		padding: 4rem 0;
 	}
 	.love {
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

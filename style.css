@@ -559,14 +559,16 @@ section {
 }
 
 @media (min-width: 42.5em) {
-  /* line 21, scss/style.scss */
-  section {
+  /* line 22, scss/style.scss */
+  section,
+  footer {
     padding: 1rem 4rem;
   }
 }
 @media (min-width: 62.5em) {
-  /* line 21, scss/style.scss */
-  section {
+  /* line 22, scss/style.scss */
+  section,
+  footer {
     width: 100rem;
     margin: 0 auto;
     /* fallback if calc is not supported */
@@ -575,7 +577,7 @@ section {
   }
 }
 
-/* line 33, scss/style.scss */
+/* line 34, scss/style.scss */
 section:first-child {
   background-color: #333;
   background-image: -webkit-linear-gradient(#2e2e2e 2px, transparent 1px), -webkit-linear-gradient(left, #2e2e2e 2px, transparent 1px);
@@ -584,13 +586,13 @@ section:first-child {
   background-position: -1px -1px, -1px -1px;
   color: #bbb;
 }
-/* line 41, scss/style.scss */
+/* line 42, scss/style.scss */
 section:first-child h2 {
   color: #bbb;
   font-size: 2rem;
   text-align: center;
 }
-/* line 46, scss/style.scss */
+/* line 47, scss/style.scss */
 section:first-child p {
   margin: 2rem auto;
   width: 60rem;
@@ -598,17 +600,17 @@ section:first-child p {
   text-align: justify;
 }
 
-/* line 58, scss/style.scss */
+/* line 59, scss/style.scss */
 .actions {
   margin: 4rem 0;
 }
 @media (min-width: 25em) {
-  /* line 58, scss/style.scss */
+  /* line 59, scss/style.scss */
   .actions {
     text-align: center;
   }
 }
-/* line 64, scss/style.scss */
+/* line 65, scss/style.scss */
 .actions a {
   display: inline-block;
   border: 2px solid #bbbbbb;
@@ -628,19 +630,19 @@ section:first-child p {
   transition: 0.2s;
 }
 @media (min-width: 25em) {
-  /* line 64, scss/style.scss */
+  /* line 65, scss/style.scss */
   .actions a {
     margin-left: 1rem;
     width: 18rem;
   }
 }
 @media (max-width: 25em) {
-  /* line 83, scss/style.scss */
+  /* line 84, scss/style.scss */
   .actions a:first-child {
     margin-bottom: 2rem;
   }
 }
-/* line 89, scss/style.scss */
+/* line 90, scss/style.scss */
 .actions a:hover {
   -webkit-box-shadow: 0 0 5px #bcec4b;
   -moz-box-shadow: 0 0 5px #bcec4b;
@@ -651,7 +653,7 @@ section:first-child p {
   text-shadow: none;
 }
 
-/* line 104, scss/style.scss */
+/* line 105, scss/style.scss */
 #touchzone {
   position: relative;
   margin: 2rem auto;
@@ -668,24 +670,24 @@ section:first-child p {
   user-select: none;
 }
 @media (min-width: 42.5em) {
-  /* line 104, scss/style.scss */
+  /* line 105, scss/style.scss */
   #touchzone {
     padding-top: 0;
     width: 60rem;
     height: 45rem;
   }
 }
-/* line 120, scss/style.scss */
+/* line 121, scss/style.scss */
 #touchzone::after {
   content: attr(data-event);
 }
-/* line 124, scss/style.scss */
+/* line 125, scss/style.scss */
 #touchzone.grabbing {
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
 }
 
-/* line 131, scss/style.scss */
+/* line 132, scss/style.scss */
 #nipple {
   position: absolute;
   border: 4px solid rgba(255, 255, 255, 0.8);
@@ -694,7 +696,7 @@ section:first-child p {
   pointer-events: none;
   /* pass through */
 }
-/* line 140, scss/style.scss */
+/* line 141, scss/style.scss */
 #nipple.tap {
   -webkit-animation: bounceIn 0.2s linear alternate 2;
   -moz-animation: bounceIn 0.2s linear alternate 2;
@@ -703,23 +705,23 @@ section:first-child p {
   animation: bounceIn 0.2s linear alternate 2;
 }
 
-/* line 149, scss/style.scss */
+/* line 150, scss/style.scss */
 footer {
   background: #222;
   color: #eee;
 }
-/* line 153, scss/style.scss */
+/* line 154, scss/style.scss */
 footer p {
   margin: 0;
-  padding: 4rem;
+  padding: 4rem 0;
 }
-/* line 157, scss/style.scss */
+/* line 158, scss/style.scss */
 footer .love {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #ef4eec;
 }
 
-/* line 168, scss/style.scss */
+/* line 169, scss/style.scss */
 pre[class*="language-"] {
   margin: 1.5rem 0;
 }
