@@ -46,9 +46,32 @@
     </header>
 
     <main>
-        <section>
-            <h2>Tap it, Press it, Double tap it, Flick it, Drag it</h2>
+        <section class="demo">
             <div id="touchzone" data-event></div>
+            <aside class="events">
+                <ul class="events-list">
+                    <li>
+                        <strong class="event-name" data-event="tap">Tap</strong>
+                        <em>Briefly touch surface with fingertip</em>
+                    </li>
+                    <li>
+                        <strong class="event-name" data-event="doubletap">Double Tap</strong>
+                        <em>Rapidly touch surface twice with fingertip</em>
+                    </li>
+                    <li>
+                        <strong class="event-name" data-event="press">Press</strong>
+                        <em>Touch surface for extended period of time</em>
+                    </li>
+                    <li>
+                        <strong class="event-name" data-event="flick">Flick</strong>
+                        <em>Quickly brush surface with fingertip</em>
+                    </li>
+                    <li>
+                        <strong class="event-name" data-event="drag">Drag</strong>
+                        <em>Move fingertip over surface without losing contact</em>
+                    </li>
+                </ul>
+            </aside>
             <div class="actions">
                 <a href="http://github.com/ngryman/jquery.finger/zipball/v0.0.10" class="icon-download">Download</a>
                 <a href="http://github.com/ngryman/jquery.finger" class="icon-github-repo">Github</a>

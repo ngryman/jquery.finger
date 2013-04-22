@@ -63,53 +63,71 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 2, scss/_colors.scss */
+/* line 7, scss/_colors.scss */
 html.green a:hover {
   box-shadow: 0 0 5px #b6d125;
   border-color: #b6d125;
   color: #a9be38;
 }
-
-/* line 7, scss/_colors.scss */
+/* line 13, scss/_colors.scss */
 html.green #touchzone {
   background-color: #a5b83e;
 }
-
-/* line 10, scss/_colors.scss */
+/* line 18, scss/_colors.scss */
+html.green .demo .event-name.is-active::before {
+  -webkit-box-shadow: 0 0 3px 1px #c7e90d;
+  -moz-box-shadow: 0 0 3px 1px #c7e90d;
+  box-shadow: 0 0 3px 1px #c7e90d;
+  border-color: #adc432;
+  background: #c7e90d;
+}
+/* line 25, scss/_colors.scss */
 html.green footer .love {
   color: #b6d125;
 }
 
-/* line 2, scss/_colors.scss */
+/* line 7, scss/_colors.scss */
 html.blue a:hover {
   box-shadow: 0 0 5px #2188d0;
   border-color: #2188d0;
   color: #3385be;
 }
-
-/* line 7, scss/_colors.scss */
+/* line 13, scss/_colors.scss */
 html.blue #touchzone {
   background-color: #3984b8;
 }
-
-/* line 10, scss/_colors.scss */
+/* line 18, scss/_colors.scss */
+html.blue .demo .event-name.is-active::before {
+  -webkit-box-shadow: 0 0 3px 1px #098de8;
+  -moz-box-shadow: 0 0 3px 1px #098de8;
+  box-shadow: 0 0 3px 1px #098de8;
+  border-color: #2d86c4;
+  background: #098de8;
+}
+/* line 25, scss/_colors.scss */
 html.blue footer .love {
   color: #2188d0;
 }
 
-/* line 2, scss/_colors.scss */
+/* line 7, scss/_colors.scss */
 html.pink a:hover {
   box-shadow: 0 0 5px #d12bcd;
   border-color: #d12bcd;
   color: #be3ebb;
 }
-
-/* line 7, scss/_colors.scss */
+/* line 13, scss/_colors.scss */
 html.pink #touchzone {
   background-color: #b844b5;
 }
-
-/* line 10, scss/_colors.scss */
+/* line 18, scss/_colors.scss */
+html.pink .demo .event-name.is-active::before {
+  -webkit-box-shadow: 0 0 3px 1px #ea12e5;
+  -moz-box-shadow: 0 0 3px 1px #ea12e5;
+  box-shadow: 0 0 3px 1px #ea12e5;
+  border-color: #c537c1;
+  background: #ea12e5;
+}
+/* line 25, scss/_colors.scss */
 html.pink footer .love {
   color: #d12bcd;
 }
@@ -134,7 +152,7 @@ html, body {
 
 /* line 16, scss/_base.scss */
 body {
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   color: #555;
   /* enhances font rendering? */
   -webkit-font-smoothing: antialiased;
@@ -147,8 +165,8 @@ body {
 
 /* line 30, scss/_base.scss */
 h1 {
-  padding: 0.3rem 1rem;
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  padding: .3rem 1rem;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   color: #333;
   font-size: 4rem;
   font-weight: bold;
@@ -175,7 +193,7 @@ h2 {
 /* line 52, scss/_base.scss */
 h3 {
   margin: 1rem 0;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
   font-size: 2rem;
   font-weight: 100;
   line-height: 4rem;
@@ -577,8 +595,9 @@ section {
   }
 }
 
-/* line 34, scss/style.scss */
-section:first-child {
+/* line 39, scss/style.scss */
+.demo {
+  position: relative;
   background-color: #333;
   background-image: -webkit-linear-gradient(#2e2e2e 2px, transparent 1px), -webkit-linear-gradient(left, #2e2e2e 2px, transparent 1px);
   background-image: -moz-linear-gradient(#2e2e2e 2px, transparent 1px), -moz-linear-gradient(left, #2e2e2e 2px, transparent 1px);
@@ -586,34 +605,109 @@ section:first-child {
   background-position: -1px -1px, -1px -1px;
   color: #bbb;
 }
-/* line 42, scss/style.scss */
-section:first-child h2 {
-  color: #bbb;
-  font-size: 2rem;
-  text-align: center;
-}
-/* line 47, scss/style.scss */
-section:first-child p {
+/* line 48, scss/style.scss */
+.demo p {
   margin: 2rem auto;
   width: 60rem;
   line-height: 3rem;
   text-align: justify;
 }
-
-/* line 59, scss/style.scss */
-.actions {
-  margin: 4rem 0;
+@media (min-width: 25em) {
+  /* line 55, scss/style.scss */
+  .demo .events {
+    margin: 3rem 0;
+  }
+}
+@media (min-width: 62.5em) {
+  /* line 55, scss/style.scss */
+  .demo .events {
+    position: absolute;
+    margin-left: 30rem;
+    top: 5%;
+    left: 50%;
+  }
+}
+/* line 67, scss/style.scss */
+.demo .events-list {
+  list-style: none;
+  margin: 0 4rem;
+  font-size: 0;
 }
 @media (min-width: 25em) {
-  /* line 59, scss/style.scss */
+  /* line 67, scss/style.scss */
+  .demo .events-list {
+    margin: 0 2rem;
+    text-align: center;
+  }
+}
+/* line 76, scss/style.scss */
+.demo .events-list li {
+  display: inline-block;
+  width: 50%;
+}
+@media (min-width: 25em) {
+  /* line 76, scss/style.scss */
+  .demo .events-list li {
+    width: auto;
+    text-align: center;
+  }
+}
+@media (min-width: 62.5em) {
+  /* line 76, scss/style.scss */
+  .demo .events-list li {
+    display: block;
+    text-align: left;
+  }
+}
+/* line 90, scss/style.scss */
+.demo .events-list .event-name::before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: .5rem;
+  border: .2rem solid #555;
+  background: #333;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+}
+@media (min-width: 25em) {
+  /* line 90, scss/style.scss */
+  .demo .events-list .event-name::before {
+    margin-left: .5rem;
+  }
+}
+/* line 104, scss/style.scss */
+.demo .events-list .event-name.is-active::before {
+  -webkit-box-shadow: 0 0 3px 1px #c7e90d;
+  -moz-box-shadow: 0 0 3px 1px #c7e90d;
+  box-shadow: 0 0 3px 1px #c7e90d;
+  border-color: #adc432;
+  background: #c7e90d;
+}
+/* line 111, scss/style.scss */
+.demo .events-list em {
+  display: none;
+}
+
+/* line 121, scss/style.scss */
+.actions {
+  margin: 2rem 0;
+}
+@media (min-width: 25em) {
+  /* line 121, scss/style.scss */
   .actions {
     text-align: center;
   }
 }
-/* line 65, scss/style.scss */
+/* line 127, scss/style.scss */
 .actions a {
   display: inline-block;
-  border: 2px solid #bbbbbb;
+  border: 2px solid #bbb;
   border-radius: 5px;
   background: #bbb;
   padding: 1rem;
@@ -630,19 +724,19 @@ section:first-child p {
   transition: 0.2s;
 }
 @media (min-width: 25em) {
-  /* line 65, scss/style.scss */
+  /* line 127, scss/style.scss */
   .actions a {
     margin-left: 1rem;
     width: 18rem;
   }
 }
 @media (max-width: 25em) {
-  /* line 84, scss/style.scss */
+  /* line 146, scss/style.scss */
   .actions a:first-child {
     margin-bottom: 2rem;
   }
 }
-/* line 90, scss/style.scss */
+/* line 152, scss/style.scss */
 .actions a:hover {
   -webkit-box-shadow: 0 0 5px #bcec4b;
   -moz-box-shadow: 0 0 5px #bcec4b;
@@ -653,7 +747,7 @@ section:first-child p {
   text-shadow: none;
 }
 
-/* line 105, scss/style.scss */
+/* line 167, scss/style.scss */
 #touchzone {
   position: relative;
   margin: 2rem auto;
@@ -670,24 +764,24 @@ section:first-child p {
   user-select: none;
 }
 @media (min-width: 42.5em) {
-  /* line 105, scss/style.scss */
+  /* line 167, scss/style.scss */
   #touchzone {
     padding-top: 0;
     width: 60rem;
     height: 45rem;
   }
 }
-/* line 121, scss/style.scss */
+/* line 183, scss/style.scss */
 #touchzone::after {
   content: attr(data-event);
 }
-/* line 125, scss/style.scss */
+/* line 187, scss/style.scss */
 #touchzone.grabbing {
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
 }
 
-/* line 132, scss/style.scss */
+/* line 194, scss/style.scss */
 #nipple {
   position: absolute;
   border: 4px solid rgba(255, 255, 255, 0.8);
@@ -696,7 +790,7 @@ section:first-child p {
   pointer-events: none;
   /* pass through */
 }
-/* line 141, scss/style.scss */
+/* line 203, scss/style.scss */
 #nipple.tap {
   -webkit-animation: bounceIn 0.2s linear alternate 2;
   -moz-animation: bounceIn 0.2s linear alternate 2;
@@ -705,23 +799,23 @@ section:first-child p {
   animation: bounceIn 0.2s linear alternate 2;
 }
 
-/* line 150, scss/style.scss */
+/* line 212, scss/style.scss */
 footer {
   background: #222;
   color: #eee;
 }
-/* line 154, scss/style.scss */
+/* line 216, scss/style.scss */
 footer p {
   margin: 0;
   padding: 4rem 0;
 }
-/* line 158, scss/style.scss */
+/* line 220, scss/style.scss */
 footer .love {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #ef4eec;
 }
 
-/* line 169, scss/style.scss */
+/* line 231, scss/style.scss */
 pre[class*="language-"] {
   margin: 1.5rem 0;
 }

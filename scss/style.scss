@@ -31,7 +31,13 @@ footer {
 	}
 }
 
-section:first-child {
+//
+// demo - shows the user what the library can basically do
+// this is meant to be pretty
+//
+
+.demo {
+	position: relative;
 	background-color: #333;
 	background-image: -webkit-linear-gradient(#2e2e2e 2px, transparent 1px), -webkit-linear-gradient(left, #2e2e2e 2px, transparent 1px);
 	background-image: -moz-linear-gradient(#2e2e2e 2px, transparent 1px), -moz-linear-gradient(left, #2e2e2e 2px, transparent 1px);
@@ -39,16 +45,72 @@ section:first-child {
 	background-position: -1px -1px, -1px -1px;
 	color: #bbb;
 
-	h2 {
-		color: #bbb;
-		font-size: 2rem;
-		text-align: center;
-	}
 	p {
 		margin: 2rem auto;
 		width: 60rem;
 		line-height: 3rem;
 		text-align: justify;
+	}
+
+	.events {
+		@include normal-size-and-up {
+			margin: 3rem 0;
+		}
+		@include xlarge-size-and-up {
+			position: absolute;
+			margin-left: 30rem;
+			top: 5%;
+			left: 50%;
+		}
+	}
+
+	.events-list {
+		list-style: none;
+		margin: 0 4rem;
+		font-size: 0;
+		@include normal-size-and-up {
+			margin: 0 2rem;
+			text-align: center;
+		}
+
+		li {
+			display: inline-block;
+			width: 50%;
+			@include normal-size-and-up {
+				width: auto;
+				text-align: center;
+			}
+			@include xlarge-size-and-up {
+				display: block;
+				text-align: left;
+			}
+		}
+
+		.event-name {
+			&::before {
+				content: '';
+				display: inline-block;
+				vertical-align: middle;
+				margin-right: .5rem;
+				border: .2rem solid #555;
+				background: #333;
+				@include border-radius(50%);
+				width: 1rem;
+				height: 1rem;
+				@include normal-size-and-up {
+					margin-left: .5rem;
+				}
+			}
+			&.is-active::before {
+				@include box-shadow(0 0 3px 1px saturate($green, 40%));
+				border-color: saturate($green, 10%);
+				background: saturate($green, 40%);
+			}
+		}
+
+		em {
+			display: none;
+		}
 	}
 }
 
@@ -57,7 +119,7 @@ section:first-child {
 //
 
 .actions {
-	margin: 4rem 0;
+	margin: 2rem 0;
 	@include normal-size-and-up {
 		text-align: center;
 	}

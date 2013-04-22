@@ -2,14 +2,23 @@
 	var $elem = $('#touchzone'),
 		$nipple = $('#nipple'),
 		colors = 'green blue pink'.split(' '),
-		w;
+		w, eventTimeout;
 
 	colors.index = 0;
+
+	function notify(eventName) {
+		$('[data-event=' + eventName + ']').addClass('is-active');
+		clearTimeout(eventTimeout);
+		eventTimeout = setTimeout(function() {
+			$('[data-event].is-active').removeClass('is-active');
+		}, 1000);
+	}
 
 	window.Tralala = {
 		tap: function(x, y) {
 			$elem.cssreset()
 				.cssAnimate('tap');
+			notify('tap');
 
 //			$nipple.cssAnimate('tap').css({
 //				left: x - w / 20,
@@ -24,6 +33,7 @@
 			$html.removeClass(colors[colors.index]);
 			colors.index = (colors.index + 1) % colors.length;
 			$html.addClass(colors[colors.index]);
+			notify('doubletap');
 		},
 
 		drag: function(e) {
@@ -45,6 +55,8 @@
 				transition: e.end ?  '.2s linear' : 'none',
 				transform: transform
 			});
+
+			notify('drag');
 		},
 
 		flick: function() {

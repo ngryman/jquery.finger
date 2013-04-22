@@ -1,17 +1,33 @@
+$green: #a5b83e;
+$blue: #3984b8;
+$pink: #b844b5;
+
 @mixin define-global-color($name, $color) {
-	html.#{$name} a:hover {
-		box-shadow: 0 0 5px saturate($color, 20%);
-		border-color: saturate($color, 20%);
-		color: saturate($color, 5%);
-	}
-	html.#{$name} #touchzone {
-		background-color: $color
-	}
-	html.#{$name} footer .love {
-		color: saturate($color, 20%);
+	html.#{$name} {
+		a:hover {
+			box-shadow: 0 0 5px saturate($color, 20%);
+			border-color: saturate($color, 20%);
+			color: saturate($color, 5%);
+		}
+
+		#touchzone {
+			background-color: $color
+		}
+
+		.demo .event-name {
+			&.is-active::before {
+				@include box-shadow(0 0 3px 1px saturate($color, 40%));
+				border-color: saturate($color, 10%);
+				background: saturate($color, 40%);
+			}
+		}
+
+		footer .love {
+			color: saturate($color, 20%);
+		}
 	}
 }
 
-@include define-global-color(green, #a5b83e);
-@include define-global-color(blue, #3984b8);
-@include define-global-color(pink, #b844b5);
+@include define-global-color(green, $green);
+@include define-global-color(blue, $blue);
+@include define-global-color(pink, $pink);
