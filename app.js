@@ -36,6 +36,12 @@
 			notify('doubletap');
 		},
 
+		press: function(e) {
+			$elem.cssreset()
+				.cssAnimate('wobble');
+			notify('press');
+		},
+
 		drag: function(e) {
 			var dx = e.dx, dy = e.dy, transform = '';
 
@@ -71,6 +77,7 @@
 	$elem.on({
 		tap: Tralala.tap,
 		doubletap: Tralala.doubleTap,
+		press: Tralala.press,
 		drag: Tralala.drag
 //		flick: Tralala.flick
 	});

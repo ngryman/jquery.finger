@@ -1,3 +1,5 @@
+@import 'animation/animate';
+
 @include keyframes(tap) {
 	to {
 		@include scale(.95);
@@ -18,7 +20,8 @@
 }
 
 $animations: (tap .2s linear alternate 2)
-	(drag .2s linear 1)
+	(press .2s linear 1)
+	(wobble .5s)
 	(flick-horizontal .2s linear alternate 2)
 	(flick-vertical .2s linear alternate 2);
 
