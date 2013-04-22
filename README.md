@@ -2,8 +2,8 @@
 
 jQuery tap & gestures, fingers in the nose.
 
-**jQuery Finger** unifies click and touch events by removing the 300ms delay on touch devices. It also provide a common
-set of events to handle basic gestures such as drag and flick.
+**jQuery Finger** unifies click and touch events by removing the **300ms delay** on touch devices. It also provide a common
+set of events to handle basic gestures such as **drag** and **flick**.<br>
 Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is well tested and also supports jQuery **delegated events**.
 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
@@ -42,7 +42,7 @@ In your web page:
 
 ### Gestures
 
-**jQuery Finger** focuses on one finger event:
+**jQuery Finger** focuses on one finger events:
 
           | tap | doubletap | press | drag | flick |
 ----------|-----|-----------|-------|------|-------|
@@ -50,7 +50,7 @@ Available |  ✔ |     ✔     |   ✔  |  ✔  |   ✔  |
 
 ### Thresholds
 
-You can tweak how **jQuery Finger** handle events by modifying thresholds found in the `$.Finger` object.
+You can tweak how **jQuery Finger** handles events by modifying thresholds found in the `$.Finger` object.
 
 #### `pressDuration`
 
@@ -99,7 +99,7 @@ the pointer position and motion:
 
 ```javascript
 $('body').on('tap', 'a', { preventDefault: true }, function() {
-  window.location = $(this).attr('href');
+	window.location = $(this).attr('href');
 });
 ```
 
@@ -115,7 +115,7 @@ $('body').on('tap', '.toggle', function() {
 
 ```javascript
 $('#menu').on('flick', function(e) {
-	if ('horizontal' == e.direction) {
+	if ('horizontal' == e.orientation) {
 		if (1 == e.direction) {
 			$(this).addClass('is-opened');
 		}
@@ -142,43 +142,44 @@ $('#menu').on('flick', function(e) {
 
 ## Release History
 
-### v0.0.10
-
+```
+v0.0.10
  - fixed events fired multiple times (#1).
  - added `preventDefault` support.
  - internal refactoring for size and performance.
 
-### v0.0.9
+v0.0.9
   - fixed incorrect event type.
   - added to jam.
   - added to bower.
 
-### v0.0.8
+v0.0.8
   - fixed bugs on delegated events.
   - better cross-browser support (still needs some work/tests).
   - internal refactoring for consistency and performance.
 
-### v0.0.7
+v0.0.7
   - various cross browsers fixes.
 
-### v0.0.6
+v0.0.6
   - updated description.
 
-### v0.0.5
+v0.0.5
   - updated jquery manifest and published on http://plugins.jquery.com.
 
-### v0.0.4
+v0.0.4
   - added `drag` and `flick` gestures.
   - enhanced `event` object.
   - internal refactoring for consistency.
 
-### v0.0.3
+v0.0.3
   - migration to **grunt** 0.4.
   - migration to **mocha** / **chaijs** for tests.
 
-### v0.0.2
+v0.0.2
   - added `doubletap` and `press` gestures.
   - internal refactoring for consistency and performance.
 
-### v0.0.1
+v0.0.1
   - `tap` gesture first implementation.
+```
