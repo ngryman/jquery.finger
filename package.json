@@ -50,6 +50,7 @@
 		"node": ">= 0.10"
 	},
 	"scripts": {
+		"preinstall": "npm i -g grunt-cli",
 		"test": "grunt mocha"
 	},
 	"devDependencies": {
