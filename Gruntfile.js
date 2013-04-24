@@ -30,7 +30,8 @@ module.exports = function(grunt) {
 		uglify: {
 			options: {
 				stripBanners: true,
-				banner: '<%= meta.banner %>'
+				banner: '<%= meta.banner %>',
+				report: 'gzip'
 			},
 			dist: {
 				src: 'src/<%= pkg.name %>.js',
@@ -55,7 +56,7 @@ module.exports = function(grunt) {
 		connect: {
 			server: {
 				options: {
-					hostname: null, // waiting PR to be merged: https://github.com/gruntjs/grunt-contrib-connect/pull/19
+					hostname: '*',
 					port: 3000,
 					base: '.',
 					keepalive: true
