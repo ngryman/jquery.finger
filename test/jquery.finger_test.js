@@ -195,6 +195,18 @@
 					done();
 				});
 			});
+
+			it('should not fire double tap event (#2)', function(done) {
+				var handler1 = sinon.spy();
+				var handler2 = sinon.spy();
+				$('body').on('doubletap', '.touchme', handler1);
+				$('body').on('press', '.touchme', handler2);
+				this.pointer.press(function() {
+					handler1.should.not.have.been.called;
+					handler2.should.have.been.calledOnce;
+					done();
+				});
+			});
 		});
 
 		describe('double tap event', function() {

@@ -36,9 +36,12 @@
 
 		data.move = { x: page('x', event), y: page('y', event) };
 		data.start = $.extend({ time: event.timeStamp, target: event.target }, data.move);
-		data.timeout = setTimeout(function() {
+		data.timeout = setTimeout($.proxy(function() {
 			$.event.trigger($.Event('press', data.move), null, event.target);
-		}, $.Finger.pressDuration);
+
+			$.event.remove(this, moveEvent + '.' + namespace, moveHandler);
+			$.event.remove(this, stopEvent + '.' + namespace, stopHandler);
+		}, this), $.Finger.pressDuration);
 
 		$.event.add(this, moveEvent + '.' + namespace, moveHandler, data);
 		$.event.add(this, stopEvent + '.' + namespace, stopHandler, data);
