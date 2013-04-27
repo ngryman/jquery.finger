@@ -143,6 +143,9 @@ $('#menu').on('flick', function(e) {
 ## Release History
 
 ```
+v0.0.11
+ - `press` event is now fired by `timeout` instead of `touchend`.
+
 v0.0.10
  - fixed events fired multiple times (#1).
  - added `preventDefault` support.
