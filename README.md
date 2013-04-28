@@ -1,4 +1,4 @@
-# jQuery Finger <sup>0.0.10</sup>
+# jQuery Finger <sup>0.0.11</sup>
 
 jQuery tap & gestures, fingers in the nose.
 
@@ -11,7 +11,7 @@ Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is 
 
 ## Getting Started
 
-Download the [production version][min] *(465 bytes gzipped)* or the [development version][max] *(4161 bytes)*.<br>
+Download the [production version][min] *(470 bytes gzipped)* or the [development version][max] *(4163 bytes)*.<br>
 You can also install it via [Jam] or [Bower].
 
 [min]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js
