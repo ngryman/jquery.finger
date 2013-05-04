@@ -8,6 +8,7 @@ Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is 
 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
 [![Dependency Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/cec9f8a0012c619d46fc5398ab2f3046 "githalytics.com")](http://githalytics.com/ngryman/jquery.finger)
 
 ## Getting Started
 
