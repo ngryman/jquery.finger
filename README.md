@@ -130,10 +130,12 @@ $('#menu').on('flick', function(e) {
 ## Notes
 
  - **jQuery Finger** uses [VirtualPointer] in its test suite to simulate mouse and touch events.
+ - `preventDefault` prevents **any native behavior** ([details]).
  - On Chrome 25+, `preventDefault` does not work as expected because `ontouchstart` is defined. To make it work, you
  have to manually prevent the default behavior in the `mousedown` or `click` event.
 
 [VirtualPointer]: https://github.com/ngryman/virtual-pointer
+[details]: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-prevent-default-touch-and-mouse-events-in-the-BlackBerry/ta-p/1223685
 
 ## Instacode
 
