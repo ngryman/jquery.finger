@@ -94,6 +94,32 @@ the pointer position and motion:
    - `1`: motion has a positive direction, either left to right for horizontal, or top to bottom for vertical.
    - `-1`: motion has a negative direction, either right to left for horizontal, or bottom to top for vertical.
 
+### Prevent default
+
+You can prevent default browser behavior when binding events with **jQuery Finger**.<br>
+By specifying it, be aware that you will prevent **every native behavior** such as *following links*, *scrolling*,
+*selecting text* and more ([details]).
+
+There are two way of preventing default behavior.
+
+[details]: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-prevent-default-touch-and-mouse-events-in-the-BlackBerry/ta-p/1223685
+
+#### Globally
+
+You can tell to prevent default behavior for every event binded with **jQuery Finger** like this:
+```javascript
+$.Finger.preventDefault = true;
+```
+
+#### Specifically
+
+You can tell to prevent default behavior just for a particular event like this:
+```javascript
+$('body').on('tap', '.touchme', { preventDefault: true }, function() {
+	// ...
+});
+```
+
 ## Examples
 
 ### Remove the 300ms delay on every links of your page
@@ -130,12 +156,10 @@ $('#menu').on('flick', function(e) {
 ## Notes
 
  - **jQuery Finger** uses [VirtualPointer] in its test suite to simulate mouse and touch events.
- - `preventDefault` prevents **any native behavior** ([details]).
  - On Chrome 25+, `preventDefault` does not work as expected because `ontouchstart` is defined. To make it work, you
  have to manually prevent the default behavior in the `mousedown` or `click` event.
 
 [VirtualPointer]: https://github.com/ngryman/virtual-pointer
-[details]: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-prevent-default-touch-and-mouse-events-in-the-BlackBerry/ta-p/1223685
 
 ## Instacode
 
