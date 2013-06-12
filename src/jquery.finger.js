@@ -29,13 +29,14 @@
 
 	function startHandler(event) {
 		var data = {},
+			timeStamp = event.timeStamp || +new Date(),
 			f = $.data(this, namespace);
 
-		if (safeguard == event.timeStamp) return;
-		safeguard = event.timeStamp;
+		if (safeguard == timeStamp) return;
+		safeguard = timeStamp;
 
 		data.move = { x: page('x', event), y: page('y', event) };
-		data.start = $.extend({ time: event.timeStamp, target: event.target }, data.move);
+		data.start = $.extend({ time: timeStamp, target: event.target }, data.move);
 		data.timeout = setTimeout($.proxy(function() {
 			$.event.trigger($.Event('press', data.move), null, event.target);
 
@@ -95,9 +96,9 @@
 
 	function stopHandler(event) {
 		var data = event.data,
-			now = event.timeStamp,
+			timeStamp = event.timeStamp || +new Date(),
 			f = $.data(this, namespace),
-			dt = now - data.start.time,
+			dt = timeStamp - data.start.time,
 			evtName;
 
 		// always clears press timeout
@@ -109,8 +110,8 @@
 		// tap-like events
 		if (!data.motion) {
 			evtName = dt < Finger.pressDuration &&
-				!f.prev || f.prev && now - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap';
-			f.prev = now;
+				!f.prev || f.prev && timeStamp - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap';
+			f.prev = timeStamp;
 		}
 		// motion events
 		else {
