@@ -27,7 +27,8 @@
 	"jam": {
 		"main": "dist/jquery.finger.js",
 		"include": [
-			"dist/jquery.finger.js"
+			"dist/jquery.finger.js",
+			"dist/jquery.finger.min.js"
 		],
 		"dependencies": {
 			"jquery": "~1.7.0"
