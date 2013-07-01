@@ -99,8 +99,7 @@
 			timeStamp = event.timeStamp || +new Date(),
 			f = $.data(this, namespace),
 			dt = timeStamp - data.start.time,
-			evtName,
-			fingerEvent;
+			evtName;
 
 		// always clears press timeout
 		clearTimeout(data.timeout);
@@ -120,13 +119,7 @@
 			data.move.end = true;
 		}
 
-		fingerEvent = $.Event(evtName, data.move);
-		$.event.trigger(fingerEvent, null, event.target);
-		
-		// prevent default on the original?
-		if (fingerEvent.isDefaultPrevented()) {
-			event.preventDefault();
-		}
+		$.event.trigger($.Event(evtName, data.move), null, event.target);
 
 		$.event.remove(this, moveEvent + '.' + namespace, moveHandler);
 		$.event.remove(this, stopEvent + '.' + namespace, stopHandler);
