@@ -99,7 +99,8 @@
 			timeStamp = event.timeStamp || +new Date(),
 			f = $.data(this, namespace),
 			dt = timeStamp - data.start.time,
-			evtName;
+			evtName,
+			fingerEvent;
 
 		// always clears press timeout
 		clearTimeout(data.timeout);
