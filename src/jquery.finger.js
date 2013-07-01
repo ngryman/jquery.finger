@@ -119,7 +119,13 @@
 			data.move.end = true;
 		}
 
-		$.event.trigger($.Event(evtName, data.move), null, event.target);
+		fingerEvent = $.Event(evtName, data.move)
+		$.event.trigger(fingerEvent, null, event.target);
+		
+		// propagate preventDefault() and friends to the original stop event
+		if (fingerEvent.isDefaultPrevented() || Finger.preventDefaultEnd || f.options.preventDefaultEnd) event.preventDefault();
+		if (fingerEvent.isImmediatePropagationStopped()) event.stopImmediatePropagation();
+		if (fingerEvent.isPropagationStopped()) event.stopPropagation();
 
 		$.event.remove(this, moveEvent + '.' + namespace, moveHandler);
 		$.event.remove(this, stopEvent + '.' + namespace, stopHandler);
