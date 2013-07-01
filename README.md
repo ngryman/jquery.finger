@@ -1,4 +1,4 @@
-# jQuery Finger <sup>0.0.11</sup>
+# jQuery Finger <sup>0.1.0-alpha</sup>
 
 jQuery tap & gestures, fingers in the nose.
 
@@ -170,6 +170,10 @@ $('#menu').on('flick', function(e) {
 ## Release History
 
 ```
+v0.1.0-alpha
+ - ie8 legacy support.
+ - fixed prevent default event parameter.
+
 v0.0.11
  - `press` event is now fired by `timeout` instead of `touchend`.
 

@@ -1,4 +1,4 @@
-/*! jquery.finger - v0.0.11 - 2013-04-27
+/*! jquery.finger - v0.1.0-alpha - 2013-07-01
 * https://github.com/ngryman/jquery.finger
 * Copyright (c) 2013 Nicolas Gryman; Licensed MIT */
 
@@ -25,13 +25,14 @@
 
 	function startHandler(event) {
 		var data = {},
+			timeStamp = event.timeStamp || +new Date(),
 			f = $.data(this, namespace);
 
-		if (safeguard == event.timeStamp) return;
-		safeguard = event.timeStamp;
+		if (safeguard == timeStamp) return;
+		safeguard = timeStamp;
 
 		data.move = { x: page('x', event), y: page('y', event) };
-		data.start = $.extend({ time: event.timeStamp, target: event.target }, data.move);
+		data.start = $.extend({ time: timeStamp, target: event.target }, data.move);
 		data.timeout = setTimeout($.proxy(function() {
 			$.event.trigger($.Event('press', data.move), null, event.target);
 
@@ -42,7 +43,7 @@
 		$.event.add(this, moveEvent + '.' + namespace, moveHandler, data);
 		$.event.add(this, stopEvent + '.' + namespace, stopHandler, data);
 
-		if (f.preventDefault) event.preventDefault();
+		if (Finger.preventDefault || f.options.preventDefault) event.preventDefault();
 	}
 
 	function moveHandler(event) {
@@ -91,9 +92,9 @@
 
 	function stopHandler(event) {
 		var data = event.data,
-			now = event.timeStamp,
+			timeStamp = event.timeStamp || +new Date(),
 			f = $.data(this, namespace),
-			dt = now - data.start.time,
+			dt = timeStamp - data.start.time,
 			evtName;
 
 		// always clears press timeout
@@ -105,8 +106,8 @@
 		// tap-like events
 		if (!data.motion) {
 			evtName = dt < Finger.pressDuration &&
-				!f.prev || f.prev && now - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap';
-			f.prev = now;
+				!f.prev || f.prev && timeStamp - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap';
+			f.prev = timeStamp;
 		}
 		// motion events
 		else {
@@ -122,12 +123,9 @@
 
 	var fingerCustom = {
 		add: function(handleObj) {
-			var data = handleObj.data, f;
-
 			if (!$.data(this, namespace)) {
 				$.event.add(this, startEvent + '.' + namespace, startHandler);
-				f = $.data(this, namespace, {});
-				if (Finger.preventDefault || data && data.preventDefault) f.preventDefault = true;
+				$.data(this, namespace, { options: handleObj.data || {} });
 			}
 		},
 
