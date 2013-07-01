@@ -47,7 +47,7 @@
 		$.event.add(this, moveEvent + '.' + namespace, moveHandler, data);
 		$.event.add(this, stopEvent + '.' + namespace, stopHandler, data);
 
-		if (f.preventDefault) event.preventDefault();
+		if (Finger.preventDefault || f.options.preventDefault) event.preventDefault();
 	}
 
 	function moveHandler(event) {
@@ -127,12 +127,9 @@
 
 	var fingerCustom = {
 		add: function(handleObj) {
-			var data = handleObj.data, f;
-
 			if (!$.data(this, namespace)) {
 				$.event.add(this, startEvent + '.' + namespace, startHandler);
-				f = $.data(this, namespace, {});
-				if (Finger.preventDefault || data && data.preventDefault) f.preventDefault = true;
+				$.data(this, namespace, { options: handleObj.data || {} });
 			}
 		},
 
