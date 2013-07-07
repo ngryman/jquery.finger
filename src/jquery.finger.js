@@ -16,6 +16,12 @@
 		namespace = 'finger',
 		safeguard,
 
+		start = {},
+		move = {},
+		motion,
+		cancel,
+		timeout,
+
 		Finger = $.Finger = {
 			pressDuration: 300,
 			doubleTapInterval: 300,
@@ -23,8 +29,21 @@
 			motionThreshold: 5
 		};
 
-	function page(coord, e) {
-		return (hasTouch ? e.originalEvent.touches[0] : e)['page' + coord.toUpperCase()];
+	function page(coord, event) {
+		return (hasTouch ? event.originalEvent.touches[0] : event)['page' + coord.toUpperCase()];
+	}
+
+	function trigger(el, evtName, remove) {
+		$.event.trigger($.Event(evtName, move), null, start.target);
+		if (remove) {
+			$.event.remove(el, moveEvent + '.' + namespace, moveHandler);
+			$.event.remove(el, stopEvent + '.' + namespace, stopHandler);
+		}
+	}
+
+	function triggerPress(el) {
+		cancel = true;
+		trigger(el, 'press');
 	}
 
 	function Event(name, data, originalEvent) {
@@ -32,33 +51,29 @@
 	}
 
 	function startHandler(event) {
-		var data = {},
-			timeStamp = event.timeStamp || +new Date(),
+		var timeStamp = event.timeStamp || +new Date(),
 			f = $.data(this, namespace);
 
 		if (safeguard == timeStamp) return;
 		safeguard = timeStamp;
 
-		data.move = { x: page('x', event), y: page('y', event) };
-		data.start = $.extend({ time: timeStamp, target: event.target }, data.move);
-		data.timeout = setTimeout($.proxy(function() {
-			$.event.trigger(Event('press', data.move, event ), null, event.target);
+		// initializes data
+		start.x = move.x = page('x', event);
+		start.y = move.y = page('y', event);
+		start.time = timeStamp;
+		start.target = event.target;
+		move.orientation = null;
+		motion = false;
+		cancel = false;
+		timeout = setTimeout(triggerPress, $.Finger.pressDuration);
 
-			$.event.remove(this, moveEvent + '.' + namespace, moveHandler);
-			$.event.remove(this, stopEvent + '.' + namespace, stopHandler);
-		}, this), $.Finger.pressDuration);
-
-		$.event.add(this, moveEvent + '.' + namespace, moveHandler, data);
-		$.event.add(this, stopEvent + '.' + namespace, stopHandler, data);
+		$.event.add(this, moveEvent + '.' + namespace, moveHandler);
+		$.event.add(this, stopEvent + '.' + namespace, stopHandler);
 
 		if (Finger.preventDefault || f.options.preventDefault) event.preventDefault();
 	}
 
 	function moveHandler(event) {
-		var data = event.data,
-			start = data.start,
-			move = data.move;
-
 		// motion data
 		move.x = page('x', event);
 		move.y = page('y', event);
@@ -68,15 +83,15 @@
 		move.ady = Math.abs(move.dy);
 
 		// security
-		data.motion = move.adx > Finger.motionThreshold || move.ady > Finger.motionThreshold;
-		if (!data.motion) return;
+		motion = move.adx > Finger.motionThreshold || move.ady > Finger.motionThreshold;
+		if (!motion) return;
 
 		// moves cancel press events
-		clearTimeout(data.timeout);
+		clearTimeout(timeout);
 
 		// orientation
 		if (!move.orientation) {
-			if (move.adx > data.move.ady) {
+			if (move.adx > move.ady) {
 				move.orientation = 'horizontal';
 				move.direction = move.dx > 0 ? +1 : -1;
 			}
@@ -95,39 +110,34 @@
 		}
 
 		// fire drag event
-		$.event.trigger(Event('drag', move, event), null, event.target);
+		trigger(this, 'drag');
 	}
 
 	function stopHandler(event) {
-		var data = event.data,
-			timeStamp = event.timeStamp || +new Date(),
+		var timeStamp = event.timeStamp || +new Date(),
 			f = $.data(this, namespace),
-			dt = timeStamp - data.start.time,
+			dt = timeStamp - start.time,
 			evtName;
 
 		// always clears press timeout
-		clearTimeout(data.timeout);
+		clearTimeout(timeout);
 
 		// ensures start target and end target are the same
-		if (event.target !== data.start.target) return;
+		if (event.target !== start.target) return;
 
 		// tap-like events
-		if (!data.motion) {
-			evtName = dt < Finger.pressDuration &&
-				!f.prev || f.prev && timeStamp - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap';
+		if (!motion && !cancel) {
+			evtName = !f.prev || f.prev && timeStamp - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap';
 			f.prev = timeStamp;
-
-			$.event.trigger(Event(evtName, data.move, event), null, event.target);
 		}
 		// motion events
 		else {
-			if (dt < Finger.flickDuration) $.event.trigger(Event('flick', data.move, event), null, event.target);
-			data.move.end = true;
-			$.event.trigger(Event('drag', data.move, event), null, event.target);
+			if (dt < Finger.flickDuration) trigger(this, 'flick');
+			move.end = true;
+			evtName = 'drag';
 		}
 
-		$.event.remove(this, moveEvent + '.' + namespace, moveHandler);
-		$.event.remove(this, stopEvent + '.' + namespace, stopHandler);
+		trigger(this, evtName, true);
 	}
 
 	var fingerCustom = {

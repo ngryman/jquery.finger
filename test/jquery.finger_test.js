@@ -359,7 +359,7 @@
 					end = e.end;
 				});
 				this.pointer.drag(100, 0, function() {
-					end.should.be.true;
+					end.should.be.truthy;
 					done();
 				});
 			});
@@ -388,17 +388,22 @@
 				});
 				this.pointer.drag(0, 200, function() {
 					targets.length.should.equal(1);
-					end.should.be.true;
+					end.should.be.truthy;
 					done();
 				});
 			});
 
-			// TODO
 			xit('should correctly fire if binded to an element that has child and target changes', function(done) {
-				var targets = [];
+				var targets = [], end = false;
 				$('body').on('drag', function(e) {
+					if (!~targets.indexOf(e.target)) {
+						targets.push(e.target);
+					}
+					end = e.end;
 				});
 				this.pointer.drag(0, 200, function() {
+					targets.length.should.equal(2);
+					end.should.be.truthy;
 					done();
 				});
 			});
