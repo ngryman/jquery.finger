@@ -68,7 +68,7 @@ This defaults to `300`ms.
 #### `flickDuration`
 
 This is the maximum time the user will have to swipe in order to fire a `flick` event.
-If this time is reached, a `drag` event will be fired instead.
+If this time is reached, only `drag` events will continue to be fired.
 This defaults to `150`ms.
 
 #### `motionThreshold`
