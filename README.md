@@ -158,6 +158,8 @@ $('#menu').on('flick', function(e) {
  - **jQuery Finger** uses [VirtualPointer] in its test suite to simulate mouse and touch events.
  - On Chrome 25+, `preventDefault` does not work as expected because `ontouchstart` is defined. To make it work, you
  have to manually prevent the default behavior in the `mousedown` or `click` event.
+ - When using `flick` or `drag` event on an image, you have to set `user-drag: none` on it (and the prefixed
+   versions).
 
 [VirtualPointer]: https://github.com/ngryman/virtual-pointer
 
