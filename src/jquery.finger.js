@@ -112,14 +112,15 @@
 			evtName = dt < Finger.pressDuration &&
 				!f.prev || f.prev && timeStamp - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap';
 			f.prev = timeStamp;
+
+			$.event.trigger($.Event(evtName, data.move), null, event.target);
 		}
 		// motion events
 		else {
-			evtName = dt < Finger.flickDuration ? 'flick' : 'drag';
+			if (dt < Finger.flickDuration) $.event.trigger($.Event('flick', data.move), null, event.target);
 			data.move.end = true;
+			$.event.trigger($.Event('drag', data.move), null, event.target);
 		}
-
-		$.event.trigger($.Event(evtName, data.move), null, event.target);
 
 		$.event.remove(this, moveEvent + '.' + namespace, moveHandler);
 		$.event.remove(this, stopEvent + '.' + namespace, stopHandler);

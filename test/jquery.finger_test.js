@@ -271,6 +271,16 @@
 				});
 			});
 
+			it('should always been fired when there is motion', function(done) {
+				var handler = sinon.spy();
+				this.$elems.on('drag', handler);
+				this.pointer.flick(100, 0, function() {
+					handler.callCount.should.be.at.least(1);
+					handler.should.have.been.calledOn(this.$elems[0]);
+					done();
+				});
+			});
+
 			it('should pass the correct event type', function(done) {
 				this.$elems.on('drag', function(e) {
 					e.type.should.equal('drag');
@@ -320,12 +330,12 @@
 			});
 
 			it('should tell what the last event is', function(done) {
-				var end;
+				var end = false;
 				this.$elems.on('drag', function(e) {
 					end = e.end;
 				});
 				this.pointer.drag(100, 0, function() {
-					end.should.be.truthy;
+					end.should.be.true;
 					done();
 				});
 			});
@@ -345,14 +355,26 @@
 			});
 
 			it('should correctly stop at the edge of an element for delegated events', function(done) {
-				var targets = [];
-				$('body').on('drag', '.touchme', function(event) {
-					if (-1 == targets.indexOf(event.target)) {
-						targets.push(event.target);
+				var targets = [], end = false;
+				$('body').on('drag', '.touchme', function(e) {
+					if (!~targets.indexOf(e.target)) {
+						targets.push(e.target);
 					}
+					end = e.end;
 				});
 				this.pointer.drag(0, 200, function() {
 					targets.length.should.equal(1);
+					end.should.be.true;
+					done();
+				});
+			});
+
+			it('should correctly fire if binded to an element that has child and target changes', function(done) {
+				var targets = [];
+				$('body').on('drag', function(e) {
+					console.log(e);
+				});
+				this.pointer.drag(0, 200, function() {
 					done();
 				});
 			});
