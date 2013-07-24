@@ -44,6 +44,10 @@ footer {
 	background-position: -1px -1px, -1px -1px;
 	color: #bbb;
 	@include perspective(1500);
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 
 	p {
 		margin: 2rem auto;
