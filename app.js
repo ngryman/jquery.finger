@@ -38,7 +38,7 @@
 
 		press: function(e) {
 			$elem.cssreset()
-				.cssAnimate('wobble');
+				.cssAnimate('press');
 			notify('press');
 		},
 

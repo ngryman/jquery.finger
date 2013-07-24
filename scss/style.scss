@@ -1,7 +1,6 @@
 // third party
 @import 'compass';
 @import 'compass/reset';
-@import 'animation';
 
 // mixins
 @import 'mq';
@@ -44,6 +43,7 @@ footer {
 	background-size: 3px 3px;
 	background-position: -1px -1px, -1px -1px;
 	color: #bbb;
+	@include perspective(1500);
 
 	p {
 		margin: 2rem auto;
