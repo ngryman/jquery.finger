@@ -115,6 +115,14 @@
 				directHandler.should.have.been.calledOnce;
 				delegatedHandler.should.have.been.calledOnce;
 			});
+
+			it('should give access to the original event (#12)', function() {
+				this.$elems.on('tap', function(e) {
+					e.originalEvent.should.exist;
+					e.originalEvent.type.should.equal('touchend');
+				});
+				this.pointer.tap();
+			});
 		});
 
 		describe('press event', function() {
@@ -207,6 +215,14 @@
 					done();
 				});
 			});
+
+			it('should give access to the original event (#12)', function(done) {
+				this.$elems.on('press', function(e) {
+					e.originalEvent.should.exist;
+					e.originalEvent.type.should.equal('touchstart');
+				});
+				this.pointer.press(done);
+			});
 		});
 
 		describe('double tap event', function() {
@@ -247,6 +263,14 @@
 					delegatedHandler.should.have.been.calledOnce;
 					done();
 				});
+			});
+
+			it('should give access to the original event (#12)', function(done) {
+				this.$elems.on('doubletap', function(e) {
+					e.originalEvent.should.exist;
+					e.originalEvent.type.should.equal('touchend');
+				});
+				this.pointer.doubleTap(done);
 			});
 		});
 
@@ -369,14 +393,22 @@
 				});
 			});
 
-			it('should correctly fire if binded to an element that has child and target changes', function(done) {
+			// TODO
+			xit('should correctly fire if binded to an element that has child and target changes', function(done) {
 				var targets = [];
 				$('body').on('drag', function(e) {
-					console.log(e);
 				});
 				this.pointer.drag(0, 200, function() {
 					done();
 				});
+			});
+
+			it('should give access to the original event (#12)', function(done) {
+				this.$elems.on('drag', function(e) {
+					e.originalEvent.should.exist;
+					e.originalEvent.type.should.equal(e.end ? 'touchend' : 'touchmove');
+				});
+				this.pointer.drag(100, 0, done);
 			});
 		});
 
@@ -418,6 +450,14 @@
 					delegatedHandler.should.have.been.calledOnce;
 					done();
 				});
+			});
+
+			it('should give access to the original event (#12)', function(done) {
+				this.$elems.on('flick', function(e) {
+					e.originalEvent.should.exist;
+					e.originalEvent.type.should.equal('touchend');
+				});
+				this.pointer.flick(100, 0, done);
 			});
 		});
 	});
