@@ -1,6 +1,6 @@
 {
 	"name": "jquery.finger",
-	"version": "0.1.0-alpha",
+	"version": "0.1.0-alpha.1",
 	"description": "jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices. It also provide a common set of events to handle basic gestures such as drag and pinch. Small (< 1kb gzipped), it is focused on performance, is well tested and ... also supports jQuery delegated events.",
 	"homepage": "https://github.com/ngryman/jquery.finger",
 	"keywords": [

@@ -1,4 +1,4 @@
-/*! jquery.finger - v0.1.0-alpha - 2013-07-01
+/*! jquery.finger - v0.1.0-alpha.1 - 2013-07-28
 * https://github.com/ngryman/jquery.finger
 * Copyright (c) 2013 Nicolas Gryman; Licensed MIT */
 
@@ -23,6 +23,10 @@
 		return (hasTouch ? e.originalEvent.touches[0] : e)['page' + coord.toUpperCase()];
 	}
 
+	function Event(name, data, originalEvent) {
+		return $.Event(name, $.extend(data, { originalEvent: originalEvent }));
+	}
+
 	function startHandler(event) {
 		var data = {},
 			timeStamp = event.timeStamp || +new Date(),
@@ -34,7 +38,7 @@
 		data.move = { x: page('x', event), y: page('y', event) };
 		data.start = $.extend({ time: timeStamp, target: event.target }, data.move);
 		data.timeout = setTimeout($.proxy(function() {
-			$.event.trigger($.Event('press', data.move), null, event.target);
+			$.event.trigger(Event('press', data.move, event ), null, event.target);
 
 			$.event.remove(this, moveEvent + '.' + namespace, moveHandler);
 			$.event.remove(this, stopEvent + '.' + namespace, stopHandler);
@@ -82,12 +86,12 @@
 		// this ensures we notify the right target and simulates the mouseleave behavior
 		if (event.target !== start.target) {
 			event.target = start.target;
-			stopHandler.call(this, $.Event(stopEvent + '.' + namespace, event));
+			stopHandler.call(this, Event(stopEvent + '.' + namespace, event));
 			return;
 		}
 
 		// fire drag event
-		$.event.trigger($.Event('drag', move), null, event.target);
+		$.event.trigger(Event('drag', move, event), null, event.target);
 	}
 
 	function stopHandler(event) {
@@ -108,14 +112,15 @@
 			evtName = dt < Finger.pressDuration &&
 				!f.prev || f.prev && timeStamp - f.prev > Finger.doubleTapInterval ? 'tap' : 'doubletap';
 			f.prev = timeStamp;
+
+			$.event.trigger(Event(evtName, data.move, event), null, event.target);
 		}
 		// motion events
 		else {
-			evtName = dt < Finger.flickDuration ? 'flick' : 'drag';
+			if (dt < Finger.flickDuration) $.event.trigger(Event('flick', data.move, event), null, event.target);
 			data.move.end = true;
+			$.event.trigger(Event('drag', data.move, event), null, event.target);
 		}
-
-		$.event.trigger($.Event(evtName, data.move), null, event.target);
 
 		$.event.remove(this, moveEvent + '.' + namespace, moveHandler);
 		$.event.remove(this, stopEvent + '.' + namespace, stopHandler);
