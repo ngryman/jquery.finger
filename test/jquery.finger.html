@@ -31,7 +31,11 @@
     <!-- mocha -->
     <script src="../libs/mocha/mocha.js"></script>
     <script>
-        mocha.setup('bdd');
+        mocha.setup({
+			ui: 'bdd',
+			slow: 100,
+			bail: true
+		});
     </script>
 
     <!-- chaijs -->
