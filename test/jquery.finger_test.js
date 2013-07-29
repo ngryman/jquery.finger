@@ -18,10 +18,13 @@
 			this.$elems = $('#fixtures').find('.touchme');
 		});
 
-		afterEach(function() {
+		afterEach(function(done) {
 			$('body').off();
 			this.$elems.off().text('');
 			this.$elems = null;
+
+			// wait a enough time between tests in order to not trigger double tap events
+			setTimeout(done, $.Finger.doubleTapInterval);
 		});
 
 		describe('tap event', function() {
@@ -115,14 +118,6 @@
 				directHandler.should.have.been.calledOnce;
 				delegatedHandler.should.have.been.calledOnce;
 			});
-
-			it('should give access to the original event (#12)', function() {
-				this.$elems.on('tap', function(e) {
-					e.originalEvent.should.exist;
-					e.originalEvent.type.should.equal('touchend');
-				});
-				this.pointer.tap();
-			});
 		});
 
 		describe('press event', function() {
@@ -215,14 +210,6 @@
 					done();
 				});
 			});
-
-			it('should give access to the original event (#12)', function(done) {
-				this.$elems.on('press', function(e) {
-					e.originalEvent.should.exist;
-					e.originalEvent.type.should.equal('touchstart');
-				});
-				this.pointer.press(done);
-			});
 		});
 
 		describe('double tap event', function() {
@@ -263,14 +250,6 @@
 					delegatedHandler.should.have.been.calledOnce;
 					done();
 				});
-			});
-
-			it('should give access to the original event (#12)', function(done) {
-				this.$elems.on('doubletap', function(e) {
-					e.originalEvent.should.exist;
-					e.originalEvent.type.should.equal('touchend');
-				});
-				this.pointer.doubleTap(done);
 			});
 		});
 
@@ -407,14 +386,6 @@
 					done();
 				});
 			});
-
-			it('should give access to the original event (#12)', function(done) {
-				this.$elems.on('drag', function(e) {
-					e.originalEvent.should.exist;
-					e.originalEvent.type.should.equal(e.end ? 'touchend' : 'touchmove');
-				});
-				this.pointer.drag(100, 0, done);
-			});
 		});
 
 		describe('flick event', function() {
@@ -455,14 +426,6 @@
 					delegatedHandler.should.have.been.calledOnce;
 					done();
 				});
-			});
-
-			it('should give access to the original event (#12)', function(done) {
-				this.$elems.on('flick', function(e) {
-					e.originalEvent.should.exist;
-					e.originalEvent.type.should.equal('touchend');
-				});
-				this.pointer.flick(100, 0, done);
 			});
 		});
 	});
