@@ -1,9 +1,9 @@
-# jQuery Finger <sup>0.1.0-alpha.1</sup>
+# jQuery Finger <sup>0.1.0-beta</sup>
 
 jQuery tap & gestures, fingers in the nose.
 
-**jQuery Finger** unifies click and touch events by removing the **300ms delay** on touch devices. It also provide a common
-set of events to handle basic gestures such as **drag** and **flick**.<br>
+**Finger** unifies click and touch events by removing the **300ms delay** on touch devices. It also provide a common
+set of events to handle basic gestures such as **flick**, **drag**, **press** and **double tap**.<br>
 Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is well tested and also supports jQuery **delegated events**.
 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
@@ -12,7 +12,7 @@ Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is 
 
 ## Getting Started
 
-Download the [production version][min] *(470 bytes gzipped)* or the [development version][max] *(4163 bytes)*.<br>
+Download the [production version][min] *(399 bytes gzipped)* or the [development version][max] *(3700 bytes)*.<br>
 You can also install it via [Jam] or [Bower].
 
 [min]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js
@@ -43,7 +43,7 @@ In your web page:
 
 ### Gestures
 
-**jQuery Finger** focuses on one finger events:
+**Finger** focuses on one finger events:
 
           | tap | doubletap | press | drag | flick |
 ----------|-----|-----------|-------|------|-------|
@@ -51,7 +51,7 @@ Available |  ✔ |     ✔     |   ✔  |  ✔  |   ✔  |
 
 ### Thresholds
 
-You can tweak how **jQuery Finger** handles events by modifying thresholds found in the `$.Finger` object.
+You can tweak how **Finger** handles events by modifying thresholds found in the `$.Finger` object.
 
 #### `pressDuration`
 
@@ -79,7 +79,7 @@ This defaults to `5`px.
 
 ### Additional event parameters
 
-**jQuery Finger** enhances the default event object when there is motion (drag & flick). It gives information about
+**Finger** enhances the default event object when there is motion (drag & flick). It gives information about
 the pointer position and motion:
  - **x**: the `x` page coordinate.
  - **y**: the `y` page coordinate.
@@ -94,39 +94,74 @@ the pointer position and motion:
    - `1`: motion has a positive direction, either left to right for horizontal, or top to bottom for vertical.
    - `-1`: motion has a negative direction, either right to left for horizontal, or bottom to top for vertical.
 
-### Prevent default
+### Prevent default behavior
 
-You can prevent default browser behavior when binding events with **jQuery Finger**.<br>
-By specifying it, be aware that you will prevent **every native behavior** such as *following links*, *scrolling*,
-*selecting text* and more ([details]).
-
-There are two way of preventing default behavior.
-
-[details]: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-prevent-default-touch-and-mouse-events-in-the-BlackBerry/ta-p/1223685
+There are three ways of preventing default behavior.
 
 #### Globally
 
-You can tell to prevent default behavior for every event binded with **jQuery Finger** like this:
+You can prevent **every native behavior** globally:
 ```javascript
 $.Finger.preventDefault = true;
 ```
 
 #### Specifically
 
-You can tell to prevent default behavior just for a particular event like this:
+You can prevent default behavior, just like any other standard events:
 ```javascript
-$('body').on('tap', '.touchme', { preventDefault: true }, function() {
+$('body').on('tap', '.touchme', function(e) {
 	// ...
+	e.preventDefault();
 });
 ```
+
+Note that if you bind multiple events of the same type on the same element, and one of them is preventing default,
+every trigger of that event will implicitly prevent default of other bound events.
+
+**press** event can only be prevented globally, not specifically.
+
+#### Original event
+
+Internally **Finger** binds a global `touch` / `mouse` event to do its duty. This *native* event can be accessed via
+the `e.originalEvent` property. This is a *shared* event, that means that this will be the same object across all your
+handlers.
+
+With this original event you are able to decide how you want to prevent default behavior by adding any logic in any of
+your handlers.
+
+This is an example on how to prevent horizontal scrolling, but not vertical:
+```javascript
+$('body').on('drag', '.drag', function(e) {
+	// let the default vertical scrolling happen
+	if ('vertical' == e.orientation) return;
+
+	// prevent default horizontal scrolling
+	e.preventDefault();
+});
+```
+
+#### Notes
+
+This is how **Finger** prevents default behavior:
+
+                        | tap | doubletap | press | drag | flick | globally |
+------------------------|-----|-----------|-------|------|-------|----------|
+touchstart / mousedown  |     |           |       |      |       |    ✔    |
+touchmove / mousemove   |     |           |       |  ✔   |  ✔   |          |
+touchend / mouseup      |  ✔ |     ✔     |       |  ✔   |  ✔   |          |
+
+More [details].
+
+[details]: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-prevent-default-touch-and-mouse-events-in-the-BlackBerry/ta-p/1223685
 
 ## Examples
 
 ### Remove the 300ms delay on every links of your page
 
 ```javascript
-$('body').on('tap', 'a', { preventDefault: true }, function() {
+$('body').on('tap', 'a', function(e) {
 	window.location = $(this).attr('href');
+	e.preventDefault();
 });
 ```
 
@@ -155,7 +190,7 @@ $('#menu').on('flick', function(e) {
 
 ## Notes
 
- - **jQuery Finger** uses [VirtualPointer] in its test suite to simulate mouse and touch events.
+ - **Finger** uses [VirtualPointer] in its test suite to simulate mouse and touch events.
  - On Chrome 25+, `preventDefault` does not work as expected because `ontouchstart` is defined. To make it work, you
  have to manually prevent the default behavior in the `mousedown` or `click` event.
  - When using `flick` or `drag` event on an image, you have to set `user-drag: none` on it (and the prefixed
@@ -172,6 +207,10 @@ $('#menu').on('flick', function(e) {
 ## Release History
 
 ```
+v0.1.0-beta
+ - better prevent default logic (#9, #12).
+ - huge internal refactoring.
+
 v0.1.0-alpha.1
  - give access to original events (#12).
 

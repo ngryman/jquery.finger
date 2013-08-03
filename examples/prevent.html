@@ -28,7 +28,7 @@
 			cursor: default;
 		}
 
-		.drag p {
+		.drag a {
 			display: table-cell;
 			text-align: center;
 			vertical-align: middle;
@@ -42,7 +42,7 @@
 <body>
 
 <div class="drag">
-	<p>Touch me...</p>
+	<a href="http://google.com">Touch me...</a>
 </div>
 
 <!-- jQuery, from a global cdn -->
@@ -54,6 +54,11 @@
 		if ('vertical' == e.orientation) return;
 
 		$(this).find('p').text('tap');
+		e.preventDefault();
+	});
+
+	$('body').on('tap', 'a', function(e) {
+		alert(this.href);
 		e.preventDefault();
 	});
 </script>
