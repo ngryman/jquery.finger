@@ -36,8 +36,12 @@
 		return (hasTouch ? event.originalEvent.touches[0] : event)['page' + coord.toUpperCase()];
 	}
 
-	function trigger(evtName, remove) {
-		$.event.trigger($.Event(evtName, move), null, start.target);
+	function trigger(event, evtName, remove) {
+		var fingerEvent = $.Event(evtName, move);
+		$.event.trigger(fingerEvent, { originalEvent: event }, event.target);
+
+		if (fingerEvent.isDefaultPrevented()) event.preventDefault();
+
 		if (remove) {
 			$.event.remove(rootEl, moveEvent + '.' + namespace, moveHandler);
 			$.event.remove(rootEl, stopEvent + '.' + namespace, stopHandler);
@@ -60,11 +64,14 @@
 		cancel = false;
 		timeout = setTimeout(function() {
 			cancel = true;
-			trigger('press');
+			trigger(event, 'press');
 		}, $.Finger.pressDuration);
 
 		$.event.add(rootEl, moveEvent + '.' + namespace, moveHandler);
 		$.event.add(rootEl, stopEvent + '.' + namespace, stopHandler);
+
+		// global prevent default
+		if (Finger.preventDefault) event.preventDefault();
 	}
 
 	function moveHandler(event) {
@@ -104,7 +111,7 @@
 		}
 
 		// fire drag event
-		trigger('drag');
+		trigger(event, 'drag');
 	}
 
 	function stopHandler(event) {
@@ -127,12 +134,12 @@
 		}
 		// motion events
 		else {
-			if (dt < Finger.flickDuration) trigger('flick');
+			if (dt < Finger.flickDuration) trigger(event, 'flick');
 			move.end = true;
 			evtName = 'drag';
 		}
 
-		trigger(evtName, true);
+		trigger(event, evtName, true);
 	}
 
 	// initial binding

@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+
+	<title>jQuery Finger</title>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<style>
+		html, body {
+			font: 16px/1.25 "Helvetica Neue", Helvetica, Arial, sans-serif;
+			height: 100%;
+		}
+
+		.drag {
+			display: table;
+			width: 200%;
+			height: 200%;
+			background: black;
+			color: #00ff1a;
+			cursor: default;
+		}
+
+		.drag p {
+			display: table-cell;
+			text-align: center;
+			vertical-align: middle;
+			font-size: 2rem;
+			font-weight: bold;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<div class="drag">
+	<p>Touch me...</p>
+</div>
+
+<!-- jQuery, from a global cdn -->
+<script src="../libs/jquery/jquery.js"></script>
+<script src="../src/jquery.finger.js"></script>
+
+<script>
+	$('body').on('drag', '.drag', function(e) {
+		if ('vertical' == e.orientation) return;
+
+		$(this).find('p').text('tap');
+		e.preventDefault();
+	});
+</script>
+
+</body>
+
+</html>
