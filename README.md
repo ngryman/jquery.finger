@@ -204,6 +204,11 @@ $('#menu').on('flick', function(e) {
   <img src="http://instacod.es/file/65854">
 </p>
 
+## Projects using Finger
+
+- Webplate: http://getwebplate.com
+- Others?
+
 ## Release History
 
 ```
