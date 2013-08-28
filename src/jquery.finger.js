@@ -127,9 +127,9 @@
 
 		// tap-like events
 		if (!motion && !cancel) {
-			var tapEvent = !prevEl || prevEl === event.target && timeStamp - prevTime > Finger.doubleTapInterval;
-			evtName = tapEvent ? 'tap' : 'doubletap';
-			prevEl = tapEvent ? start.target : null;
+			var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
+			evtName = doubleTap ? 'doubletap' : 'tap';
+			prevEl = doubleTap ? null : start.target;
 			prevTime = timeStamp;
 		}
 		// motion events
