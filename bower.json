@@ -1,6 +1,6 @@
 {
 	"name": "jquery.finger",
-	"version": "0.1.0-beta",
+	"version": "0.1.0-beta.1",
 	"main": "dist/jquery.finger.js",
 	"ignore": [
 		".gitignore",

@@ -1,4 +1,4 @@
-# jQuery Finger <sup>0.1.0-beta</sup>
+# jQuery Finger <sup>0.1.0-beta.1</sup>
 
 jQuery tap & gestures, fingers in the nose.
 
@@ -12,7 +12,7 @@ Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is 
 
 ## Getting Started
 
-Download the [production version][min] *(399 bytes gzipped)* or the [development version][max] *(3700 bytes)*.<br>
+Download the [production version][min] *(396 bytes gzipped)* or the [development version][max] *(3692 bytes)*.<br>
 You can also install it via [Jam] or [Bower].
 
 [min]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js
@@ -212,7 +212,10 @@ $('#menu').on('flick', function(e) {
 ## Release History
 
 ```
-v0.1.0-beta
+v0.1.0-beta.1
+ - fixed successive taps to fail on different elements.
+
+v0.1.0-beta (buggy)
  - better prevent default logic (#9, #12).
  - huge internal refactoring.
 

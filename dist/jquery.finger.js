@@ -1,4 +1,4 @@
-/*! jquery.finger - v0.1.0-beta - 2013-08-03
+/*! jquery.finger - v0.1.0-beta.1 - 2013-08-28
 * https://github.com/ngryman/jquery.finger
 * Copyright (c) 2013 Nicolas Gryman; Licensed MIT */
 
@@ -123,9 +123,9 @@
 
 		// tap-like events
 		if (!motion && !cancel) {
-			var tapEvent = !prevEl || prevEl === event.target && timeStamp - prevTime > Finger.doubleTapInterval;
-			evtName = tapEvent ? 'tap' : 'doubletap';
-			prevEl = tapEvent ? start.target : null;
+			var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
+			evtName = doubleTap ? 'doubletap' : 'tap';
+			prevEl = doubleTap ? null : start.target;
 			prevTime = timeStamp;
 		}
 		// motion events
