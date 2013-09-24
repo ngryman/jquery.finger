@@ -8,7 +8,6 @@ Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is 
 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
 [![Dependency Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/cec9f8a0012c619d46fc5398ab2f3046 "githalytics.com")](http://githalytics.com/ngryman/jquery.finger)
 
 ## Getting Started
 
@@ -275,3 +274,5 @@ v0.0.1
 | [![twitter/ngryman](http://gravatar.com/avatar/2e1c2b5e153872e9fb021a6e4e376ead?size=70)](http://twitter.com/ngryman "Follow @ngryman on Twitter") |
 |---|
 | [Nicolas Gryman](http://ngryman.sh) |
+
+<img width="1" height="1" src="https://cruel-carlota.pagodabox.com/cec9f8a0012c619d46fc5398ab2f3046">
