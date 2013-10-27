@@ -72,7 +72,6 @@
 			"ipad": [6, 7],
 			"android-browser": [4.2]
 		},
-		"harness" : "mocha",
-		"files": "test/*-testling.html"
+		"files": "test/jquery.finger-testling.html"
 	}
 }
