@@ -73,6 +73,6 @@
 			"android-browser": [4.2]
 		},
 		"harness" : "mocha",
-		"files": "test/*.js"
+		"files": "test/*-testling.html"
 	}
 }
