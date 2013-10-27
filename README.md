@@ -9,6 +9,8 @@ Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is 
 [![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
 [![Dependency Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
 
+[![Browser Support](http://ci.testling.com/ngryman/jquery.finger.png)](http://ci.testling.com/ngryman/jquery.finger)
+
 ## Getting Started
 
 Download the [production version][min] *(396 bytes gzipped)* or the [development version][max] *(3692 bytes)*.<br>
