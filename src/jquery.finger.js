@@ -6,9 +6,11 @@
  * Licensed under the MIT license.
  */
 
-(function($) {
+(function($, ua) {
 
-	var hasTouch = 'ontouchstart' in window && !(isChrome && !isAndroid),
+	var isChrome = /chrome/i.exec(ua),
+		isAndroid = /android/i.exec(ua),
+		hasTouch = 'ontouchstart' in window && !(isChrome && !isAndroid),
 		startEvent = hasTouch ? 'touchstart' : 'mousedown',
 		stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup mouseleave',
 		moveEvent = hasTouch ? 'touchmove' : 'mousemove',
@@ -146,4 +148,4 @@
 	// initial binding
 	$.event.add(rootEl, startEvent + '.' + namespace, startHandler);
 
-})(jQuery);
+})(jQuery, navigator.userAgent);
