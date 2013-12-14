@@ -19,17 +19,23 @@ body {
 	/* enhances font rendering? */
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
+
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;
 }
 
 h1 {
 	padding: .3rem 1rem;
-	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	font-family: Exo2, Helvetica, Arial, sans-serif;
 	color: #333;
 	font-size: 4rem;
 	font-weight: bold;
 	line-height: 1.8;
 	text-align: center;
 	text-transform: lowercase;
+	@include text-shadow(3px 3px 5px #ccc);
 	@include large-size-and-up {
 		font-size: 7rem;
 	}
