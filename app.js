@@ -50,10 +50,10 @@
 			}
 			else {
 				if ('horizontal' == e.orientation) {
-					transform += 'rotateY(' + (-dx / 20) + 'deg)';
+					transform += 'rotateY(' + (-dx / 10) + 'deg)';
 				}
 				else {
-					transform += 'rotateX(' + (dy / 20) + 'deg)';
+					transform += 'rotateX(' + (dy / 10) + 'deg)';
 				}
 			}
 
@@ -63,6 +63,8 @@
 			});
 
 			notify('drag');
+
+			e.preventDefault();
 		},
 
 		flick: function(e) {
