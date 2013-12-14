@@ -1,4 +1,4 @@
-# jQuery Finger <sup>0.1.0-beta.1</sup>
+# jQuery Finger <sup>0.1.0-beta.2</sup>
 
 jQuery tap & gestures, fingers in the nose.
 
@@ -211,7 +211,11 @@ $('#menu').on('flick', function(e) {
 ## Release History
 
 ```
-v0.1.0-beta.1
+v0.1.0-beta.2
+ - fixed Chrome desktop and false positive touch detection.
+ - fixed drag events with a correct end flag value (#17).
+
+v0.1.0-beta.1 (buggy)
  - fixed successive taps to fail on different elements.
 
 v0.1.0-beta (buggy)
