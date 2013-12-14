@@ -1,4 +1,4 @@
-/*global Mocha, describe, xdescribe, before, beforeEach, afterEach, it, xit, sinon, VirtualPointer*/
+/*global Mocha, describe, xdescribe, before, beforeEach, afterEach, it, xit, sinon, VirtualPointer, console*/
 
 (function($) {
 
@@ -350,7 +350,7 @@
 				this.pointer.drag(100, 100, function() {
 					var callCount = handler.callCount;
 					self.$elems.off('drag', handler);
-					self.pointer.drag(100, 100, function() {
+					self.pointer.drag(0, 100, function() {
 						handler.callCount.should.equal(callCount);
 						done();
 					});
@@ -369,6 +369,20 @@
 					targets.length.should.equal(1);
 					end.should.be.truthy;
 					done();
+				});
+			});
+
+			it('should reset end flag for subsequent motion events', function(done) {
+				var self = this, endTrueCount = 0;
+
+				this.$elems.on('drag', function(e) {
+					if (e.end) endTrueCount++;
+				});
+				this.pointer.drag(100, 100, function() {
+					self.pointer.drag(100, 100, function() {
+						endTrueCount.should.equal(2);
+						done();
+					});
 				});
 			});
 

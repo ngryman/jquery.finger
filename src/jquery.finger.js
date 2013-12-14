@@ -8,7 +8,7 @@
 
 (function($) {
 
-	var hasTouch = 'ontouchstart' in window,
+	var hasTouch = 'ontouchstart' in window && !(isChrome && !isAndroid),
 		startEvent = hasTouch ? 'touchstart' : 'mousedown',
 		stopEvent = hasTouch ? 'touchend touchcancel' : 'mouseup mouseleave',
 		moveEvent = hasTouch ? 'touchmove' : 'mousemove',
@@ -60,6 +60,7 @@
 		start.time = timeStamp;
 		start.target = event.target;
 		move.orientation = null;
+		move.end = false;
 		motion = false;
 		cancel = false;
 		timeout = setTimeout(function() {
