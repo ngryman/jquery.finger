@@ -1,7 +1,7 @@
 # jQuery Finger [![Version](http://img.shields.io/badge/version-0.1.0--beta.2-brightgreen.svg)](https://github.com/ngryman/jquery.finger#release-history)
 
-[![Build Status](http://img.shields.io/travis/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
-[![Dependency Status](http://img.shields.io/gemnasium/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
+[![Build Status](http://img.shields.io/travis/ngryman/jquery.finger.svg)](https://travis-ci.org/ngryman/jquery.finger)
+[![Dependency Status](http://img.shields.io/gemnasium/ngryman/jquery.finger.svg)](https://gemnasium.com/ngryman/jquery.finger)
 [![Size](http://img.shields.io/badge/size-0.4%20kB-blue.svg)](https://raw2.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js)
 [![Gittip](http://img.shields.io/gittip/ngryman.svg)](https://www.gittip.com/ngryman/)
 
