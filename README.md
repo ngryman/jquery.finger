@@ -1,13 +1,15 @@
-# jQuery Finger <sup>0.1.0-beta.2</sup>
+# jQuery Finger [![Version](http://img.shields.io/badge/version-0.1.0--beta.2-brightgreen.svg)](https://github.com/ngryman/jquery.finger#release-history)
+
+[![Build Status](http://img.shields.io/travis/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
+[![Dependency Status](http://img.shields.io/gemnasium/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
+[![Size](http://img.shields.io/badge/size-0.4%20kB-blue.svg)](https://raw2.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js)
+[![Gittip](http://img.shields.io/gittip/ngryman.svg)](https://www.gittip.com/ngryman/)
 
 jQuery tap & gestures, fingers in the nose.
 
 **Finger** unifies click and touch events by removing the **300ms delay** on touch devices. It also provide a common
 set of events to handle basic gestures such as **flick**, **drag**, **press** and **double tap**.<br>
 Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is well tested and also supports jQuery **delegated events**.
-
-[![Build Status](https://travis-ci.org/ngryman/jquery.finger.png)](https://travis-ci.org/ngryman/jquery.finger)
-[![Dependency Status](https://gemnasium.com/ngryman/jquery.finger.png)](https://gemnasium.com/ngryman/jquery.finger)
 
 ## Getting Started
 
