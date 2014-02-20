@@ -16,7 +16,6 @@ $pink: #b844b5;
 
 		.demo .event-name {
 			&.is-active::before {
-				@include box-shadow(0 0 3px 1px saturate($color, 40%));
 				border-color: saturate($color, 10%);
 				background: saturate($color, 40%);
 			}

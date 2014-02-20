@@ -17,6 +17,10 @@
 // Section are visually well delimited to let the user navigate easily and jump to the most interesting section for him.
 //
 
+header {
+	background-color: #2f2f2f;
+}
+
 section,
 footer {
 	@include large-size-and-up {
@@ -37,11 +41,7 @@ footer {
 
 .demo {
 	position: relative;
-	background-color: #333;
-	background-image: -webkit-linear-gradient(#2e2e2e 2px, transparent 1px), -webkit-linear-gradient(left, #2e2e2e 2px, transparent 1px);
-	background-image: -moz-linear-gradient(#2e2e2e 2px, transparent 1px), -moz-linear-gradient(left, #2e2e2e 2px, transparent 1px);
-	background-size: 3px 3px;
-	background-position: -1px -1px, -1px -1px;
+	background-color: #2f2f2f;
 	color: #bbb;
 	@include perspective(1500);
 	-webkit-user-select: none;
@@ -106,7 +106,6 @@ footer {
 				}
 			}
 			&.is-active::before {
-				@include box-shadow(0 0 3px 1px saturate($green, 40%));
 				border-color: saturate($green, 10%);
 				background: saturate($green, 40%);
 			}
@@ -121,9 +120,12 @@ footer {
 //
 // actions - provides github and download buttons
 //
+// [1]: hover cause the whole .actions div to repaint, give it a layer.
+//
 
 .actions {
 	margin: 2rem 0;
+	@include translateZ(0);
 	@include normal-size-and-up {
 		text-align: center;
 	}
@@ -234,4 +236,5 @@ footer {
 // gives pre a wider margin that prism does
 pre[class*="language-"] {
 	margin: 1.5rem 0;
+	padding: 1em 2em;
 }
