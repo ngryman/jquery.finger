@@ -35,6 +35,32 @@ footer {
 }
 
 //
+// intro - motivational
+//
+
+.intro {
+	background: #2f2f2f;
+	margin: 0 auto;
+	text-align: justify;
+	margin-bottom: 4rem;
+	padding-bottom: 4rem;
+
+	p {
+		margin-left: auto;
+		margin-right: auto;
+		font-weight: 100;
+		color: #999;
+		font-size: 1.8rem;
+
+		@include large-size-and-up {
+			width: 60rem;
+			font-size: 2.2rem;
+			line-height: 3.4rem;
+		}
+	}
+}
+
+//
 // demo - shows the user what the library can basically do
 // this is meant to be pretty
 //
@@ -84,6 +110,11 @@ footer {
 				width: auto;
 				text-align: center;
 			}
+			@include large-size-and-up {
+				height: 3.4rem;
+				font-size: 2rem;
+				font-weight: 100;
+			}
 			@include xlarge-size-and-up {
 				display: block;
 				text-align: left;
@@ -103,6 +134,9 @@ footer {
 				height: 1rem;
 				@include normal-size-and-up {
 					margin-left: .5rem;
+				}
+				@include large-size-and-up {
+					margin-left: 1rem;
 				}
 			}
 			&.is-active::before {
@@ -221,6 +255,10 @@ footer {
 footer {
 	background: #222;
 	color: #eee;
+
+	a:hover {
+		box-shadow: none;
+	}
 
 	p {
 		margin: 0;
