@@ -7,7 +7,7 @@
 
 jQuery tap & gestures, fingers in the nose.
 
-**Finger** unifies click and touch events by removing the **300ms delay** on touch devices. It also provide a common
+**Finger** unifies click and touch events by removing the **300ms delay** on touch devices. It also provides a common
 set of events to handle basic gestures such as **flick**, **drag**, **press** and **double tap**.<br>
 Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is well tested and also supports jQuery **delegated events**.
 
