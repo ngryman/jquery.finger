@@ -29,8 +29,9 @@ h1 {
 	line-height: 1.8;
 	text-align: center;
 	text-transform: lowercase;
+	font-family: 'Great Vibes', cursive;
 	@include large-size-and-up {
-		font-size: 7rem;
+		font-size: 8rem;
 		height: 14rem;
 	}
 }
