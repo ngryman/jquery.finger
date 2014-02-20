@@ -129,6 +129,9 @@ footer {
 	@include normal-size-and-up {
 		text-align: center;
 	}
+	@include large-size-and-up {
+		margin: 4rem 0;
+	}
 
 	a {
 		display: inline-block;
@@ -175,7 +178,7 @@ footer {
 	margin: 2rem auto;
 	border: 10px solid rgba(255, 255, 255, .2);
 	background: #a5b83e;
-	padding-top: 75%;
+	padding-top: 66%;
 	width: 100%;
 	cursor: -webkit-grab;
 	cursor: -moz-grab;

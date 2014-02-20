@@ -37,25 +37,26 @@ h1 {
 	text-transform: lowercase;
 	@include large-size-and-up {
 		font-size: 7rem;
+		height: 14rem;
 	}
 }
 
 h2 {
 	margin: 2rem 0;
 	font-size: 2.8rem;
-	font-weight: 100;
+//	font-weight: 100;
 	color: black;
-	@include text-shadow(0 1px 1px #ddd);
+//	@include text-shadow(0 1px 1px #ddd);
 }
 
 h3 {
 	margin: 1rem 0;
 	border-bottom: 1px solid #ddd;
 	font-size: 2rem;
-	font-weight: 100;
+//	font-weight: 100;
 	line-height: 4rem;
 	color: black;
-	@include text-shadow(0 1px 1px #ddd);
+//	@include text-shadow(0 1px 1px #ddd);
 }
 
 a{
