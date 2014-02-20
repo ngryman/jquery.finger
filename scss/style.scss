@@ -27,10 +27,10 @@ footer {
 		padding: 1rem 4rem;
 	}
 	@include xlarge-size-and-up {
-		width: 100rem;
+		width: 70rem;
 		margin: 0 auto; /* fallback if calc is not supported */
-		padding: 1rem -webkit-calc(50% - 50rem);
-		padding: 1rem -moz-calc(50% - 50rem);
+		padding: 1rem -webkit-calc(50% - 35rem);
+		padding: 1rem -moz-calc(50% - 35rem);
 	}
 }
 
@@ -53,7 +53,6 @@ footer {
 		font-size: 1.8rem;
 
 		@include large-size-and-up {
-			width: 60rem;
 			font-size: 2.2rem;
 			line-height: 3.4rem;
 		}
