@@ -1,4 +1,4 @@
-# jQuery Finger [![Version](http://img.shields.io/badge/version-0.1.0--beta.2-brightgreen.svg)](https://github.com/ngryman/jquery.finger#release-history)
+# jQuery Finger [![Version](http://img.shields.io/badge/version-0.1.0-brightgreen.svg)](https://github.com/ngryman/jquery.finger#release-history)
 
 [![Build Status](http://img.shields.io/travis/ngryman/jquery.finger.svg)](https://travis-ci.org/ngryman/jquery.finger)
 [![Dependency Status](http://img.shields.io/gemnasium/ngryman/jquery.finger.svg)](https://gemnasium.com/ngryman/jquery.finger)
@@ -13,7 +13,7 @@ Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is 
 
 ## Getting Started
 
-Download the [production version][min] *(396 bytes gzipped)* or the [development version][max] *(3692 bytes)*.<br>
+Download the [production version][min] *(421 bytes gzipped)* or the [development version][max] *(3834 bytes)*.<br>
 You can also install it via [Jam] or [Bower].
 
 [min]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js
@@ -213,6 +213,9 @@ $('#menu').on('flick', function(e) {
 ## Release History
 
 ```
+v0.1.0
+ - stable release.
+
 v0.1.0-beta.2
  - fixed Chrome desktop and false positive touch detection.
  - fixed drag events with a correct end flag value (#17).
