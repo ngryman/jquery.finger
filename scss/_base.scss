@@ -19,19 +19,13 @@ body {
 	/* enhances font rendering? */
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
-
-	-webkit-user-select: none;  /* Chrome all / Safari all */
-	-moz-user-select: none;     /* Firefox all */
-	-ms-user-select: none;      /* IE 10+ */
-	user-select: none;
 }
 
 h1 {
 	padding: .3rem 1rem;
-	font-family: Exo2, Helvetica, Arial, sans-serif;
 	color: #eee;
 	font-size: 4rem;
-	font-weight: bold;
+	font-weight: 100;
 	line-height: 1.8;
 	text-align: center;
 	text-transform: lowercase;

@@ -224,11 +224,77 @@ footer {
 
 	p {
 		margin: 0;
-		padding: 4rem 0;
+		padding: 2rem 0;
+		text-align: center;
+		font-size: 1.5rem;
+		font-weight: 100;
+		@include normal-size-and-up {
+			font-size: 2rem;
+		}
+
+		& > * {
+			display: block;
+		}
+	}
+	.promo {
+		position: relative;
+		margin: 4rem 0;
 	}
 	.love {
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-		color: #ef4eec;
+		margin: 0 5px;
+		width: 30px;
+		height: 30px;
+		vertical-align: middle;
+		@include normal-size-and-up {
+			width: 40px;
+			height: 40px;
+		}
+
+		path {
+			fill: #ef4eec;
+		}
+	}
+	.avatar {
+		display: block;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		border-radius: 50%;
+		-webkit-transition: all .3s ease;
+		-webkit-filter: grayscale(100%);
+		@include translate(-50%, -50%);
+
+		&:hover {
+			-webkit-filter: grayscale(0);
+		}
+	}
+	.nickname {
+		display: inline-block;
+		padding-top: 10px;
+		font-size: 2.5rem;
+		color: #eee;
+		@include normal-size-and-up {
+			font-size: 3.5rem;
+		}
+		@include large-size-and-up {
+			font-size: 5rem;
+		}
+
+		&:first-of-type {
+			margin-right: 60px;
+			@include large-size-and-up {
+				padding-left: 19px;
+			}
+		}
+
+		&:last-of-type {
+			margin-left: 60px;
+		}
+	}
+	.links {
+		& > * {
+			display: inline-block;
+		}
 	}
 }
 

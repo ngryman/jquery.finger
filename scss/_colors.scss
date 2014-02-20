@@ -21,8 +21,8 @@ $pink: #b844b5;
 			}
 		}
 
-		footer .love {
-			color: saturate($color, 20%);
+		footer .love path {
+			fill: saturate($color, 20%);
 		}
 	}
 }
