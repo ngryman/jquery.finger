@@ -1,34 +1,21 @@
 (function() {
 	var $elem = $('#touchzone'),
-//		$nipple = $('#nipple'),
 		colors = 'green blue pink'.split(' '),
 		w, eventTimeout;
 
 	colors.index = 0;
 
-	function notify(eventName) {
-		$('[data-event=' + eventName + ']').addClass('is-active');
-		clearTimeout(eventTimeout);
-		eventTimeout = setTimeout(function() {
-			$('[data-event].is-active').removeClass('is-active');
-		}, 1000);
-	}
+	//
+	// event handlers
+	//
 
-	window.Tralala = {
+	var handlers = {
 		tap: function(e) {
-			$elem.cssreset()
-				.cssAnimate('tap');
+			$elem.cssreset().cssAnimate('tap');
 			notify('tap');
-
-//			$nipple.css({
-//				left: e.x - w / 20,
-//				top: e.y - w / 20,
-//				width: w / 10,
-//				height: w / 10
-//			}).cssAnimate('tap');
 		},
 
-		doubleTap: function(e) {
+		doubletap: function(e) {
 			var $html = $('html');
 			$html.removeClass(colors[colors.index]);
 			colors.index = (colors.index + 1) % colors.length;
@@ -37,8 +24,7 @@
 		},
 
 		press: function(e) {
-			$elem.cssreset()
-				.cssAnimate('press');
+			$elem.cssreset().cssAnimate('press');
 			notify('press');
 		},
 
@@ -68,25 +54,23 @@
 		},
 
 		flick: function(e) {
-//			/** TODO
-//			 * s'abonner a animationend pour reset et s'assurer qu'il n'y a aucun attribut de style de transformation et de transition
-//			 */
-//			$elem.cssAnimate('flick-' + e.orientation, 'touchzone', -1 == e.direction).attr('data-event', 'flick');
-//			notify('flick');
+			notify('flick');
 		}
 	};
+
+	function notify(eventName) {
+		$('[data-event=' + eventName + ']').addClass('is-active');
+		clearTimeout(eventTimeout);
+		eventTimeout = setTimeout(function() {
+			$('[data-event].is-active').removeClass('is-active');
+		}, 1000);
+	}
 
 	//
 	// events
 	//
 
-	$elem.on({
-		tap: Tralala.tap,
-		doubletap: Tralala.doubleTap,
-		press: Tralala.press,
-		drag: Tralala.drag
-//		flick: Tralala.flick
-	});
+	$elem.on(handlers);
 
 	$(window).on('load resize', $.debounce(function(e) {
 		w = $elem.outerWidth();
