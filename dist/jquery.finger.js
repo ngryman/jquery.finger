@@ -1,4 +1,4 @@
-/*! jquery.finger - v0.1.0 - 2014-02-19
+/*! jquery.finger - v0.1.1 - 2014-09-27
 * https://github.com/ngryman/jquery.finger
 * Copyright (c) 2014 Nicolas Gryman; Licensed MIT */
 
@@ -30,6 +30,11 @@
 			motionThreshold: 5
 		};
 
+	function preventDefault(event) {
+		event.preventDefault();
+		$.event.remove(rootEl, 'click', preventDefault);
+	}
+
 	function page(coord, event) {
 		return (hasTouch ? event.originalEvent.touches[0] : event)['page' + coord.toUpperCase()];
 	}
@@ -38,7 +43,12 @@
 		var fingerEvent = $.Event(evtName, move);
 		$.event.trigger(fingerEvent, { originalEvent: event }, event.target);
 
-		if (fingerEvent.isDefaultPrevented()) event.preventDefault();
+		if (fingerEvent.isDefaultPrevented()) {
+			if (~evtName.indexOf('tap') && !hasTouch)
+				$.event.add(rootEl, 'click', preventDefault);
+			else
+				event.preventDefault();
+		}
 
 		if (remove) {
 			$.event.remove(rootEl, moveEvent + '.' + namespace, moveHandler);
@@ -70,7 +80,10 @@
 		$.event.add(rootEl, stopEvent + '.' + namespace, stopHandler);
 
 		// global prevent default
-		if (Finger.preventDefault) event.preventDefault();
+		if (Finger.preventDefault) {
+			event.preventDefault();
+			$.event.add(rootEl, 'click', preventDefault);
+		}
 	}
 
 	function moveHandler(event) {
