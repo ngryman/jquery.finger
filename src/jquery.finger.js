@@ -120,6 +120,8 @@
 
 		// for delegated events, the target may change over time
 		// this ensures we notify the right target and simulates the mouseleave behavior
+		while (event.target && event.target !== start.target)
+			event.target = event.target.parentNode;
 		if (event.target !== start.target) {
 			event.target = start.target;
 			stopHandler.call(this, $.Event(stopEvent + '.' + namespace, event));
@@ -138,11 +140,9 @@
 		// always clears press timeout
 		clearTimeout(timeout);
 
-		// ensures start target and end target are the same
-		if (event.target !== start.target) return;
-
 		// tap-like events
-		if (!motion && !cancel) {
+		// triggered only if targets match
+		if (!motion && !cancel && event.target === start.target) {
 			var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
 			evtName = doubleTap ? 'doubletap' : 'tap';
 			prevEl = doubleTap ? null : start.target;
@@ -150,6 +150,8 @@
 		}
 		// motion events
 		else {
+			// ensure last target is set the initial one
+			event.target = start.target;
 			if (dt < Finger.flickDuration) trigger(event, 'flick');
 			move.end = true;
 			evtName = 'drag';
