@@ -213,6 +213,9 @@ $('#menu').on('flick', function(e) {
 ## Release History
 
 ```
+v0.1.2
+ - fixed dragging across children of an element (#10).
+
 v0.1.1
  - fixed `preventDefault` on desktop browsers for `tap` and `doubletap` events (#24).
 
