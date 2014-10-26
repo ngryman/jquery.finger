@@ -159,4 +159,17 @@
 	// initial binding
 	$.event.add(rootEl, startEvent + '.' + namespace, startHandler);
 
+	// Add event methods
+	$.each([
+		'tap',
+		'doubletap',
+		'press',
+		'drag',
+		'flick'
+	], function(i, name) {
+		$.fn[name] = function (fn) {
+			return fn ? this.on(name, fn) : this.trigger(name);
+		};
+	});
+
 })(jQuery, navigator.userAgent);
