@@ -94,6 +94,7 @@ the pointer position and motion:
  - **direction**:
    - `1`: motion has a positive direction, either left to right for horizontal, or top to bottom for vertical.
    - `-1`: motion has a negative direction, either right to left for horizontal, or bottom to top for vertical.
+ - **end**: `true` if motion has stopped, else `false`.
 
 ### Prevent default behavior
 
