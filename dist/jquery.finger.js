@@ -1,10 +1,22 @@
-/*! jquery.finger - v0.1.2 - 2014-10-01
+/*! jquery.finger - v0.1.2 - 2015-01-22
 * https://github.com/ngryman/jquery.finger
-* Copyright (c) 2014 Nicolas Gryman; Licensed MIT */
+* Copyright (c) 2015 Nicolas Gryman; Licensed MIT */
 
-(function($, ua) {
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], factory);
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		factory(require('jquery'));
+	} else {
+		// Browser globals
+		factory(jQuery);
+	}
+}(function ($) {
 
-	var isChrome = /chrome/i.exec(ua),
+	var ua = navigator.userAgent,
+		isChrome = /chrome/i.exec(ua),
 		isAndroid = /android/i.exec(ua),
 		hasTouch = 'ontouchstart' in window && !(isChrome && !isAndroid),
 		startEvent = hasTouch ? 'touchstart' : 'mousedown',
@@ -159,17 +171,13 @@
 	// initial binding
 	$.event.add(rootEl, startEvent + '.' + namespace, startHandler);
 
-	// Add event methods
-	$.each([
-		'tap',
-		'doubletap',
-		'press',
-		'drag',
-		'flick'
-	], function(i, name) {
-		$.fn[name] = function (fn) {
+	// expose events as methods
+	$.each('tap doubletap press drag flick'.split(' '), function(i, name) {
+		$.fn[name] = function(fn) {
 			return fn ? this.on(name, fn) : this.trigger(name);
 		};
 	});
 
-})(jQuery, navigator.userAgent);
+	return Finger;
+
+}));
