@@ -29,7 +29,6 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			options: {
-				stripBanners: true,
 				banner: '<%= meta.banner %>',
 				report: 'gzip'
 			},
