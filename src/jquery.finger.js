@@ -78,7 +78,7 @@
 		timeout = setTimeout(function() {
 			cancel = true;
 			trigger(event, 'press');
-		}, $.Finger.pressDuration);
+		}, Finger.pressDuration);
 
 		$.event.add(rootEl, moveEvent + '.' + namespace, moveHandler);
 		$.event.add(rootEl, stopEvent + '.' + namespace, stopHandler);
