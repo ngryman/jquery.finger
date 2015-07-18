@@ -13,7 +13,7 @@ Very small (< 0.5kb gzipped), it is focused on **performance** and **KISS**, is 
 
 ## Getting Started
 
-Download the [production version][min] *(454 bytes gzipped)* or the [development version][max] *(4269 bytes)*.<br>
+Download the [production version][min] *(1K gzipped)* or the [development version][max] *(4K)*.<br>
 You can also install it via [Jam] or [Bower].
 
 [min]: https://raw.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js
