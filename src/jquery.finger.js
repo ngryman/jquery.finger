@@ -6,9 +6,21 @@
  * Licensed under the MIT license.
  */
 
-(function($, ua) {
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], factory);
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		factory(require('jquery'));
+	} else {
+		// Browser globals
+		factory(jQuery);
+	}
+}(function ($) {
 
-	var isChrome = /chrome/i.exec(ua),
+	var ua = navigator.userAgent,
+		isChrome = /chrome/i.exec(ua),
 		isAndroid = /android/i.exec(ua),
 		hasTouch = 'ontouchstart' in window && !(isChrome && !isAndroid),
 		startEvent = hasTouch ? 'touchstart' : 'mousedown',
@@ -170,4 +182,6 @@
 		};
 	});
 
-})(jQuery, navigator.userAgent);
+	return Finger;
+
+}));

@@ -12,6 +12,9 @@
 	"browser": true,
 	"expr": true,
 	"globals": {
-		"jQuery": true
+		"jQuery": true,
+		"define": true,
+		"exports": true,
+		"require": true
 	}
 }
