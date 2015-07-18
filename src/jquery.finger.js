@@ -7,16 +7,12 @@
  */
 
 (function (factory) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
+	if (typeof define === 'function' && define.amd)
 		define(['jquery'], factory);
-	} else if (typeof exports === 'object') {
-		// Node/CommonJS
+	else if (typeof exports === 'object')
 		factory(require('jquery'));
-	} else {
-		// Browser globals
+	else
 		factory(jQuery);
-	}
 }(function ($) {
 
 	var ua = navigator.userAgent,

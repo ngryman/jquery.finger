@@ -1,18 +1,14 @@
-/*! jquery.finger - v0.1.2 - 2015-01-22
+/*! jquery.finger - v0.1.2 - 2015-07-18
 * https://github.com/ngryman/jquery.finger
 * Copyright (c) 2015 Nicolas Gryman; Licensed MIT */
 
 (function (factory) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
+	if (typeof define === 'function' && define.amd)
 		define(['jquery'], factory);
-	} else if (typeof exports === 'object') {
-		// Node/CommonJS
+	else if (typeof exports === 'object')
 		factory(require('jquery'));
-	} else {
-		// Browser globals
+	else
 		factory(jQuery);
-	}
 }(function ($) {
 
 	var ua = navigator.userAgent,
@@ -86,7 +82,7 @@
 		timeout = setTimeout(function() {
 			cancel = true;
 			trigger(event, 'press');
-		}, $.Finger.pressDuration);
+		}, Finger.pressDuration);
 
 		$.event.add(rootEl, moveEvent + '.' + namespace, moveHandler);
 		$.event.add(rootEl, stopEvent + '.' + namespace, stopHandler);
