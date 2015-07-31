@@ -160,9 +160,12 @@
 		else {
 			// ensure last target is set the initial one
 			event.target = start.target;
-			if (dt < Finger.flickDuration) trigger(event, 'flick');
 			move.end = true;
 			evtName = 'drag';
+			if (dt < Finger.flickDuration) {
+				trigger(event, evtName);
+				trigger(event, 'flick');
+			}
 		}
 
 		trigger(event, evtName, true);
