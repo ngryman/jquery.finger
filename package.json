@@ -24,6 +24,7 @@
     "Shims",
     "Utilities"
   ],
+  "main": "dist/jquery.finger.js",
   "jam": {
     "main": "dist/jquery.finger.js",
     "include": [
