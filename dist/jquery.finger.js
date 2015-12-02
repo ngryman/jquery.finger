@@ -1,4 +1,4 @@
-/*! jquery.finger - v0.1.2 - 2015-07-18
+/*! jquery.finger - v0.1.4 - 2015-12-02
 * https://github.com/ngryman/jquery.finger
 * Copyright (c) 2015 Nicolas Gryman; Licensed MIT */
 

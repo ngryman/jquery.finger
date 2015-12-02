@@ -214,6 +214,12 @@ $('#menu').on('flick', function(e) {
 ## Release History
 
 ```
+v0.1.4
+ - up to date jQuery dependency for Bower (#45).
+
+v0.1.3
+ - added explicit methods for each event (#28).
+
 v0.1.2
  - fixed dragging across children of an element (#10).
 
