@@ -2,7 +2,7 @@
 
 [![Build Status](http://img.shields.io/travis/ngryman/jquery.finger.svg)](https://travis-ci.org/ngryman/jquery.finger)
 [![Dependency Status](http://img.shields.io/gemnasium/ngryman/jquery.finger.svg)](https://gemnasium.com/ngryman/jquery.finger)
-[![Size](http://img.shields.io/badge/size-0.4%20kB-blue.svg)](https://raw2.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js)
+[![Size](http://badge-size.herokuapp.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js?color=blue)](https://raw2.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js)
 [![Gittip](http://img.shields.io/gittip/ngryman.svg)](https://www.gittip.com/ngryman/)
 
 jQuery tap & gestures, fingers in the nose.
