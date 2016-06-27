@@ -1,6 +1,6 @@
-/*! jquery.finger - v0.1.4 - 2015-12-02
+/*! jquery.finger - v0.1.5 - 2016-06-27
 * https://github.com/ngryman/jquery.finger
-* Copyright (c) 2015 Nicolas Gryman; Licensed MIT */
+* Copyright (c) 2016 Nicolas Gryman; Licensed MIT */
 
 (function (factory) {
 	if (typeof define === 'function' && define.amd)
@@ -65,6 +65,9 @@
 	}
 
 	function startHandler(event) {
+		if (event.which > 1)
+			return;
+		
 		var timeStamp = event.timeStamp || +new Date();
 
 		if (safeguard == timeStamp) return;
