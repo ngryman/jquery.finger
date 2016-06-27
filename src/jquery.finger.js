@@ -69,6 +69,9 @@
 	}
 
 	function startHandler(event) {
+		if (event.which > 1)
+			return;
+		
 		var timeStamp = event.timeStamp || +new Date();
 
 		if (safeguard == timeStamp) return;
