@@ -395,7 +395,7 @@
 				this.pointer.drag(0, 300, function() {
 					y.should.be.greaterThan(200);
 					end.should.be.truthy;
-          $('#fixtures').css('padding', 0)
+          $('#fixtures').css('padding', 0);
 					done();
 				});
 			});
