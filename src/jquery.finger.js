@@ -29,7 +29,6 @@
 		start = {},
 		move = {},
 		motion,
-		cancel,
 		safeguard,
 		timeout,
 		prevEl,
@@ -71,7 +70,7 @@
 	function startHandler(event) {
 		if (event.which > 1)
 			return;
-		
+
 		var timeStamp = event.timeStamp || +new Date();
 
 		if (safeguard == timeStamp) return;
@@ -85,10 +84,8 @@
 		move.orientation = null;
 		move.end = false;
 		motion = false;
-		cancel = false;
 		timeout = setTimeout(function() {
-			cancel = true;
-			trigger(event, 'press');
+			trigger(event, 'press', true);
 		}, Finger.pressDuration);
 
 		$.event.add(rootEl, moveEvent + '.' + namespace, moveHandler);
@@ -152,12 +149,14 @@
 		clearTimeout(timeout);
 
 		// tap-like events
-		// triggered only if targets match
-		if (!motion && !cancel && event.target === start.target) {
-			var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
-			evtName = doubleTap ? 'doubletap' : 'tap';
-			prevEl = doubleTap ? null : start.target;
-			prevTime = timeStamp;
+		if (!motion) {
+      // triggered only if targets match
+      if (event.target === start.target) {
+        var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
+  			evtName = doubleTap ? 'doubletap' : 'tap';
+  			prevEl = doubleTap ? null : start.target;
+  			prevTime = timeStamp;
+      }
 		}
 		// motion events
 		else {
@@ -168,7 +167,8 @@
 			evtName = 'drag';
 		}
 
-		trigger(event, evtName, true);
+    if (evtName)
+		  trigger(event, evtName, true);
 	}
 
 	// initial binding

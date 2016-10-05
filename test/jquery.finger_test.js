@@ -9,7 +9,7 @@
 			this.pointer = VirtualPointer(this);
 
 			// adjusting time values for testing purposes
-			this.pointer.DOUBLETAP_DURATION = $.Finger.doubleTapInterval = 25;
+			this.pointer.DOUBLETAP_DURATION = $.Finger.doubleTapInterval = 50;
 			this.pointer.PRESS_DURATION = $.Finger.pressDuration = 25;
 			this.pointer.FLICK_DURATION = $.Finger.flickDuration = 25;
 		});
@@ -24,7 +24,7 @@
 			this.$elems = null;
 
 			// wait a enough time between tests in order to not trigger double tap events
-			setTimeout(done, $.Finger.doubleTapInterval);
+			setTimeout(done, $.Finger.pressDuration * 3);
 		});
 
 		describe('tap event', function() {
@@ -395,9 +395,22 @@
 				this.pointer.drag(0, 300, function() {
 					y.should.be.greaterThan(200);
 					end.should.be.truthy;
+          $('#fixtures').css('padding', 0)
 					done();
 				});
 			});
+
+      it('should not fire when press event is fired (#49)', function(done) {
+        var handler1 = sinon.spy();
+				var handler2 = sinon.spy();
+				this.$elems.on('drag', handler1);
+				this.$elems.on('press', handler2);
+				this.pointer.press(function() {
+					handler1.should.not.have.been.called;
+					handler2.should.have.been.calledOnce;
+					done();
+				});
+      });
 		});
 
 		xdescribe('flick event', function() {
