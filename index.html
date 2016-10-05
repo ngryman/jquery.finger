@@ -17,294 +17,294 @@
 -->
 <html>
 <head>
-    <title>jQuery Finger</title>
+  <title>jQuery Finger</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-	<link type="text/plain" rel="author" href="http://ngryman.sh/jquery.finger/humans.txt">
+  <link type="text/plain" rel="author" href="http://ngryman.sh/jquery.finger/humans.txt">
 
-	<!-- twitter card -->
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="jQuery Finger">
-	<meta name="twitter:url" content="http://ngryman.sh/jquery.finger">
-	<meta name="twitter:description" content="jQuery tap & gestures, fingers in the nose.">
-	<meta name="twitter:site" content="@ngryman">
-	<meta name="twitter:creator" content="@ngryman">
+  <!-- twitter card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="jQuery Finger">
+  <meta name="twitter:url" content="http://ngryman.sh/jquery.finger">
+  <meta name="twitter:description" content="jQuery tap & gestures, fingers in the nose.">
+  <meta name="twitter:site" content="@ngryman">
+  <meta name="twitter:creator" content="@ngryman">
 
-    <link rel="stylesheet" href="libs/prism.css">
-    <link rel="stylesheet" href="style.css">
-	<link href="http://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="libs/prism.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="http://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-    <header>
-        <h1>jQuery Finger</h1>
-    </header>
+  <header>
+    <h1>jQuery Finger</h1>
+  </header>
 
-    <main>
-        <section class="demo">
-            <div id="touchzone" data-event></div>
-            <aside class="events">
-                <ul class="events-list">
-                    <li>
-                        <span class="event-name" data-event="tap">Tap</span>
-                        <em>Briefly touch surface with fingertip</em>
-                    </li>
-                    <li>
-                        <span class="event-name" data-event="doubletap">Double Tap</span>
-                        <em>Rapidly touch surface twice with fingertip</em>
-                    </li>
-                    <li>
-                        <span class="event-name" data-event="press">Press</span>
-                        <em>Touch surface for extended period of time</em>
-                    </li>
-                    <li>
-                        <span class="event-name" data-event="flick">Flick</span>
-                        <em>Quickly brush surface with fingertip</em>
-                    </li>
-                    <li>
-                        <span class="event-name" data-event="drag">Drag</span>
-                        <em>Move fingertip over surface without losing contact</em>
-                    </li>
-                </ul>
-            </aside>
-            <div class="actions">
-                <a href="http://github.com/ngryman/jquery.finger/zipball/v0.1.2" class="icon-download">Download</a>
-                <a href="http://github.com/ngryman/jquery.finger" class="icon-github-repo">Github</a>
-            </div>
-        </section>
+  <main>
+    <section class="demo">
+      <div id="touchzone" data-event></div>
+      <aside class="events">
+        <ul class="events-list">
+          <li>
+            <span class="event-name" data-event="tap">Tap</span>
+            <em>Briefly touch surface with fingertip</em>
+          </li>
+          <li>
+            <span class="event-name" data-event="doubletap">Double Tap</span>
+            <em>Rapidly touch surface twice with fingertip</em>
+          </li>
+          <li>
+            <span class="event-name" data-event="press">Press</span>
+            <em>Touch surface for extended period of time</em>
+          </li>
+          <li>
+            <span class="event-name" data-event="flick">Flick</span>
+            <em>Quickly brush surface with fingertip</em>
+          </li>
+          <li>
+            <span class="event-name" data-event="drag">Drag</span>
+            <em>Move fingertip over surface without losing contact</em>
+          </li>
+        </ul>
+      </aside>
+      <div class="actions">
+        <a href="http://github.com/ngryman/jquery.finger/zipball/v0.1.2" class="icon-download">Download</a>
+        <a href="http://github.com/ngryman/jquery.finger" class="icon-github-repo">Github</a>
+      </div>
+    </section>
 
-        <section class="intro">
-			<p>
-				jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices.
-			</p>
-	        <p>
-		        It also provides a common set of events to handle basic gestures such as press, double tap and drag.
-		        Very small (< 0.5kb gzipped), it is focused on performance, is well tested and also supports jQuery
-		        delegated events.
-	        </p>
-        </section>
+    <section class="intro">
+      <p>
+        jQuery Finger unifies click and touch events by removing the 300ms delay on touch devices.
+      </p>
+      <p>
+        It also provides a common set of events to handle basic gestures such as press, double tap and drag.
+        Very small (< 0.5kb gzipped), it is focused on performance, is well tested and also supports jQuery
+        delegated events.
+      </p>
+    </section>
 
-        <section>
-            <h2>Getting started</h2>
-			<p>
-				You can give it a shot by adding the script right after <strong>jQuery</strong>:
-			</p>
-			<pre><code class="language-markup">
-&lt;script src="//rawgit.com/ngryman/jquery.finger/v0.1.2/dist/jquery.finger.js"&gt;&lt;/script&gt;
-			</code></pre>
-			<p>
-				Then you can subscribe to any of the <srong>jQuery Finger</srong>
-				<a href="#events">events</a> like this:
-			</p>
-			<pre><code class="language-javascript">
-// direct event
-$('.touch').on('tap', function(e) {
-    console.log(this, e);
-});
+    <section>
+      <h2>Getting started</h2>
+      <p>
+        You can give it a shot by adding the script right after <strong>jQuery</strong>:
+      </p>
+      <pre><code class="language-markup">
+        &lt;script src="//rawgit.com/ngryman/jquery.finger/v0.1.2/dist/jquery.finger.js"&gt;&lt;/script&gt;
+      </code></pre>
+      <p>
+        Then you can subscribe to any of the <srong>jQuery Finger</srong>
+        <a href="#events">events</a> like this:
+      </p>
+      <pre><code class="language-javascript">
+        // direct event
+        $('.touch').on('tap', function(e) {
+          console.log(this, e);
+        });
 
-// delegated event
-$('.parent').on('tap', '.touch', function(e) {
-    console.log(this, e);
-});
-			</code></pre>
-        </section>
+        // delegated event
+        $('.parent').on('tap', '.touch', function(e) {
+          console.log(this, e);
+        });
+      </code></pre>
+    </section>
 
-		<section>
-			<h2 id="events">Events</h2>
-			<p>
-				<strong>jQuery Finger</strong> focuses on <strong>one finger</strong> events. You can use the
-				provided events like any other <strong>jQuery</strong> event.
-			</p>
-			<p>
-				Direct and delegated events are both supported. This can be very useful for dynamically loaded
-				content via AJAX for example.
-			</p>
+    <section>
+      <h2 id="events">Events</h2>
+      <p>
+        <strong>jQuery Finger</strong> focuses on <strong>one finger</strong> events. You can use the
+        provided events like any other <strong>jQuery</strong> event.
+      </p>
+      <p>
+        Direct and delegated events are both supported. This can be very useful for dynamically loaded
+        content via AJAX for example.
+      </p>
 
-			<h3>Tap</h3>
-			<p>
-				The <strong>tap</strong> event is the most basic one and is essentially like a <strong>click</strong>.
-				On touch devices, it removes the <strong>300ms delay</strong> of the standard click.
-			</p>
-			<p>
-				It won't be triggered if the pointer has moved above a specific threshold
-				(see <a href="#thresholds">Thresholds</a>).
-			</p>
-			<pre><code class="language-javascript">
-// direct event
-$('.touch').on('tap', function(e) {
-    console.log(this, e);
-});
+      <h3>Tap</h3>
+      <p>
+        The <strong>tap</strong> event is the most basic one and is essentially like a <strong>click</strong>.
+        On touch devices, it removes the <strong>300ms delay</strong> of the standard click.
+      </p>
+      <p>
+        It won't be triggered if the pointer has moved above a specific threshold
+        (see <a href="#thresholds">Thresholds</a>).
+      </p>
+      <pre><code class="language-javascript">
+        // direct event
+        $('.touch').on('tap', function(e) {
+          console.log(this, e);
+        });
 
-// delegated event
-$('.parent').on('tap', '.touch', function(e) {
-    console.log(this, e);
-});
-			</code></pre>
+        // delegated event
+        $('.parent').on('tap', '.touch', function(e) {
+          console.log(this, e);
+        });
+      </code></pre>
 
-			<h3>Double tap</h3>
-			<p>
-				The <strong>double tap</strong> event is triggered when the user tap twice in a short amount of time.
-			</p>
-			<p>
-				It will only be triggered if the time elapsed between the two taps are under a specific threshold
-				(see <a href="#thresholds">Thresholds</a>).
-			</p>
-			<pre><code class="language-javascript">
-// direct event
-$('.touch').on('doubletap', function(e) {
-    console.log(this, e);
-});
+      <h3>Double tap</h3>
+      <p>
+        The <strong>double tap</strong> event is triggered when the user tap twice in a short amount of time.
+      </p>
+      <p>
+        It will only be triggered if the time elapsed between the two taps are under a specific threshold
+        (see <a href="#thresholds">Thresholds</a>).
+      </p>
+      <pre><code class="language-javascript">
+        // direct event
+        $('.touch').on('doubletap', function(e) {
+          console.log(this, e);
+        });
 
-// delegated event
-$('.parent').on('doubletap', '.touch', function(e) {
-    console.log(this, e);
-});
-			</code></pre>
+        // delegated event
+        $('.parent').on('doubletap', '.touch', function(e) {
+          console.log(this, e);
+        });
+      </code></pre>
 
-			<h3>Press</h3>
-			<p>
-				The <strong>press</strong> event (aka <strong>long tap</strong> or <strong>tap hold</strong>) is
-				triggered when the user keeps the finger among a certain amount of time.
-			</p>
-			<p>
-				It will only be triggered if the time elapsed is under a specific threshold
-				(see <a href="#thresholds">Thresholds</a>).
-			</p>
-			<pre><code class="language-javascript">
-// direct event
-$('.touch').on('press', function(e) {
-    console.log(this, e);
-});
+      <h3>Press</h3>
+      <p>
+        The <strong>press</strong> event (aka <strong>long tap</strong> or <strong>tap hold</strong>) is
+        triggered when the user keeps the finger among a certain amount of time.
+      </p>
+      <p>
+        It will only be triggered if the time elapsed is under a specific threshold
+        (see <a href="#thresholds">Thresholds</a>).
+      </p>
+      <pre><code class="language-javascript">
+        // direct event
+        $('.touch').on('press', function(e) {
+          console.log(this, e);
+        });
 
-// delegated event
-$('.parent').on('press', '.touch', function(e) {
-    console.log(this, e);
-});
-			</code></pre>
+        // delegated event
+        $('.parent').on('press', '.touch', function(e) {
+          console.log(this, e);
+        });
+      </code></pre>
 
-			<h3>Flick</h3>
-			<p>
-				The <strong>flick</strong> event (aka <strong>swipe</strong>) is triggered when the user swipes rapidly
-				the finger in one direction.
-			</p>
-			<p>
-				It will only be triggered if the time elapsed is under a specific threshold
-				(see <a href="#thresholds">Thresholds</a>).
-			</p>
-			<pre><code class="language-javascript">
-// direct event
-$('.touch').on('flick', function(e) {
-    console.log(this, e);
-});
+      <h3>Flick</h3>
+      <p>
+        The <strong>flick</strong> event (aka <strong>swipe</strong>) is triggered when the user swipes rapidly
+        the finger in one direction.
+      </p>
+      <p>
+        It will only be triggered if the time elapsed is under a specific threshold
+        (see <a href="#thresholds">Thresholds</a>).
+      </p>
+      <pre><code class="language-javascript">
+        // direct event
+        $('.touch').on('flick', function(e) {
+          console.log(this, e);
+        });
 
-// delegated event
-$('.parent').on('flick', '.touch', function(e) {
-    console.log(this, e);
-});
-			</code></pre>
+        // delegated event
+        $('.parent').on('flick', '.touch', function(e) {
+          console.log(this, e);
+        });
+      </code></pre>
 
-			<h3>Drag</h3>
-			<p>
-				The <strong>drag</strong> event is triggered when the user move its finger in one direction.
-			</p>
-			<p>
-				It will only be triggered if the time elapsed is above a specific threshold
-				(see <a href="#thresholds">Thresholds</a>).
-			</p>
-			<pre><code class="language-javascript">
-// direct event
-$('.touch').on('drag', function(e) {
-    console.log(this, e);
-});
+      <h3>Drag</h3>
+      <p>
+        The <strong>drag</strong> event is triggered when the user move its finger in one direction.
+      </p>
+      <p>
+        It will only be triggered if the time elapsed is above a specific threshold
+        (see <a href="#thresholds">Thresholds</a>).
+      </p>
+      <pre><code class="language-javascript">
+        // direct event
+        $('.touch').on('drag', function(e) {
+          console.log(this, e);
+        });
 
-// delegated event
-$('.parent').on('drag', '.touch', function(e) {
-    console.log(this, e);
-});
-			</code></pre>
+        // delegated event
+        $('.parent').on('drag', '.touch', function(e) {
+          console.log(this, e);
+        });
+      </code></pre>
 
-		</section>
+    </section>
 
-		<section>
-			<h2>Events parameters</h2>
-			<p>
-				<strong>jQuery Finger</strong> enhances the default event object when there is motion (drag & flick).
-				It gives information about the pointer position and motion:
-			</p>
-			<ul>
-				<li><strong>x</strong>: the x page coordinate.</li>
-				<li><strong>y</strong>: the y page coordinate.</li>
-				<li><strong>dx</strong>: this x delta (amount of pixels moved) since the last event.</li>
-				<li><strong>dy</strong>: this y delta since the last event.</li>
-				<li><strong>adx</strong>: this x absolute delta since the last event.</li>
-				<li><strong>ady</strong>: this y absolute delta since the last event.</li>
-				<li><strong>orientation</strong>:</li>
-				<ul>
-					<li><strong>horizontal</strong>: motion was detected as an horizontal one. This can be tweaked with $.Finger.motionThreshold.</li>
-					<li><strong>vertical</strong>: motion was detected as a vertical one. This can be tweaked with $.Finger.motionThreshold.</li>
-				</ul>
-				<li><strong>direction</strong>:</li>
-				<ul>
-					<li><strong>1</strong>: motion has a positive direction, either left to right for horizontal, or top to bottom for vertical.</li>
-					<li><strong>-1</strong>: motion has a negative direction, either right to left for horizontal, or bottom to top for vertical.</li>
-				</ul>
-			</ul>
-		</section>
+    <section>
+      <h2>Events parameters</h2>
+      <p>
+        <strong>jQuery Finger</strong> enhances the default event object when there is motion (drag & flick).
+        It gives information about the pointer position and motion:
+      </p>
+      <ul>
+        <li><strong>x</strong>: the x page coordinate.</li>
+        <li><strong>y</strong>: the y page coordinate.</li>
+        <li><strong>dx</strong>: this x delta (amount of pixels moved) since the last event.</li>
+        <li><strong>dy</strong>: this y delta since the last event.</li>
+        <li><strong>adx</strong>: this x absolute delta since the last event.</li>
+        <li><strong>ady</strong>: this y absolute delta since the last event.</li>
+        <li><strong>orientation</strong>:</li>
+        <ul>
+          <li><strong>horizontal</strong>: motion was detected as an horizontal one. This can be tweaked with $.Finger.motionThreshold.</li>
+          <li><strong>vertical</strong>: motion was detected as a vertical one. This can be tweaked with $.Finger.motionThreshold.</li>
+        </ul>
+        <li><strong>direction</strong>:</li>
+        <ul>
+          <li><strong>1</strong>: motion has a positive direction, either left to right for horizontal, or top to bottom for vertical.</li>
+          <li><strong>-1</strong>: motion has a negative direction, either right to left for horizontal, or bottom to top for vertical.</li>
+        </ul>
+      </ul>
+    </section>
 
-		<section>
-			<h2 id="thresholds">Thresholds</h2>
-			<p>
-				You can tweak how jQuery Finger handle events by modifying thresholds found in the $.Finger object.
-			</p>
-			<pre><code class="language-javascript">
-$.Finger = {
-    pressDuration: 300,
-    doubleTapInterval: 300,
-    flickDuration: 150,
-    motionThreshold: 5
-};
-			</code></pre>
-			<p>
-				For more information, visit the <a href="http://github.com/ngryman/jquery.finger">Github repository</a>.
-			</p>
-		</section>
-    </main>
+    <section>
+      <h2 id="thresholds">Thresholds</h2>
+      <p>
+        You can tweak how jQuery Finger handle events by modifying thresholds found in the $.Finger object.
+      </p>
+      <pre><code class="language-javascript">
+        $.Finger = {
+          pressDuration: 300,
+          doubleTapInterval: 300,
+          flickDuration: 150,
+          motionThreshold: 5
+        };
+      </code></pre>
+      <p>
+        For more information, visit the <a href="http://github.com/ngryman/jquery.finger">Github repository</a>.
+      </p>
+    </section>
+  </main>
 
-    <footer>
-		<p>
-			<span>
-	            <span>Crafted with</span>
-				<svg class="love" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    viewBox="-10 -10 530 530" enable-background="new 0 0 512 512" xml:space="preserve">
+  <footer>
+    <p>
+      <span>
+        <span>Crafted with</span>
+        <svg class="love" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="-10 -10 530 530" enable-background="new 0 0 512 512" xml:space="preserve">
 
-				    <path d="M377.594,18.938c-53.815,0-100.129,31.778-121.582,77.5c-21.469-45.721-67.789-77.5-121.608-77.5
-				        C60.213,18.938,0,79.158,0,153.354c0,150.923,152.25,190.497,256.011,339.709C354.088,344.776,512,299.461,512,153.354
-				        C512,79.158,451.786,18.938,377.594,18.938z" />
-				</svg>
-				<span>by</span>
-			</span>
-			<a class="promo" href="https://twitter.com/ngryman" target="_blank">
-				<img class="avatar" src="https://en.gravatar.com/userimage/3412183/77c3f4f3951b5f93c386e7ff35369342.jpg">
-				<span class="nickname">Nicolas</span>
-				<span class="nickname">Gryman</span>
-			</a>
-		</p>
-	    <p class="links">
-		    <a href="http://ngryman.sh">Blog</a> |
-		    <a href="https://twitter.com/ngryman">Twitter</a> |
-		    <a href="https://github.com/ngryman">Github</a>
-	    </p>
-    </footer>
+        <path d="M377.594,18.938c-53.815,0-100.129,31.778-121.582,77.5c-21.469-45.721-67.789-77.5-121.608-77.5
+        C60.213,18.938,0,79.158,0,153.354c0,150.923,152.25,190.497,256.011,339.709C354.088,344.776,512,299.461,512,153.354
+        C512,79.158,451.786,18.938,377.594,18.938z" />
+      </svg>
+      <span>by</span>
+    </span>
+    <a class="promo" href="https://twitter.com/ngryman" target="_blank">
+      <img class="avatar" src="https://en.gravatar.com/userimage/3412183/77c3f4f3951b5f93c386e7ff35369342.jpg">
+      <span class="nickname">Nicolas</span>
+      <span class="nickname">Gryman</span>
+    </a>
+  </p>
+  <p class="links">
+    <a href="http://ngryman.sh">Blog</a> |
+    <a href="https://twitter.com/ngryman">Twitter</a> |
+    <a href="https://github.com/ngryman">Github</a>
+  </p>
+</footer>
 
-    <div id="nipple"></div>
+<div id="nipple"></div>
 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="libs/jquery.finger.min.js"></script>
-    <script src="libs/plugins.js"></script>
-    <script src="libs/prism.min.js"></script>
-    <script src="app.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="libs/jquery.finger.min.js"></script>
+<script src="libs/plugins.js"></script>
+<script src="libs/prism.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
