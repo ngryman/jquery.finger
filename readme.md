@@ -1,7 +1,10 @@
-# jQuery Finger [![Version](http://img.shields.io/badge/version-0.1.6-brightgreen.svg)](https://github.com/ngryman/jquery.finger#release-history) [![Size](http://img.badgesize.io/ngryman/jquery.finger/master/dist/jquery.finger.min.js?compression=gzip&color=blue)](https://raw2.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js)
+# jQuery Finger [![Size](http://img.badgesize.io/ngryman/jquery.finger/master/dist/jquery.finger.min.js?compression=gzip&color=blue)](https://raw2.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js) [![Build Status](http://img.shields.io/travis/ngryman/jquery.finger.svg)](https://travis-ci.org/ngryman/jquery.finger) [![Dependency Status](http://img.shields.io/gemnasium/ngryman/jquery.finger.svg)](https://gemnasium.com/ngryman/jquery.finger)
 
-[![Build Status](http://img.shields.io/travis/ngryman/jquery.finger.svg)](https://travis-ci.org/ngryman/jquery.finger)
-[![Dependency Status](http://img.shields.io/gemnasium/ngryman/jquery.finger.svg)](https://gemnasium.com/ngryman/jquery.finger)
+### Notice
+
+If you only seek to eliminate the 300ms tap delay, please first consider using [native solutions](http://patrickhlauke.github.io/touch/tests/results/#suppressing-300ms-delay) as nearly all modern browsers now support one of them.
+
+---
 
 jQuery tap & gestures, fingers in the nose.
 
