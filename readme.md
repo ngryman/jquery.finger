@@ -1,5 +1,7 @@
 # jQuery Finger [![Size](http://img.badgesize.io/ngryman/jquery.finger/master/dist/jquery.finger.min.js?compression=gzip&color=blue)](https://raw2.github.com/ngryman/jquery.finger/master/dist/jquery.finger.min.js) [![Build Status](http://img.shields.io/travis/ngryman/jquery.finger.svg)](https://travis-ci.org/ngryman/jquery.finger) [![Dependency Status](http://img.shields.io/gemnasium/ngryman/jquery.finger.svg)](https://gemnasium.com/ngryman/jquery.finger)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ngryman/jquery.finger.svg)](https://greenkeeper.io/)
+
 ### Notice
 
 If you only seek to eliminate the 300ms tap delay, please first consider using [native solutions](http://patrickhlauke.github.io/touch/tests/results/#suppressing-300ms-delay) as nearly all modern browsers now support one of them.
