@@ -67,6 +67,10 @@
 		if (event.which > 1)
 			return;
 
+		// ignore additional touches (multiple fingers)
+		if (hasTouch && event.originalEvent.touches.length > 1)
+			return;
+
 		var timeStamp = event.timeStamp || +new Date();
 
 		if (safeguard == timeStamp) return;
@@ -143,6 +147,10 @@
 
 		// always clears press timeout
 		clearTimeout(timeout);
+
+		// ignore lifting of additional touches (multitouch)
+		if (hasTouch && event.originalEvent.touches.length > 0)
+			return;
 
 		// tap-like events
 		if (!motion) {
