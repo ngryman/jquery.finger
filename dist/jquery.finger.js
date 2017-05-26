@@ -1,6 +1,6 @@
-/*! jquery.finger - v0.1.6 - 2016-10-05
+/*! jquery.finger - v0.1.6 - 2017-05-26
 * https://github.com/ngryman/jquery.finger
-* Copyright (c) 2016 Nicolas Gryman; Licensed MIT */
+* Copyright (c) 2017 Nicolas Gryman; Licensed MIT */
 
 (function (factory) {
 	if (typeof define === 'function' && define.amd)
@@ -146,13 +146,13 @@
 
 		// tap-like events
 		if (!motion) {
-      // triggered only if targets match
-      if (event.target === start.target) {
-        var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
-  			evtName = doubleTap ? 'doubletap' : 'tap';
-  			prevEl = doubleTap ? null : start.target;
-  			prevTime = timeStamp;
-      }
+			// triggered only if targets match
+			if (event.target === start.target) {
+				var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
+					evtName = doubleTap ? 'doubletap' : 'tap';
+					prevEl = doubleTap ? null : start.target;
+					prevTime = timeStamp;
+			}
 		}
 		// motion events
 		else {

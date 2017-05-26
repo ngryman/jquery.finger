@@ -150,13 +150,13 @@
 
 		// tap-like events
 		if (!motion) {
-      // triggered only if targets match
-      if (event.target === start.target) {
-        var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
-  			evtName = doubleTap ? 'doubletap' : 'tap';
-  			prevEl = doubleTap ? null : start.target;
-  			prevTime = timeStamp;
-      }
+			// triggered only if targets match
+			if (event.target === start.target) {
+				var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
+					evtName = doubleTap ? 'doubletap' : 'tap';
+					prevEl = doubleTap ? null : start.target;
+					prevTime = timeStamp;
+			}
 		}
 		// motion events
 		else {
