@@ -2,6 +2,8 @@
 
 ### Notice
 
+⚠️Not maintained anymore ⚠️
+
 If you only seek to eliminate the 300ms tap delay, please first consider using [native solutions](http://patrickhlauke.github.io/touch/tests/results/#suppressing-300ms-delay) as nearly all modern browsers now support one of them.
 
 ---
