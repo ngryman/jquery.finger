@@ -149,11 +149,13 @@ $('body').on('drag', '.drag', function(e) {
 
 This is how **Finger** prevents default behavior:
 
+```
                         | tap | doubletap | press | drag | flick | globally |
 ------------------------|-----|-----------|-------|------|-------|----------|
 touchstart / mousedown  |     |           |       |      |       |    ✔    |
 touchmove / mousemove   |     |           |       |  ✔   |  ✔   |          |
 touchend / mouseup      |  ✔ |     ✔     |       |  ✔   |  ✔   |          |
+```
 
 More [details].
 

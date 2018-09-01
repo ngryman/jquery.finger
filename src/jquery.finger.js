@@ -71,6 +71,10 @@
 		if (event.which > 1)
 			return;
 
+		// ignore additional touches (multiple fingers)
+		if (hasTouch && event.originalEvent.touches.length > 1)
+			return;
+
 		var timeStamp = event.timeStamp || +new Date();
 
 		if (safeguard == timeStamp) return;
@@ -148,15 +152,19 @@
 		// always clears press timeout
 		clearTimeout(timeout);
 
+		// ignore lifting of additional touches (multitouch)
+		if (hasTouch && event.originalEvent.touches.length > 0)
+			return;
+
 		// tap-like events
 		if (!motion) {
-      // triggered only if targets match
-      if (event.target === start.target) {
-        var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
-  			evtName = doubleTap ? 'doubletap' : 'tap';
-  			prevEl = doubleTap ? null : start.target;
-  			prevTime = timeStamp;
-      }
+			// triggered only if targets match
+			if (event.target === start.target) {
+				var doubleTap = prevEl === event.target && timeStamp - prevTime < Finger.doubleTapInterval;
+					evtName = doubleTap ? 'doubletap' : 'tap';
+					prevEl = doubleTap ? null : start.target;
+					prevTime = timeStamp;
+			}
 		}
 		// motion events
 		else {
